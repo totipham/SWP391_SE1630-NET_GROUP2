@@ -6,6 +6,6 @@ package utils;
  *
  * @author totipham
  */
-public class NewClass {
+public class HashUtility {
 
 }

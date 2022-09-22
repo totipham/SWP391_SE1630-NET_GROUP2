@@ -6,6 +6,6 @@ package dal;
  *
  * @author totipham
  */
-public class NewClass {
+public class PropertyDAO {
 
 }
