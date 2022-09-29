@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -50,7 +51,15 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("views/auth/register.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        
+        //Check if user is logged in or not
+        if (loggedIn) {
+            response.sendRedirect(request.getContextPath());
+        } else {
+            request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
+        }
     } 
 
     /** 
@@ -72,10 +81,9 @@ public class RegisterController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        String result = udb.insertUser(name, phone, email, address, username, password);
-        request.setAttribute("result", result);
-        
-        request.getRequestDispatcher("views/auth/register.jsp").forward(request, response);
+        String registerMessage = udb.insertUser(name, phone, email, address, username, password);
+        request.setAttribute("registerMessage", registerMessage);
+        request.getRequestDispatcher("views/auth/authentication.jsp").forward(request, response);
     }   
     
         

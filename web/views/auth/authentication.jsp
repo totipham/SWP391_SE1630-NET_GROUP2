@@ -109,7 +109,7 @@
                 overflow: hidden;
                 width: 768px;
                 max-width: 980px !important;
-                min-height: 480px;
+                min-height: 550px;
             }
 
             .form-container {
@@ -275,36 +275,46 @@
         </style>
     </head>
     <body>
+        <% if (request.getAttribute("registerMessage")!=null) {%>  
+             
+            <script> alert("${requestScope.registerMessage}"); </script>
+        
+        <%    }%> 
+        
         <jsp:include page="../base/headerImport.jsp" />
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form action="#">
+                <form action="register" method="POST">
                     <h1>Create Account</h1>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
+                    <input type="text" name="name" placeholder="Name" />
+                    <input type="text" name="username" placeholder="Username" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <input type="email" name="email" placeholder="Email" />
+                    <input type="text" name="phone" placeholder="Phone" />
+                    <input type="text" name="address" placeholder="Address" />
+                    <button class="my-3">Sign Up</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
                 <form action="login" method="POST">
                     <h1>Sign in</h1>
-                    <input type="text" name="username"  placeholder="Username" />
+                    <input type="text" name="username" placeholder="Username" />
                     <input type="password" name="password" placeholder="Password" />
-                    <a href="#">Forgot your password?</a>
+                    <p style="color: red">${requestScope.message}</p>
+                    <a href="forgot">Forgot your password?</a>
                     <button>Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
+                        <h1>Hello, Friend!</h1>
+                        <p>Start to rent new living place from now easily!</p>
                         <button class="ghost" id="signIn">Sign In</button>
                     </div>
                     <div class="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Start to rent new living place from now easily!</p>
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
                         <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                 </div>

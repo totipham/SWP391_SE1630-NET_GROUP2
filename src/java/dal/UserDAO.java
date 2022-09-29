@@ -66,7 +66,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
     }
 
     public void updateUser(int userid, String name, String phone, String email, String address, String avatar) {
-        String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=?, avatar=? WHERE user_id=?";
+        String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=?, avatar=?, role=? WHERE user_id=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -76,8 +76,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             st.setString(4, address);
             st.setString(5, avatar);
             st.setInt(6, userid);
-
-            System.out.println(userid + "|" + name);
+            st.setInt(7, 1);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -104,7 +103,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
     }
 
     public String insertUser(String name, String phone, String email, String address, String username, String password) {
-        String sql = "INSERT INTO [User] (name, phone, email, address, username, password) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO [User] (name, phone, email, address, username, password, role, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         User u = getUser(username, password);
 
         if (isDuplicateUsername(username)) {
@@ -120,6 +119,8 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             st.setString(4, address);
             st.setString(5, username);
             st.setString(6, password);
+            st.setInt(7, 1);
+            st.setString(8, "avatar.jpg");
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -159,6 +160,11 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public static void main(String[] args) {
+        UserDAO udb = new UserDAO();
+//        udb.insertUser("Demo", "0123", "demo@hostalpy.com", "HN", "demo", "123");
     }
 }
 

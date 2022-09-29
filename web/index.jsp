@@ -36,26 +36,27 @@
 
                     <c:forEach items="${requestScope.list}" var="p">
                         <div class="property-card shadow my-2">
-                            <div class="property-card__thumbnail">
-                                <img src="${baseURL}/assets/images/${p.getImages().get(0).getFileName()}" alt="Thumbnail">
-                            </div>
-                            <div class="property-card__information">
-                                <div class="property-card__information__short">
-                                    <span>${p.getType().getType()}</span>
-                                    <span>•</span>
-                                    <span>${p.area}m2</span>
+                            <a href="property?id=${p.id}">
+                                <div class="property-card__thumbnail">
+                                    <img src="${baseURL}/assets/images/${p.getImages().get(0).getFileName()}" alt="Thumbnail">
                                 </div>
-                                <span class="property-card__information__name">${p.name}</span>
-                                <span class="property-card__information__address">${p.address}</span>
-                                <div class="property-card__information__bottom">
-                                    <span>${p.price}₫/month</span>
-                                    <a href="property?id=${p.id}">View Details</a>
+                                <div class="property-card__information">
+                                    <div class="property-card__information__short">
+                                        <span>${p.getType().getType()}</span>
+                                        <span>•</span>
+                                        <span>${p.area}m2</span>
+                                    </div>
+                                    <span class="property-card__information__name">${p.name}</span>
+                                    <span class="property-card__information__address">${p.address}</span>
+                                    <div class="property-card__information__bottom">
+                                        <span>${p.price}₫/month</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
 
-                    
+
                 </div>
 
             </div>

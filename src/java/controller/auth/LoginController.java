@@ -54,10 +54,12 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("user") != null;
+        
+        //Check if user is logged in or not
         if (loggedIn) {
             response.sendRedirect(request.getContextPath());
         } else {
-            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
         }
     }
 
@@ -77,18 +79,20 @@ public class LoginController extends HttpServlet {
             String password = validate.getField(request, "password", true);
             UserDAO db = new UserDAO();
             User user = db.getUser(username, password);
+            
+            //Check if user is existed
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 response.sendRedirect(request.getContextPath());
             } else {
                 System.out.println("Username or password wrong!");
-                request.setAttribute("error", "Username or password wrong!");
-                request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+                request.setAttribute("message", "Username or password wrong!");
+                request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
         }
     }
 
