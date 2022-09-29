@@ -2,6 +2,7 @@
 
 package dal;
 
+import dal.impl.UserDAOImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import model.User;
  *
  * @author totipham
  */
-public class UserDAO extends DBContext {
+public class UserDAO extends DBContext implements UserDAOImpl{
 
     public User getUser(String username, String password) {
         String sql = "SELECT * FROM [User] WHERE username=? AND password=?";
