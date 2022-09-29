@@ -2,9 +2,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-a,
-p,
-span {
+a {
     color: #575757;
     text-decoration: none;
 }
