@@ -41,7 +41,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
     }
 
     public User getUserById(int id) {
-        String sql = "SELECT * FROM [User] WHERE id=?";
+        String sql = "SELECT * FROM [User] WHERE user_id=?";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(sql);

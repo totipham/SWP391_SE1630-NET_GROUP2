@@ -8,8 +8,12 @@ package model;
  */
 public class User {
     private int id;
-    private String username, password;
-    private String name, email, phone, avatar;
+    private String username;
+    private String password;
+    private String name;
+    private String email;
+    private String phone;
+    private String avatar;
     private String address;
 
     public User() {
