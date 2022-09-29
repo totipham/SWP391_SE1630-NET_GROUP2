@@ -39,7 +39,7 @@
                             <span class="property-card__information__address">Thạch Hoà, Thạch Thất, Hà Nội</span>
                             <div class="property-card__information__bottom">
                                 <span>3,000,000đ</span>
-                                <a href="property.html">View Details</a>
+                                <a href="property">View Details</a>
                             </div>
                         </div>
                     </div>
