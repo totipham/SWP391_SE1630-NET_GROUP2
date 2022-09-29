@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
         HttpSession session = request.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         if (loggedIn) {
-            response.sendRedirect("/");
+            response.sendRedirect(request.getContextPath());
         } else {
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
         }
