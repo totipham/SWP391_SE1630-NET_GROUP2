@@ -43,15 +43,31 @@
             <div id="backgroundOverlay"></div>
         </div>
         <div class="user-wrapper">
-            <span>Toti Pham</span>
-            <a class="navbar--user-menu">
-                <img src="${baseURL}/assets/images/avatar.png" alt="Avatar" class="rounded-circle border border-5 border-success" width="60">
-            </a>
-            <ul class="user-wrapper--menu shadow">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile">Profile</a></li>
-                <li><a href="logout">Logout</a></li>
-            </ul>
+            <c:if test="${sessionScope.user == null}">
+                <button class="btn bg-white shadow-none">
+                    <a href="login">Login</a>
+                </button>
+                <button class="btn btn-success rounded-0 shadow-none">
+                    <a style="color: #fff;" href="register">Sign Up</a>
+                </button>
+            </c:if>
+            <c:if test="${sessionScope.user != null}">
+                <c:set var="u" scope="session" value="${user}" />
+                <div class="user-wrapper">
+                    <span>${u.name}</span>
+                    <a class="navbar--user-menu">
+                        <img src="${baseURL}/assets/images/${u.avatar != null ? u.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle border border-3 border-success" width="60" height="60">
+                    </a>
+                    <ul class="user-wrapper--menu shadow">
+                        <li><a href="dashboard">Dashboard</a></li>
+                        <li><a href="profile">Profile</a></li>
+                        <li><a href="chgpwd">Change Password</a></li>
+                        <li><a href="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </c:if>
+
+            
         </div>
     </div>
 </div>

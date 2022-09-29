@@ -2,6 +2,17 @@
     font-family: 'Inter', sans-serif;
 }
 
+a,
+p,
+span {
+    color: #575757;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000;
+}
+
 input {
     height: 50px;
     min-width: 300px;
@@ -19,6 +30,11 @@ input {
     padding-inline: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+
+.btn .btn-primary {
+   background-color: #306844 !important;
 }
 
 .btn:hover {
