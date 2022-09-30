@@ -92,7 +92,7 @@ public class LoginController extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
-            request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }
 
