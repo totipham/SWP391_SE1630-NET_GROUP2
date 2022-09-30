@@ -18,30 +18,10 @@
         </button>
     </div>
     <div class="right-header">
-        <a class="normal-link" href="hosts">Become a Host</a>
-        <div class="alert-wrapper">
-            <i id="alert-btn" class="fa-regular fa-bell alert-icon mx-4"></i>
-            <div id="alert-box" class="alert-container">
-                <div class="alert-list">
-                    <div class="alert-detail">
-                        <div class="alert-detail__title">
-                            <span>Welcome to your new living place!</span>
-                            <span>24/09/2022</span>
-                        </div>
-                        <div class="alert-detail__property">
-                            <span>Property:</span>
-                            <span>KTX Ông Bà</span>
-                            <p>Your property request has been accepted by host.</p>
-                        </div>
-                        <button class="btn btn-danger">View Property</button>
-                    </div>
-                </div>
-                <div class="my-2 text-center">
-                    <a href="notifications" class="normal-link">View All</a>
-                </div>
-            </div>
-            <div id="backgroundOverlay"></div>
-        </div>
+        <c:if test="${sessionScope.user != null}">
+            <a class="normal-link" href="hosts">Become a Host</a>
+            <jsp:include page="alert.jsp" />
+        </c:if>
         <div class="user-wrapper">
             <c:if test="${sessionScope.user == null}">
                 <button class="btn bg-white shadow-none">
@@ -66,8 +46,6 @@
                     </ul>
                 </div>
             </c:if>
-
-            
         </div>
     </div>
 </div>

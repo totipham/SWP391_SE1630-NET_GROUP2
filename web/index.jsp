@@ -65,25 +65,7 @@
 
         </div>
     </div>
-    <script>
-        window.onload = function () {
-            var popup = document.getElementById('alert-box');
-            var overlay = document.getElementById('backgroundOverlay');
-            var openButton = document.getElementById('alert-btn');
-            backgroundOverlay.style.display = "none";
-            document.onclick = function (e) {
-                if (e.target.id === 'backgroundOverlay') {
-                    popup.style.display = 'none';
-                    overlay.style.display = 'none';
-                }
-                if (e.target === openButton) {
-                    popup.style.display = 'block';
-                    overlay.style.display = 'block';
-                }
-            };
-        };
-
-    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
     crossorigin="anonymous"></script>
