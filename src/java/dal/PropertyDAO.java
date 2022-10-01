@@ -75,7 +75,42 @@ public class PropertyDAO extends DBContext implements PropertyDAOImpl {
 
     @Override
     public Property getPropertyById(int pid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Property p = new Property();
+        String sql = "SELECT * FROM [Property] WHERE property_id=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pid);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                UserDAO udb = new UserDAO();
+                PropertyImageDAO pImgDao = new PropertyImageDAO();
+                PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
+                PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
+                PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
+                p.setId(rs.getInt("property_id"));
+                p.setName(rs.getString("name"));
+                p.setHost(udb.getUserById(rs.getInt("host_id")));
+                p.setAddress(rs.getString("address"));
+                p.setArea(rs.getDouble("area"));
+                p.setPrice(rs.getDouble("price"));
+                p.setTotal(rs.getInt("total"));
+                p.setUtilities(pUtilityDao.getUtilitiesByPID(rs.getInt("property_id")));
+                p.setCreatedDate(rs.getDate("created_date"));
+                p.setStatus(pStatusDao.getStatusByID(rs.getInt("pstatus_id")));
+                p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
+                p.setDescription(rs.getString("description"));
+                p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
+                
+                return p;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
     }
 
     @Override
@@ -110,10 +145,8 @@ public class PropertyDAO extends DBContext implements PropertyDAOImpl {
 
     public static void main(String[] args) {
         PropertyDAO pd = new PropertyDAO();
-        List<Property> list = pd.getAllProperties();
-        list.forEach(p -> {
-            System.out.println(p);
-        });
+        Property p = pd.getPropertyById(2);
+        System.out.println(p);
 
     }
 }

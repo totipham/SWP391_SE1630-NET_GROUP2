@@ -31,6 +31,7 @@ class PropertyUtilityDAO extends DBContext implements PropertyUtilityDAOImpl {
                 pu.setName(rs.getString("name"));
                 pu.setPrice(rs.getDouble("price"));
                 pu.setPid(rs.getInt("property_id"));
+                pu.setPeriod(rs.getString("period"));
                 list.add(pu);
             }
         } catch (SQLException e) {
