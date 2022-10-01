@@ -15,11 +15,9 @@ public class User {
     private String phone;
     private String avatar;
     private String address;
+    private int role;
 
-    public User() {
-    }
-
-    public User(int id, String username, String password, String name, String email, String phone, String avatar, String address) {
+    public User(int id, String username, String password, String name, String email, String phone, String avatar, String address, int role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -28,6 +26,18 @@ public class User {
         this.phone = phone;
         this.avatar = avatar;
         this.address = address;
+        this.role = role;
+    }
+
+    public User() {
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getId() {

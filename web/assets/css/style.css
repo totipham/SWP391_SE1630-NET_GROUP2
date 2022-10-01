@@ -31,22 +31,26 @@ input {
     height: 50px;
 
     padding-inline: 15px;
-    border: none;
     border-radius: 5px;
 }
 
-
-.btn .btn-primary {
-   background-color: #306844 !important;
+.btn.btn-light {
+    border: none;
 }
 
-.btn .btn-success {
-   background-color: var(--main-bg-color) !important;
+.btn.btn-primary {
+    border: none;
+    background-color: var(--main-bg-color) !important;
+}
+
+.btn.btn-success {
+    border: none;
+    background-color: var(--main-bg-color) !important;
 }
 
 .btn:hover {
     height: 50px;
-
+    outline: none !important;
     padding-inline: 15px;
     border: none !important;
     border-radius: 5px;
@@ -254,10 +258,11 @@ span.part-title {
 .user-wrapper .user-wrapper--menu::before{
     content: '';
     position: absolute;
-    top: -10px;
-    left: 50px;
-    height: 20px;
-    width: 150px;
+    top: -30px;
+    left: 10px;
+    height: 30px;
+    width: 190px;
+    cursor: default;
 }
 
 .user-wrapper:hover .user-wrapper--menu{

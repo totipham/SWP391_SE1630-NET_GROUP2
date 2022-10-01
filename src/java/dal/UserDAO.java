@@ -32,6 +32,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
                 user.setPhone(result.getString("phone"));
                 user.setAvatar(result.getString("avatar"));
                 user.setAddress(result.getString("address"));
+                user.setRole(result.getInt("role"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -50,6 +51,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             while (result.next()) {
                 User user = new User();
                 user.setId(result.getInt("user_id"));
+                user.setRole(result.getInt("role"));
                 user.setUsername(result.getString("username"));
                 user.setPassword(result.getString("password"));
                 user.setEmail(result.getString("email"));
@@ -65,8 +67,8 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         return null;
     }
 
-    public void updateUser(int userid, String name, String phone, String email, String address, String avatar) {
-        String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=?, avatar=?, role=? WHERE user_id=?";
+    public void updateUser(int userid, String name, String phone, String email, String address) {
+        String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=? WHERE user_id=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -74,9 +76,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             st.setString(2, phone);
             st.setString(3, email);
             st.setString(4, address);
-            st.setString(5, avatar);
-            st.setInt(6, userid);
-            st.setInt(7, 1);
+            st.setInt(5, userid);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -12,36 +12,50 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="../base/headerImport.jsp" />
         <title>Hostalpy - Profile</title>
+        <style>
+            .profile input:not([type="submit"]) {
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background: #fff;
+                margin: 10px 0;
+            }
+            
+            .profile span {
+                color: #575757;
+                font-weight: 500;
+            }
+        </style>
     </head>
 
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="container shadow p-5 mt-5" style="border-radius: 20px">
+        <div class="profile container p-5 mt-3" style="border-radius: 20px">
             <form action="editavatar" method="POST" enctype='multipart/form-data'>
                 <span><b>Avatar</b></span>
                 <div class="my-3">
                     <img src="${baseURL}/assets/images/${requestScope.avatar != null ? requestScope.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle" height="150" width="150">
-                    <input  type='file' id="image-avatar-upload" accept=".png, .jpg, .jpeg" name="avatar" onchange="this.form.submit()"hidden/>
-                    <label for="image-avatar-upload" class="btn btn-primary mx-3">Choose file</label>
+                    <input type='file' id="image-avatar-upload" accept=".png, .jpg, .jpeg" name="avatar" onchange="this.form.submit()" hidden/>
+                    <label for="image-avatar-upload" class="btn btn-primary mx-3" style="padding-block: 12px;">Choose file</label>
                     <button class="btn btn-outline-danger">Remove</button>
                 </div>
             </form>
             <form action="profile" class="" method="POST" style="border-radius: 20px">
                 <div class="row mt-5">
                     <div class="col-md-6">
-                        <span><b>Fullname</b></span>
+                        <span><b>Fullname</b></span><br>
                         <input type="text" maxlength="255" name="name" class="border" value="${requestScope.name}"><br>
-                        <span><b>Phone</b></span>
+                        <span><b>Phone</b></span><br>
                         <input type="text" maxlength="11" name="phone" class="border" value="${requestScope.phone}"><br>
                     </div>
                     <div class="col-md-6">
-                        <span><b>Email</b></span>
+                        <span><b>Email</b></span><br>
                         <input type="email" maxlength="255" name="email" class="border" value="${requestScope.email}"><br>
-                        <span><b>Address</b></span>
+                        <span><b>Address</b></span><br>
                         <input type="text" maxlength="255" name="address" class="border" value="${requestScope.address}"><br>
                     </div>
                 </div>
-                <input type="submit" value="Save" class="btn btn-primary mt-5">
+                    <button type="submit" class="btn btn-primary mt-5" style="padding-inline: 20px;">Save</button>
             </form>
         </div>
 

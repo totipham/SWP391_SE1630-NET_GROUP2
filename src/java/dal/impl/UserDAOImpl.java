@@ -12,7 +12,7 @@ public interface UserDAOImpl {
 
     public User getUserById(int id);
 
-    public void updateUser(int userid, String name, String phone, String email, String address, String avatar);
+    public void updateUser(int userid, String name, String phone, String email, String address);
 
     public boolean isDuplicateUsername(String username);
 
