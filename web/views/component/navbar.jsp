@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <div id="header">
     <div class="left-header">
-        <a href="/">
+        <a href="${baseURL}">
             <img src="${baseURL}/assets/images/logo-minimized.png" alt="" class="logo">
         </a>
         <input type="text" name="" id="" placeholder="Keywords/City/Region">

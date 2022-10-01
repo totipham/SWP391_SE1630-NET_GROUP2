@@ -16,7 +16,7 @@ import model.User;
  *
  * @author Asus
  */
-public class ChangePassword extends HttpServlet {
+public class ChangePasswordController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -58,7 +58,7 @@ public class ChangePassword extends HttpServlet {
         if (u == null) {
             response.sendRedirect("login");
         } else {
-            request.getRequestDispatcher("views/auth/changepassword.jsp").forward(request, response);
+            request.getRequestDispatcher("views/auth/chgpwd.jsp").forward(request, response);
         }
     } 
 
@@ -86,14 +86,14 @@ public class ChangePassword extends HttpServlet {
                 udb.updateNewPassword(u.getId(), newpwd);
             } else {
                 request.setAttribute("result", "Passwords do not matching!");
-                request.getRequestDispatcher("views/auth/changepassword.jsp").forward(request, response);
+                request.getRequestDispatcher("views/auth/chgpwd.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("result", "Password you entered is not correct!");
-            request.getRequestDispatcher("views/auth/changepassword.jsp").forward(request, response);
+            request.getRequestDispatcher("views/auth/chgpwd.jsp").forward(request, response);
         }
         request.setAttribute("result", "Change password successfully!");
-        request.getRequestDispatcher("views/auth/changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("views/auth/chgpwd.jsp").forward(request, response);
     }
 
     /** 
