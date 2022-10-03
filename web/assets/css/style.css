@@ -18,10 +18,7 @@ a:hover {
 
 input {
     height: 50px;
-    min-width: 300px;
-    color: #575757;
-    background: #F7F7F7;
-    padding: 15px;
+    padding: 0 15px;
     outline: none;
     border: none;
     border-radius: 5px;

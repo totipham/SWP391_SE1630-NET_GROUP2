@@ -1,5 +1,3 @@
-
-
 package model;
 
 /**
@@ -7,6 +5,7 @@ package model;
  * @author totipham
  */
 public class User {
+
     private int id;
     private String username;
     private String password;
@@ -16,6 +15,7 @@ public class User {
     private String avatar;
     private String address;
     private int role;
+    private String token;
 
     public User(int id, String username, String password, String name, String email, String phone, String avatar, String address, int role) {
         this.id = id;
@@ -28,10 +28,19 @@ public class User {
         this.address = address;
         this.role = role;
     }
-
+    
+    
     public User() {
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    
     public int getRole() {
         return role;
     }

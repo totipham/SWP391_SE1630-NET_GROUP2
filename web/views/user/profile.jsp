@@ -36,8 +36,8 @@
                 <div class="my-3">
                     <img src="${baseURL}/assets/images/${requestScope.avatar != null ? requestScope.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle" height="150" width="150">
                     <input type='file' id="image-avatar-upload" accept=".png, .jpg, .jpeg" name="avatar" onchange="this.form.submit()" hidden/>
-                    <label for="image-avatar-upload" class="btn btn-primary mx-3" style="padding-block: 12px;">Choose file</label>
-                    <button class="btn btn-outline-danger">Remove</button>
+                    <label for="image-avatar-upload" class="btn btn-primary mx-3" style="padding-block: 13px;">Choose file</label>
+                    <!--<button class="btn btn-outline-danger">Remove</button>-->
                 </div>
             </form>
             <form action="profile" class="" method="POST" style="border-radius: 20px">

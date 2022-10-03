@@ -18,7 +18,7 @@ public interface UserDAOImpl {
 
     public String insertUser(String name, String phone, String email, String address, String username, String password);
 
-    public void updateNewPassword(int id, String newpwd);
+    public int updateNewPassword(int id, String newpwd);
 
     public void updateAvatar(User user);
 }

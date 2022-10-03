@@ -1,30 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package controller.auth;
+package controller.user;
 
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jakarta.servlet.http.Part;
 import model.User;
+import utils.FileUtility;
 import utils.ValidateUtility;
 
 /**
  *
- * @author Asus
+ * @author totipham
  */
-public class LoginController extends HttpServlet {
+@MultipartConfig
+public class UpdateAvatarController extends HttpServlet {
 
-    private final ValidateUtility validate = new ValidateUtility();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet EditAvatarController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditAvatarController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,15 +59,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
-        
-        //Check if user is logged in or not
-        if (loggedIn) {
-            response.sendRedirect(request.getContextPath());
-        } else {
-            request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -76,24 +73,39 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String username = validate.getField(request, "username", true);
-            String password = validate.getField(request, "password", true);
-            UserDAO db = new UserDAO();
-            User user = db.getUser(username, password);
-            
-            //Check if user is existed
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                response.sendRedirect(request.getContextPath());
-            } else {
-                request.setAttribute("message", "Username or password wrong!");
-                request.getRequestDispatcher("/views/auth/authentication.jsp").forward(request, response);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
+        if (u == null) {
+            response.sendRedirect("login");
         }
+
+        UserDAO userDB = new UserDAO();
+        ValidateUtility validate = new ValidateUtility();
+
+        FileUtility fileUtils = new FileUtility();
+        String folder = request.getServletContext().getRealPath("/assets/images");
+        
+        System.out.println(folder);
+        
+        String filename = null;
+        try {
+
+            Part part = validate.getFieldAjaxFile(request, "avatar", true);
+            if (part.getSize() != 0) {
+                if (u.getAvatar() != null && !u.getAvatar().isEmpty()) {
+                    fileUtils.delete(u.getAvatar(), folder);
+                }
+                filename = fileUtils.upLoad(part, folder);
+            }
+            if (filename != null) {
+                u.setAvatar(filename);
+            }
+            userDB.updateAvatar(u);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        response.sendRedirect("profile");
     }
 
     /**

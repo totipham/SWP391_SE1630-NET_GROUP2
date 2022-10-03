@@ -1,5 +1,3 @@
-
-
 package dal;
 
 import dal.impl.UserDAOImpl;
@@ -12,8 +10,9 @@ import model.User;
  *
  * @author totipham
  */
-public class UserDAO extends DBContext implements UserDAOImpl{
+public class UserDAO extends DBContext implements UserDAOImpl {
 
+    @Override
     public User getUser(String username, String password) {
         String sql = "SELECT * FROM [User] WHERE username=? AND password=?";
         PreparedStatement statement = null;
@@ -22,9 +21,9 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet result = statement.executeQuery();
-            while (result.next()) {
+            if (result.next()) {
                 User user = new User();
-                    user.setId(result.getInt("user_id"));
+                user.setId(result.getInt("user_id"));
                 user.setUsername(result.getString("username"));
                 user.setPassword(result.getString("password"));
                 user.setEmail(result.getString("email"));
@@ -41,6 +40,7 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         return null;
     }
 
+    @Override
     public User getUserById(int id) {
         String sql = "SELECT * FROM [User] WHERE user_id=?";
         PreparedStatement statement = null;
@@ -67,6 +67,33 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         return null;
     }
 
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM [User] WHERE username=?";
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                User user = new User();
+                user.setId(result.getInt("user_id"));
+                user.setRole(result.getInt("role"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
+                return user;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void updateUser(int userid, String name, String phone, String email, String address) {
         String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=? WHERE user_id=?";
 
@@ -83,6 +110,8 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         }
     }
 
+    
+    @Override
     public boolean isDuplicateUsername(String username) {
         String sql = "SELECT user_id FROM [User] WHERE username = ?";
 
@@ -102,10 +131,12 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         return false;
     }
 
+    @Override
     public String insertUser(String name, String phone, String email, String address, String username, String password) {
         String sql = "INSERT INTO [User] (name, phone, email, address, username, password, role, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         User u = getUser(username, password);
 
+        //check if username is existed in database
         if (isDuplicateUsername(username)) {
             return "Username " + username + " is existed!";
         }
@@ -130,7 +161,8 @@ public class UserDAO extends DBContext implements UserDAOImpl{
         return "Register successfully!";
     }
 
-    public void updateNewPassword(int id, String newpwd) {
+    @Override
+    public int updateNewPassword(int id, String newpwd) {
         String sql = "UPDATE [User]\n"
                 + "SET password = ?\n"
                 + "WHERE user_id = ?";
@@ -140,32 +172,28 @@ public class UserDAO extends DBContext implements UserDAOImpl{
             st.setString(1, newpwd);
             st.setInt(2, id);
 
-            st.executeUpdate();
+            return st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        return 0;
     }
 
+    @Override
     public void updateAvatar(User user) {
         String sql = "UPDATE [User]\n"
                 + " SET [avatar] = ?\n"
                 + " WHERE user_id = ?";
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, user.getAvatar());
             st.setInt(2, user.getId());
-            
+
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static void main(String[] args) {
-        UserDAO udb = new UserDAO();
-//        udb.insertUser("Demo", "0123", "demo@hostalpy.com", "HN", "demo", "123");
-    }
 }
-
-

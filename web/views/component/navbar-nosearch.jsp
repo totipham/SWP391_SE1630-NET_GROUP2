@@ -11,11 +11,6 @@
         <a href="${baseURL}">
             <img src="${baseURL}/assets/images/logo-minimized.png" alt="" class="logo">
         </a>
-        <input style="width: 300px; color: #575757;" type="text" name="" id="" placeholder="Keywords/City/Region">
-        <button class="btn btn-light">
-            <i class="fa-solid fa-filter"></i>
-            Filter
-        </button>
     </div>
     <div class="right-header">
         <c:if test="${sessionScope.user != null}">
