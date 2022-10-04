@@ -222,8 +222,7 @@
                     <h1>Sign in</h1>
                     <input type="text" name="username" placeholder="Username" />
                     <input type="password" name="password" placeholder="Password" />
-                    <p style="color: red">${requestScope.error}</p>
-                    <p style="color: green">${requestScope.message}</p>
+                    <p style="color: red">${requestScope.message}</p>
                     <a href="forgot">Forgot your password?</a>
                     <button>Sign In</button>
                 </form>

@@ -15,6 +15,8 @@ public class ValidateUtility {
             int minLength, int maxLength) throws Exception {
         String value = null;
 
+        value = new String(request.getParameter(fieldName).trim().getBytes("iso-8859-1"), "utf-8");
+        
         //check if value is null or value is empty
         if (value == null || value.trim().isEmpty()) {
             if (required) {
@@ -24,8 +26,6 @@ public class ValidateUtility {
                 value = null; // Make empty string null so that you don't need to hassle with equals("") afterwards.
             }
         }
-        
-        value = new String(request.getParameter(fieldName).trim().getBytes("iso-8859-1"), "utf-8");
 
         //check if length of value is out of min length and max length
         if (value.length() < minLength || value.length() > maxLength) {
