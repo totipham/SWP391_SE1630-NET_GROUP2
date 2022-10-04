@@ -1,4 +1,4 @@
-package dal.impl;
+package dal;
 
 import java.util.ArrayList;
 import model.PropertyImage;
@@ -7,7 +7,7 @@ import model.PropertyImage;
  *
  * @author totipham
  */
-public interface PropertyImageDAOImpl {
+public interface IPropertyImageDAO {
 
     ArrayList<PropertyImage> getImagesByPID(int pid);
 }

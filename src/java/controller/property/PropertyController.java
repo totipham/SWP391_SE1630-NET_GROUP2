@@ -1,6 +1,6 @@
 package controller.property;
 
-import dal.PropertyDAO;
+import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -61,7 +61,7 @@ public class PropertyController extends HttpServlet {
             return;
         }
 
-        PropertyDAO pd = new PropertyDAO();
+        PropertyDAOImpl pd = new PropertyDAOImpl();
         int id = 0;
 
         try {

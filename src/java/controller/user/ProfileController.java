@@ -2,7 +2,7 @@
 
 package controller.user;
 
-import dal.UserDAO;
+import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -60,7 +60,7 @@ public class ProfileController extends HttpServlet {
             request.getRequestDispatcher("login").forward(request, response);
         }
         
-        UserDAO db = new UserDAO();
+        UserDAOImpl db = new UserDAOImpl();
         User user = db.getUserById(u.getId());
         
         if (user != null) {
@@ -93,7 +93,7 @@ public class ProfileController extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String email = request.getParameter("email");
-        UserDAO udb = new UserDAO();
+        UserDAOImpl udb = new UserDAOImpl();
         User u = (User) session.getAttribute("user");
         udb.updateUser(u.getId(), name, phone, email, address);
         response.sendRedirect("profile");

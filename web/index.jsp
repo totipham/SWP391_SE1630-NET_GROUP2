@@ -1,9 +1,10 @@
 <%-- 
     Document   : index
     Created on : Sep 27, 2022, 3:11:50 PM
-    Author     : totipham
+    Author     : DucPTMHE160517
 --%>
-<%@page import="dal.PropertyDAO"%>
+<%@page import="dal.IPropertyDAO"%>
+<%@page import="dal.impl.PropertyDAOImpl"%>
 <%@page import="model.Property"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Hostalpy</title>
     <%
-            PropertyDAO pd = new PropertyDAO();
+            IPropertyDAO pd = new PropertyDAOImpl();
             
             List <Property> list = pd.getAllProperties();
             request.setAttribute("list", list);

@@ -1,6 +1,6 @@
 package controller.user;
 
-import dal.UserDAO;
+import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -79,7 +79,7 @@ public class UpdateAvatarController extends HttpServlet {
             response.sendRedirect("login");
         }
 
-        UserDAO userDB = new UserDAO();
+        UserDAOImpl userDB = new UserDAOImpl();
         ValidateUtility validate = new ValidateUtility();
 
         FileUtility fileUtils = new FileUtility();

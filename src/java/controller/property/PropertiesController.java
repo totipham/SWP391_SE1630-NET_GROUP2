@@ -1,6 +1,6 @@
 package controller.property;
 
-import dal.PropertyDAO;
+import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,7 +54,7 @@ public class PropertiesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PropertyDAO pd = new PropertyDAO();
+        PropertyDAOImpl pd = new PropertyDAOImpl();
         List<Property> list = null;
         if (request.getParameter("advanced-search") == null && request.getParameter("keyword") != null) {
             list = pd.getPropertiesByKeyword(request.getParameter("keyword"));

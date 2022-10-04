@@ -1,8 +1,9 @@
 
 
-package dal;
+package dal.impl;
 
-import dal.impl.PropertyTypeDAOImpl;
+import dal.DBContext;
+import dal.IPropertyTypeDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import model.PropertyType;
  *
  * @author totipham
  */
-class PropertyTypeDAO extends DBContext implements PropertyTypeDAOImpl {
+class PropertyTypeDAO extends DBContext implements IPropertyTypeDAO {
 
     PropertyType getTypeByID(int id) {
        String sql = "SELECT * FROM [PropertyType] WHERE type_id=?";

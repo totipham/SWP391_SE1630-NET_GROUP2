@@ -18,8 +18,9 @@
         </c:if>
         <div class="user-wrapper">
             <c:if test="${sessionScope.user == null}">
-                <button class="btn btn-success rounded-0 shadow-none">
-                    <a style="color: #fff;" href="login">Sign In</a>
+                <a style="color: #575757; margin-right: 15px; font-weight: 500" href="login">Sign In</a>
+                <button class="btn btn-success rounded shadow-0">
+                    <a style="color: #fff;" href="register">Sign Up</a>
                 </button>
             </c:if>
             <c:if test="${sessionScope.user != null}">

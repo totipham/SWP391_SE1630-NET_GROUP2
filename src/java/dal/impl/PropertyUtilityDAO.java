@@ -1,8 +1,9 @@
 
 
-package dal;
+package dal.impl;
 
-import dal.impl.PropertyUtilityDAOImpl;
+import dal.DBContext;
+import dal.IPropertyUtilityDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import model.PropertyUtility;
  *
  * @author totipham
  */
-class PropertyUtilityDAO extends DBContext implements PropertyUtilityDAOImpl {
+class PropertyUtilityDAO extends DBContext implements IPropertyUtilityDAO {
 
     List<PropertyUtility> getUtilitiesByPID(int pid) {
         List<PropertyUtility> list = new ArrayList<>();

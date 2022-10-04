@@ -1,8 +1,9 @@
 
 
-package dal;
+package dal.impl;
 
-import dal.impl.PropertyImageDAOImpl;
+import dal.DBContext;
+import dal.IPropertyImageDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import model.PropertyImage;
  *
  * @author totipham
  */
-class PropertyImageDAO extends DBContext implements PropertyImageDAOImpl{
+class PropertyImageDAO extends DBContext implements IPropertyImageDAO{
 
     @Override
     public ArrayList<PropertyImage> getImagesByPID(int pid) {

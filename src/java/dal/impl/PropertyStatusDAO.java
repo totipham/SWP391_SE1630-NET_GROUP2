@@ -1,8 +1,9 @@
 
 
-package dal;
+package dal.impl;
 
-import dal.impl.PropertyStatusDAOImpl;
+import dal.DBContext;
+import dal.IPropertyStatusDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import model.PropertyStatus;
  *
  * @author totipham
  */
-class PropertyStatusDAO extends DBContext implements PropertyStatusDAOImpl {
+class PropertyStatusDAO extends DBContext implements IPropertyStatusDAO {
 
     PropertyStatus getStatusByID(int id) {
         String sql = "SELECT * FROM [PropertyStatus] WHERE pstatus_id=?";
