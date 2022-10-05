@@ -210,7 +210,7 @@
                     <input type="text" name="username" placeholder="Username *" />
                     <input type="password" name="password" placeholder="Password *" />
                     <input type="email" name="email" placeholder="Email *" />
-                    <input type="text" name="phone" placeholder="Phone *" pattern="0[139]{1}[0-9]{8}"/>
+                    <input type="text" name="phone" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}"/>
                     <input type="text" name="address" placeholder="Address *" />
                     <p style="color: red">${requestScope.error}</p>
                     <p style="color: green">${requestScope.success}</p>
