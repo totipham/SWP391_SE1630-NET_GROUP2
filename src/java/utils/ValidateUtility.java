@@ -16,7 +16,7 @@ public class ValidateUtility {
         String value = null;
 
         value = new String(request.getParameter(fieldName).trim().getBytes("iso-8859-1"), "utf-8");
-        
+
         //check if value is null or value is empty
         if (value == null || value.trim().isEmpty()) {
             if (required) {
@@ -28,26 +28,32 @@ public class ValidateUtility {
         }
 
         //check if length of value is out of min length and max length
-        if (value.length() < minLength || value.length() > maxLength) {
-            throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
-                    + " must between " + minLength + " and " + maxLength);
+        if (minLength != maxLength) {
+            if (value.length() < minLength || value.length() > maxLength) {
+                throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
+                        + " must between " + minLength + " and " + maxLength);
+            }
         }
-        
+        else{
+            throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
+                        + " must has length is " + minLength );
+        }
+
         return value;
     }
 
     public String getFieldByType(HttpServletRequest request, String type, String field,
             boolean required, int minLength, int maxLength) throws Exception {
         String regexPattern;
-        String value = getField(request, field, true, 5, 15);
+        String value = getField(request, field, true, minLength, maxLength);
         switch (type) {
             case "phone":
 
                 //^0: matches 0 at the begining
-                //[139]{1}: matches one of (1, 3, 9) at the next
+                //[139]{1}: matches one of [3,5,7,8,9] at the next
                 //[0-9]{8}$: matches 8 elements as number digit at the last
                 //Accept 10 digit phone number start with 0, next is one of 1, 3, 9
-                regexPattern = "^0[139]{1}[0-9]{8}$";
+                regexPattern = "^0[35789]{1}[0-9]{8}$";
                 break;
             case "email":
 
@@ -63,7 +69,7 @@ public class ValidateUtility {
             default:
                 regexPattern = "";
         }
-        
+
         //check if regex pattern is empty
         if (regexPattern.isEmpty()) {
             return value;
@@ -73,7 +79,7 @@ public class ValidateUtility {
         if (value.matches(regexPattern)) {
             return value;
         } else {
-            throw new Exception(type.substring(0, 1).toUpperCase().concat(type.substring(1, type.length()).toLowerCase()) 
+            throw new Exception(type.substring(0, 1).toUpperCase().concat(type.substring(1, type.length()).toLowerCase())
                     + " not matches " + type + " format!");
         }
     }
