@@ -206,12 +206,12 @@
             <div class="form-container sign-up-container">
                 <form action="register" method="POST">
                     <h1>Create Account</h1>
-                    <input type="text" name="name" placeholder="Name *" />
-                    <input type="text" name="username" placeholder="Username *" />
-                    <input type="password" name="password" placeholder="Password *" />
-                    <input type="email" name="email" placeholder="Email *" />
+                    <input type="text" name="name" placeholder="Name *" minlength="3" maxlength="20" required/>
+                    <input type="text" name="username" placeholder="Username *" minlength="3" maxlength="20" required/>
+                    <input type="password" name="password" placeholder="Password *" minlength="3" maxlength="20" required/>
+                    <input type="email" name="email" placeholder="Email *" minlength="11" maxlength="200" required/>
                     <input type="text" name="phone" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}"/>
-                    <input type="text" name="address" placeholder="Address *" />
+                    <input type="text" name="address" placeholder="Address *" minlength="10" maxlength="30" required/>
                     <p style="color: red">${requestScope.error}</p>
                     <p style="color: green">${requestScope.success}</p>
                     <button class="my-3">Sign Up</button>
