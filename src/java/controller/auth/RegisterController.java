@@ -1,3 +1,13 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ * NewServlet
+ * Record of change:
+ *      DATE: Oct 5, 2022            
+ *      VERSION: 1.0
+ *      AUTHOR: LANBTHHE160676          
+ */
+
 package controller.auth;
 
 import dal.impl.UserDAOImpl;
@@ -11,8 +21,9 @@ import jakarta.servlet.http.HttpSession;
 import utils.ValidateUtility;
 
 /**
+ * [FILE DESCRIPTION HERE]
  *
- * @author Asus
+ * @author LANBTHHE160676 
  */
 public class RegisterController extends HttpServlet {
 
@@ -51,17 +62,17 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //get and check information registed 
         try {
             UserDAOImpl userDAO = new UserDAOImpl();
 
-            String name = request.getParameter("name");
-            String phone = validate.getFieldByType(request, "phone", "phone", true, 0, 11);
-            String email = request.getParameter("email");
+            String name = validate.getField(request, "name", true, 3, 20);
+            String phone = validate.getFieldByType(request, "phone", "phone", true, 10, 10);
+            String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
             String address = validate.getField(request, "address", true, 10, 30);
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String username = validate.getField(request, "username", true, 3, 20);
+            String password = validate.getField(request, "username", true, 3, 20);
             
-            //check if username is existed in database
             if (userDAO.isDuplicateUsername(username)) {
                 throw new Exception("Username " + username + " is existed!");
             }
