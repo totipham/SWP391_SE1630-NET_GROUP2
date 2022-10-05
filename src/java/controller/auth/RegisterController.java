@@ -67,7 +67,7 @@ public class RegisterController extends HttpServlet {
             UserDAOImpl userDAO = new UserDAOImpl();
 
             String name = validate.getField(request, "name", true, 3, 20);
-            String phone = validate.getFieldByType(request, "phone", "phone", true, 10, 10);
+            String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11);
             String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
             String address = validate.getField(request, "address", true, 10, 30);
             String username = validate.getField(request, "username", true, 3, 20);
