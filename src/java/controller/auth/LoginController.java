@@ -23,7 +23,7 @@ import model.User;
 import utils.ValidateUtility;
 
 /**
- * This is a Servlet responsible for handling login function /Login is the URL
+ * This is a Servlet responsible for handling login function /login is the URL
  * of the web site Extend HttpServlet class
  *
  * @author DucPTMHE160517
@@ -49,8 +49,10 @@ public class LoginController extends HttpServlet {
 
         //Check if user is logged in or not
         if (loggedIn) {
+            //redirect to homepage
             response.sendRedirect(request.getContextPath());
         } else {
+            //redirect to login page
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
         }
     }
@@ -67,19 +69,20 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String username = validate.getField(request, "username", true, 5, 15);
-            String password = validate.getField(request, "password", true, 3, 20);
             IUserDAO userDAO = new UserDAOImpl(); 
-            User user = userDAO.getUser(username, password);
+            
+            String username = validate.getField(request, "username", true, 3, 20);
+            String password = validate.getField(request, "password", true, 3, 20);
+            
+            User userFromDB = userDAO.getUser(username, password);
 
-            //Check if user is existed
-            if (user != null) {
+            //Check if user is not null
+            if (userFromDB != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("user", user);
+                session.setAttribute("user", userFromDB);
                 response.sendRedirect(request.getContextPath());
             } else {
-                request.setAttribute("message", "Username or password wrong!");
-                request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+                throw new Exception ("Username or password wrong!");
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
