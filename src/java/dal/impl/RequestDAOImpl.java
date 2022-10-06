@@ -19,7 +19,6 @@ import dal.IRequestDAO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
-import java.util.Calendar;
 
 /**
  * Desciption:
@@ -30,13 +29,14 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO{
 
     @Override
     public void insertRequest(int user_id, int property_id, Date requestDate) {
-        String sql = "INSERT INTO [Request] (user_id,property_id,request_date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Request (user_id ,property_id ,request_date, rstatus_id) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
             st.setInt(1, user_id);
             st.setInt(2, property_id);
             st.setDate(3, requestDate);
+            st.setInt(4, 1);
             st.executeUpdate();
 
         } catch (SQLException e) {
