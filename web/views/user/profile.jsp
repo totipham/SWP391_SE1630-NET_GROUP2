@@ -34,7 +34,7 @@
             <form action="editavatar" method="POST" enctype='multipart/form-data'>
                 <span><b>Avatar</b></span>
                 <div class="my-3">
-                    <img src="${baseURL}/assets/images/${requestScope.avatar != null ? requestScope.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle" height="150" width="150">
+                    <img src="${baseURL}/assets/images/${requestScope.user.avatar != null ? requestScope.user.avatar : "avatar.jpg"}" alt="Avatar" class="rounded-circle" height="150" width="150">
                     <input type='file' id="image-avatar-upload" accept=".png, .jpg, .jpeg" name="avatar" onchange="this.form.submit()" hidden/>
                     <label for="image-avatar-upload" class="btn btn-primary mx-3" style="padding-block: 13px;">Choose file</label>
                     <!--<button class="btn btn-outline-danger">Remove</button>-->
@@ -44,16 +44,17 @@
                 <div class="row mt-5">
                     <div class="col-md-6">
                         <span><b>Fullname</b></span><br>
-                        <input type="text" maxlength="255" name="name" class="border" value="${requestScope.name}"><br>
+                        <input type="text" maxlength="255" name="name" class="border" value="${requestScope.user.name}"><br>
                         <span><b>Phone</b></span><br>
-                        <input type="text" maxlength="11" name="phone" class="border" value="${requestScope.phone}"><br>
+                        <input type="text" maxlength="11" name="phone" class="border" value="${requestScope.user.phone}"><br>
                     </div>
                     <div class="col-md-6">
                         <span><b>Email</b></span><br>
-                        <input type="email" maxlength="255" name="email" class="border" value="${requestScope.email}"><br>
+                        <input type="email" maxlength="255" name="email" class="border" value="${requestScope.user.email}"><br>
                         <span><b>Address</b></span><br>
-                        <input type="text" maxlength="255" name="address" class="border" value="${requestScope.address}"><br>
+                        <input type="text" maxlength="255" name="address" class="border" value="${requestScope.user.address}"><br>
                     </div>
+                    <p style="color: red;">${requestScope.error}</p>
                 </div>
                     <button type="submit" class="btn btn-primary mt-5" style="padding-inline: 20px;">Save</button>
             </form>

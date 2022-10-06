@@ -36,6 +36,10 @@
         <servlet-name>UpdateAvatarController</servlet-name>
         <servlet-class>controller.user.UpdateAvatarController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RentingController</servlet-name>
+        <servlet-class>controller.property.RentingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>UpdateAvatarController</servlet-name>
         <url-pattern>/editavatar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RentingController</servlet-name>
+        <url-pattern>/renting</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
