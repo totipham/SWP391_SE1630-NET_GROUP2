@@ -9,6 +9,7 @@
  */
 package controller.property;
 
+import dal.IPropertyDAO;
 import dal.IRequestDAO;
 import dal.IUserDAO;
 import dal.impl.PropertyDAOImpl;
@@ -25,8 +26,10 @@ import model.User;
 import utils.ValidateUtility;
 import java.sql.Date;
 import java.util.Calendar;
+
 /**
- * [FILE DESCRIPTION HERE]
+ * This is a Servlet responsible for handling renting function /renting is the
+ * URL of the web site Extend HttpServlet class
  *
  * @author LANBTHHE160676
  */
@@ -48,21 +51,26 @@ public class RentingController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         PropertyDAOImpl propDAO = new PropertyDAOImpl();
-        String pid_raw = request.getParameter("pid");
         boolean loggedIn = session != null && session.getAttribute("user") != null;
 
-        //Check if user is logged in or not
+        //check if user is logged in or not
         if (loggedIn) {
-            try {
-                int pid = Integer.parseInt(pid_raw);
-                request.setAttribute("property", propDAO.getPropertyById(pid));
-                request.setAttribute("user", (User) session.getAttribute("user"));
-                request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
+            //check if property id is null or not
+            if (request.getParameter("pid") == null || request.getParameter("pid").equals("")) {
+                request.setAttribute("message", "Property ID is missing");
+                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            } else {
+                try {
+                    String pid_raw = request.getParameter("pid");
+                    int pid = Integer.parseInt(pid_raw);
+                    request.setAttribute("property", propDAO.getPropertyById(pid));
+                    request.setAttribute("user", (User) session.getAttribute("user"));
+                    request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
 
-            } catch (NumberFormatException ex) {
-                System.out.println(ex);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                }
             }
-
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -88,17 +96,21 @@ public class RentingController extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("uid"));
             int pid = Integer.parseInt(request.getParameter("pid"));
             Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-//            IRequestDAO reqDAO = new RequestDAOImpl();
-//            reqDAO.insertRequest(uid, pid, currentDate);
-            
+            IRequestDAO reqDAO = new RequestDAOImpl();
+            reqDAO.insertRequest(uid, pid, currentDate);
+
             IUserDAO userDAO = new UserDAOImpl();
             userDAO.updateUser(uid, fullname, phone, email, address);
-            response.sendRedirect("profile");
+            
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            request.setAttribute("user", userDAO.getUserById(uid));
+            request.setAttribute("property", propertyDAO.getPropertyById(pid));
+            request.setAttribute("message", "Request Successfully");
+            request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         }
     }
 
-   
 }
