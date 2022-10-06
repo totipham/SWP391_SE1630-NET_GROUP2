@@ -20,7 +20,7 @@
                 background: #fff;
                 margin: 10px 0;
             }
-            
+
             .profile span {
                 color: #575757;
                 font-weight: 500;
@@ -55,8 +55,9 @@
                         <input type="text" maxlength="255" name="address" class="border" value="${requestScope.user.address}"><br>
                     </div>
                     <p style="color: red;">${requestScope.error}</p>
+                    <p style="color: green;">${requestScope.message}</p>
                 </div>
-                    <button type="submit" class="btn btn-primary mt-5" style="padding-inline: 20px;">Save</button>
+                <button type="submit" class="btn btn-primary mt-5" style="padding-inline: 20px;">Save</button>
             </form>
         </div>
 
