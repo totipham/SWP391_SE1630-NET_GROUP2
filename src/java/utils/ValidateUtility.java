@@ -15,7 +15,7 @@ public class ValidateUtility {
             int minLength, int maxLength) throws Exception {
         String value = null;
 
-        value = new String(request.getParameter(fieldName).trim().getBytes("iso-8859-1"), "utf-8");
+        value = request.getParameter(fieldName).trim();
 
         //check if value is null or value is empty
         if (value == null || value.trim().isEmpty()) {
@@ -64,7 +64,7 @@ public class ValidateUtility {
                 // matches 0 or more of the preceding token
                 //Accept email format which start with string username, character @
                 //and domain
-                regexPattern = "^[a-zA-Z0-9]+@([a-z]{2,6}\\.[a-z]{2,6}|[a-z]{2,6}\\.[a-z]{2,6}\\.[a-z]{2,6})*$";
+                regexPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
                 break;
             default:
                 regexPattern = "";
