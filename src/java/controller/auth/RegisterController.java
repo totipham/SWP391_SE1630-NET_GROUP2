@@ -7,7 +7,6 @@
  *      VERSION: 1.0
  *      AUTHOR: LANBTHHE160676          
  */
-
 package controller.auth;
 
 import dal.impl.UserDAOImpl;
@@ -23,7 +22,7 @@ import utils.ValidateUtility;
 /**
  * [FILE DESCRIPTION HERE]
  *
- * @author LANBTHHE160676 
+ * @author LANBTHHE160676
  */
 public class RegisterController extends HttpServlet {
 
@@ -72,16 +71,16 @@ public class RegisterController extends HttpServlet {
             String address = validate.getField(request, "address", true, 10, 30);
             String username = validate.getField(request, "username", true, 3, 20);
             String password = validate.getField(request, "username", true, 3, 20);
-            
+
             if (userDAO.isDuplicateUsername(username)) {
                 throw new Exception("Username " + username + " is existed!");
             }
-            
+
             String message = userDAO.insertUser(name, phone, email, address, username, password);
             request.setAttribute("success", message);
             request.getRequestDispatcher("views/auth/register.jsp").forward(request, response);
         } catch (Exception ex) {
-            
+
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("views/auth/register.jsp").forward(request, response);
         }

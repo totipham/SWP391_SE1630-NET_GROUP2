@@ -33,10 +33,9 @@ public class ValidateUtility {
                 throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
                         + " must between " + minLength + " and " + maxLength);
             }
-        }
-        else{
+        } else {
             throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
-                        + " must has length is " + minLength );
+                    + " must has length is " + minLength);
         }
 
         return value;

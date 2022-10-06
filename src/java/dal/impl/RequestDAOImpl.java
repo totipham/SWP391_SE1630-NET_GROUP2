@@ -7,11 +7,10 @@
  *      VERSION: 1.0
  *      AUTHOR: LANBTHHE160676          
  */
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package dal.impl;
 
 import dal.DBContext;
@@ -23,9 +22,9 @@ import java.sql.Date;
 /**
  * Desciption:
  *
- * @author LANBTHHE160676 
+ * @author LANBTHHE160676
  */
-public class RequestDAOImpl extends DBContext implements IRequestDAO{
+public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
     @Override
     public void insertRequest(int user_id, int property_id, Date requestDate) {

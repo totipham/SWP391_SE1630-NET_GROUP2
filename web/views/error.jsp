@@ -26,7 +26,7 @@
                 text-transform: uppercase;
                 text-align: center;
             }
-            
+
             a {
                 text-decoration: none;
             }

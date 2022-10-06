@@ -19,7 +19,6 @@ import java.util.Random;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 
-
 public class FileUtility {
 
     public String upLoad(Part part, String folder) throws IOException {
@@ -74,12 +73,16 @@ public class FileUtility {
         List<String> fileNames = new ArrayList<String>();
         try {
             List<Part> parts = (List<Part>) request.getParts();
-            if(parts.size()<=0) return new ArrayList<String>();
+            if (parts.size() <= 0) {
+                return new ArrayList<String>();
+            }
             for (Part part : parts) {
                 System.out.println(part.getName());
                 if (part.getName().equalsIgnoreCase("images")) {
                     String fileName = getFileName(part);
-                    if(fileName == null ||fileName.equals("") || fileName.isEmpty()) return new ArrayList<String>();
+                    if (fileName == null || fileName.equals("") || fileName.isEmpty()) {
+                        return new ArrayList<String>();
+                    }
                     String applicationPath = request.getServletContext().getRealPath("");
                     String basePath = applicationPath + File.separator + UPLOAD_DIR + File.separator;
                     InputStream inputStream = null;

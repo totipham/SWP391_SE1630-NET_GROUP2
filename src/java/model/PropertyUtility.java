@@ -1,5 +1,3 @@
-
-
 package model;
 
 /**
@@ -7,6 +5,7 @@ package model;
  * @author totipham
  */
 public class PropertyUtility {
+
     private int id;
     private int pid;
     private String name;
@@ -63,6 +62,5 @@ public class PropertyUtility {
     public void setPeriod(String period) {
         this.period = period;
     }
-    
-    
+
 }

@@ -1,5 +1,3 @@
-
-
 package dal.impl;
 
 import dal.DBContext;
@@ -16,7 +14,7 @@ import model.PropertyType;
 class PropertyTypeDAO extends DBContext implements IPropertyTypeDAO {
 
     PropertyType getTypeByID(int id) {
-       String sql = "SELECT * FROM [PropertyType] WHERE type_id=?";
+        String sql = "SELECT * FROM [PropertyType] WHERE type_id=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);

@@ -111,7 +111,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
     }
 
-    
     @Override
     public boolean isDuplicateUsername(String username) {
         String sql = "SELECT user_id FROM [User] WHERE username = ?";

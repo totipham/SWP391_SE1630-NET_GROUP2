@@ -109,7 +109,7 @@
                     $('#confirm-btn').addClass(" disabled");
                     $('#message').html('New Password Is Not Matching').css('color', 'red');
                 }
-                    
+
             });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

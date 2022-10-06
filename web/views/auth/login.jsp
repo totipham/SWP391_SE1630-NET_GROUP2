@@ -124,13 +124,13 @@
                 width: 50%;
                 z-index: 2;
             }
-            
+
             .sign-in-container a{
                 text-decoration: none;
                 color: #000;
             }
-            
-             input{
+
+            input{
                 margin-block: 5px !important;
                 border: none !important;
             }
@@ -210,11 +210,11 @@
     </head>
     <body>
         <% if (request.getAttribute("registerMessage")!=null) {%>  
-             
-            <script> alert("${requestScope.registerMessage}"); </script>
-        
+
+        <script> alert("${requestScope.registerMessage}");</script>
+
         <%    }%> 
-        
+
         <jsp:include page="../base/headerImport.jsp" />
         <div class="container" id="container">
             <div class="form-container sign-in-container">

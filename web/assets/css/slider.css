@@ -79,7 +79,7 @@ input[type="range"] {
 }
 
 #fromSlider {
-    
+
     height: 0;
     z-index: 1;
 }

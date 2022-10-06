@@ -1,5 +1,3 @@
-
-
 package model;
 
 import java.util.ArrayList;
@@ -9,6 +7,7 @@ import java.util.ArrayList;
  * @author totipham
  */
 public class PropertyImage {
+
     private int propertyId;
     private String fileName;
 
@@ -40,7 +39,5 @@ public class PropertyImage {
     public String toString() {
         return "PropertyImage{" + "propertyId=" + propertyId + ", fileName=" + fileName + '}';
     }
-    
-    
 
 }

@@ -76,7 +76,7 @@ public class PropertiesController extends HttpServlet {
             } else if (dateSort_raw.equals("oldest")) {
                 dateSort = 1;
             }
-            
+
             if (priceSort_raw.equals("highest-first")) {
                 priceSort = 0;
             } else if (priceSort_raw.equals("lowest-first")) {
@@ -95,9 +95,9 @@ public class PropertiesController extends HttpServlet {
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
             }
-            
-            System.out.println("price sort " + priceSort );
-            
+
+            System.out.println("price sort " + priceSort);
+
             list = pd.getPropertiesByFiter(keyword, dateSort, priceSort,
                     maxPrice, minPrice, area);
             request.setAttribute("advancedSearch", 1);
@@ -115,7 +115,7 @@ public class PropertiesController extends HttpServlet {
         List<Property> finalList = null;
         int numPerPage = 5;
         int numPs = list.size();
-        
+
         int numPage = numPs / numPerPage + (numPs % numPerPage == 0 ? 0 : 1);
         int start, end;
         String page_raw = request.getParameter("page");
@@ -133,9 +133,8 @@ public class PropertiesController extends HttpServlet {
         } else {
             end = page * numPerPage;
         }
-        
-//        finalList = pd.getPropertyByPage(list, start, end);
 
+//        finalList = pd.getPropertyByPage(list, start, end);
         //elements per page
         request.setAttribute("finalList", finalList);
 
@@ -144,7 +143,6 @@ public class PropertiesController extends HttpServlet {
         request.setAttribute("page", page);
         System.out.println("gt la: " + numPage);
 
-        
 //        List<PriceTrending> priceTrendingList = pd.getPriceTrending();
 //        request.setAttribute("priceTrendingList", priceTrendingList);
         request.setAttribute("listProperty", list);

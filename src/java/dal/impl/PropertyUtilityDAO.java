@@ -1,5 +1,3 @@
-
-
 package dal.impl;
 
 import dal.DBContext;

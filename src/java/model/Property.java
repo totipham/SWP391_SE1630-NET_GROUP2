@@ -152,6 +152,5 @@ public class Property {
     public String toString() {
         return "Property{" + "id=" + id + ", name=" + name + ", total=" + total + ", area=" + area + ", price=" + price + ", type=" + type + ", status=" + status + ", images=" + images + ", address=" + address + ", description=" + description + ", host=" + host + ", createdDate=" + createdDate + ", utilities=" + utilities + '}';
     }
-    
-    
+
 }

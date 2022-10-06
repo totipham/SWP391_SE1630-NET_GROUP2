@@ -69,11 +69,11 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            IUserDAO userDAO = new UserDAOImpl(); 
-            
+            IUserDAO userDAO = new UserDAOImpl();
+
             String username = validate.getField(request, "username", true, 3, 20);
             String password = validate.getField(request, "password", true, 3, 20);
-            
+
             User userFromDB = userDAO.getUser(username, password);
 
             //Check if user is not null
@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("user", userFromDB);
                 response.sendRedirect(request.getContextPath());
             } else {
-                throw new Exception ("Username or password wrong!");
+                throw new Exception("Username or password wrong!");
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

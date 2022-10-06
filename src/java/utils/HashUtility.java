@@ -36,7 +36,7 @@ public class HashUtility {
      *
      */
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    
+
     private String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         int v;

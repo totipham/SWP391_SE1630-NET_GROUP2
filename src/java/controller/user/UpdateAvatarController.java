@@ -84,9 +84,9 @@ public class UpdateAvatarController extends HttpServlet {
 
         FileUtility fileUtils = new FileUtility();
         String folder = request.getServletContext().getRealPath("/assets/images");
-        
+
         System.out.println(folder);
-        
+
         String filename = null;
         try {
 
@@ -104,7 +104,7 @@ public class UpdateAvatarController extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         response.sendRedirect("profile");
     }
 

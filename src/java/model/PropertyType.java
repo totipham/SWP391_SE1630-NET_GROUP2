@@ -1,5 +1,3 @@
-
-
 package model;
 
 /**
@@ -7,6 +5,7 @@ package model;
  * @author totipham
  */
 public class PropertyType {
+
     private int id;
     private String type;
 

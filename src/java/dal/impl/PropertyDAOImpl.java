@@ -103,14 +103,14 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
                 p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
                 p.setDescription(rs.getString("description"));
                 p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
-                
+
                 return p;
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
+
         return null;
     }
 

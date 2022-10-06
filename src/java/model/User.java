@@ -28,8 +28,7 @@ public class User {
         this.address = address;
         this.role = role;
     }
-    
-    
+
     public User() {
     }
 
@@ -40,7 +39,7 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
-    
+
     public int getRole() {
         return role;
     }

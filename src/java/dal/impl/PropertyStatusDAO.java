@@ -1,5 +1,3 @@
-
-
 package dal.impl;
 
 import dal.DBContext;
@@ -31,7 +29,7 @@ class PropertyStatusDAO extends DBContext implements IPropertyStatusDAO {
                 return ps;
             }
         } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return null;

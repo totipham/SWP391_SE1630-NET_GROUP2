@@ -118,8 +118,8 @@
                 height: 100%;
                 transition: all 0.6s ease-in-out;
             }
-            
-             input{
+
+            input{
                 margin-block: 5px !important;
                 border: none !important;
             }
@@ -196,11 +196,11 @@
     </head>
     <body>
         <% if (request.getAttribute("registerMessage")!=null) {%>  
-             
-            <script> alert("${requestScope.registerMessage}"); </script>
-        
+
+        <script> alert("${requestScope.registerMessage}");</script>
+
         <%    }%> 
-        
+
         <jsp:include page="../base/headerImport.jsp" />
         <div class="container right-panel-active" id="container">
             <div class="form-container sign-up-container">
