@@ -82,6 +82,7 @@ Author     : DucPTMHE160517
                             <input type="text" name="address" value="${u.address}" placeholder="Address *" minlength="10" maxlength="30"
                                    required />
                             <p style="color: red">${requestScope.error}</p>
+                            <p style="color: green">${requestScope.message}</p>
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary mt-5 mx-auto" value="Send Renting Request">
                             </div>
