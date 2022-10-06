@@ -38,27 +38,29 @@ Author     : DucPTMHE160517
     </head>
     <body>
         <jsp:include page="../component/navbar-nosearch.jsp" />
-        <c:set var="property" scope="request" value="${property}" />
-        <c:set var="user" scope="request" value="${user}" />
+        <c:set var="p" scope="request" value="${property}" />
+        <c:set var="u" scope="request" value="${user}" />
         <div class="container mt-2">
             <div class="row">
                 <div class="col-md-4">
                     <div class="property-card shadow my-2">
-                        <div class="property-card__thumbnail">
-                            <img src="${baseURL}/assets/images/${property.images.get(0).getFileName()}" alt="Thumbnail">
-                        </div>
-                        <div class="property-card__information">
-                            <div class="property-card__information__short">
-                                <span>${property.type.type}</span>
-                                <span>•</span>
-                                <span>${property.area}m2</span>
+                        <a href="property?id=${p.id}">
+                            <div class="property-card__thumbnail">
+                                <img src="${baseURL}/assets/images/${p.getImages().get(0).getFileName()}" alt="Thumbnail">
                             </div>
-                            <span class="property-card__information__name">${property.name}</span>
-                            <span class="property-card__information__address">${property.address}</span>
-                            <div class="property-card__information__bottom">
-                                <span>${property.price}đ</span>
+                            <div class="property-card__information">
+                                <div class="property-card__information__short">
+                                    <span>${p.getType().getType()}</span>
+                                    <span>•</span>
+                                    <span>${p.area}m2</span>
+                                </div>
+                                <span class="property-card__information__name">${p.name}</span>
+                                <span class="property-card__information__address">${p.address}</span>
+                                <div class="property-card__information__bottom">
+                                    <span>${p.price}₫/month</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -67,19 +69,18 @@ Author     : DucPTMHE160517
                             <h3 class="mb-3">Renting Request Form</h3>
                         </div>
                         <form action="renting" method="POST">
-                            <input type="text" name="id" value="${user.id}" hidden />
+                            <input type="text" name="pid" value="${p.id}" hidden />
+                            <input type="text" name="uid" value="${u.id}" hidden />
                             <span>Fullname:</span>
-                            <input type="text" name="name" value="${user.name}" placeholder="Name *" minlength="3" maxlength="20" required />
+                            <input type="text" name="name" value="${u.name}" placeholder="Name *" minlength="3" maxlength="20" required />
                             <span>Email:</span>
-                            <input type="email" name="email" value="${user.email}" placeholder="Email *" minlength="11" maxlength="200"
+                            <input type="email" name="email" value="${u.email}" placeholder="Email *" minlength="11" maxlength="200"
                                    required />
                             <span>Phone:</span>
-                            <input type="text" name="phone" value="${user.phone}" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}" />
+                            <input type="text" name="phone" value="${u.phone}" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}" />
                             <span>Address:</span>
-                            <input type="text" name="address" value="${user.address}" placeholder="Address *" minlength="10" maxlength="30"
+                            <input type="text" name="address" value="${u.address}" placeholder="Address *" minlength="10" maxlength="30"
                                    required />
-                            <span>Estimate Renting:</span>
-                            <input type="number" name="estimate_renting" placeholder="Estimate Renting (number of month)" />
 
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary mt-5 mx-auto" value="Send Renting Request">
