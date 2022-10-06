@@ -1,48 +1,35 @@
-
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ * ProfileController
+ * Record of change:
+ *      DATE: Oct 6, 2022            
+ *      VERSION: 1.0
+ *      AUTHOR: AnhVHHE160580          
+ */
 
 package controller.user;
 
+import dal.IUserDAO;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
+import utils.ValidateUtility;
 
 /**
+ * This is a Servlet responsible for handling show profile function /profile is the URL
+ * of the web site Extend HttpServlet class
  *
- * @author Asus
+ * @author AnhVHHE160580
  */
 public class ProfileController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProfileController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProfileController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
+    private ValidateUtility validate = new ValidateUtility();
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -54,26 +41,21 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
+        IUserDAO userDAO = new UserDAOImpl();
         User u = (User) session.getAttribute("user");
         
+        //if user is not login
         if (u == null) {
             request.getRequestDispatcher("login").forward(request, response);
         }
         
-        UserDAOImpl db = new UserDAOImpl();
-        User user = db.getUserById(u.getId());
+        User user = userDAO.getUserById(u.getId());
         
+        //if user in session
         if (user != null) {
             session.setAttribute("user", user);
         }
-    
-        request.setAttribute("name", user.getName());
-        request.setAttribute("username", user.getUsername());
-        request.setAttribute("password", user.getPassword());
-        request.setAttribute("phone", user.getPhone());
-        request.setAttribute("email", user.getEmail());
-        request.setAttribute("address", user.getAddress());
-        request.setAttribute("avatar", user.getAvatar());
+        request.setAttribute("user", user);
         request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
     } 
 
@@ -88,24 +70,24 @@ public class ProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String email = request.getParameter("email");
-        UserDAOImpl udb = new UserDAOImpl();
-        User u = (User) session.getAttribute("user");
-        udb.updateUser(u.getId(), name, phone, email, address);
-        response.sendRedirect("profile");
+        try {
+            IUserDAO userDAO = new UserDAOImpl();
+
+            String name = validate.getField(request, "name", true, 3, 20);
+            String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11);
+            String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
+            String address = validate.getField(request, "address", true, 10, 30);
+            
+            userDAO.updateUser(user.getId(), name, phone, email, address);
+        } catch (Exception ex) {
+            request.setAttribute("user", user);
+            request.setAttribute("error", ex.getMessage());
+            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
+        }
+       
+       }
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
-}
