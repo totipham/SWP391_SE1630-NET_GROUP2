@@ -1,0 +1,93 @@
+<%-- 
+Document   : property
+Created on : Sep 30, 2022, 1:02:59 PM
+Author     : DucPTMHE160517
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="../base/headerImport.jsp" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+        <title>Request ${requestScope.property.name} - Hostalpy</title>
+        <style>
+            .form-container {
+                padding: 30px;
+                border-radius: 20px;
+
+            }
+
+            .form-container span{
+                font-weight: 500;
+            }
+
+            .form-container input{
+                background: #f7f7f7;
+                width: 100%;
+                display: block;
+                margin-block: 10px;
+            }
+
+            .form-container input[type='submit']{
+                width: 30%;
+            }
+        </style>
+    </head>
+    <body>
+        <jsp:include page="../component/navbar-nosearch.jsp" />
+        <c:set var="property" scope="request" value="${property}" />
+        <c:set var="user" scope="request" value="${user}" />
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="property-card shadow my-2">
+                        <div class="property-card__thumbnail">
+                            <img src="${baseURL}/assets/images/${property.images.get(0).getFileName()}" alt="Thumbnail">
+                        </div>
+                        <div class="property-card__information">
+                            <div class="property-card__information__short">
+                                <span>${property.type.type}</span>
+                                <span>•</span>
+                                <span>${property.area}m2</span>
+                            </div>
+                            <span class="property-card__information__name">${property.name}</span>
+                            <span class="property-card__information__address">${property.address}</span>
+                            <div class="property-card__information__bottom">
+                                <span>${property.price}đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-container shadow">
+                        <div class="text-center">
+                            <h3 class="mb-3">Renting Request Form</h3>
+                        </div>
+                        <form action="renting" method="POST">
+                            <input type="text" name="id" value="${user.id}" hidden />
+                            <span>Fullname:</span>
+                            <input type="text" name="name" value="${user.name}" placeholder="Name *" minlength="3" maxlength="20" required />
+                            <span>Email:</span>
+                            <input type="email" name="email" value="${user.email}" placeholder="Email *" minlength="11" maxlength="200"
+                                   required />
+                            <span>Phone:</span>
+                            <input type="text" name="phone" value="${user.phone}" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}" />
+                            <span>Address:</span>
+                            <input type="text" name="address" value="${user.address}" placeholder="Address *" minlength="10" maxlength="30"
+                                   required />
+                            <span>Estimate Renting:</span>
+                            <input type="number" name="estimate_renting" placeholder="Estimate Renting (number of month)" />
+
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-primary mt-5 mx-auto" value="Send Renting Request">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
