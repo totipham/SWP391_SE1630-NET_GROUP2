@@ -96,8 +96,8 @@ public class RentingController extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("uid"));
             int pid = Integer.parseInt(request.getParameter("pid"));
             Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-//            IRequestDAO reqDAO = new RequestDAOImpl();
-//            reqDAO.insertRequest(uid, pid, currentDate);
+            IRequestDAO reqDAO = new RequestDAOImpl();
+            reqDAO.insertRequest(uid, pid, currentDate);
 
             IUserDAO userDAO = new UserDAOImpl();
             userDAO.updateUser(uid, fullname, phone, email, address);
