@@ -24,7 +24,7 @@ import model.Request;
 public interface IRequestDAO {
 
     public void insertRequest(int user_id, int property_id, Date requestDate);
-    public void deleteRequestByUid(int user_id);
-    public void updateStatusByRId(int request_id, int newrstatus);
-    public Request getRequestByUid(int user_id );
+    public void deleteRequestByRID(int request_id);
+    public void updateStatusByRID(int request_id, int newrstatus);
+    public Request getRequestByRID(int request_id );
 }
