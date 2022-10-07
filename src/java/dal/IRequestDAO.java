@@ -15,7 +15,7 @@ package dal;
 
 import java.sql.Date;
 import java.util.Calendar;
-
+import model.Request;
 /**
  * Desciption:
  *
@@ -24,4 +24,7 @@ import java.util.Calendar;
 public interface IRequestDAO {
 
     public void insertRequest(int user_id, int property_id, Date requestDate);
+    public void deleteRequestByUid(int user_id);
+    public void updateStatusByRId(int request_id, int newrstatus);
+    public Request getRequestByUid(int user_id );
 }
