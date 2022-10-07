@@ -22,66 +22,58 @@ import java.sql.Date;
  * @author LANBTHHE160676 
  */
 public class Request {
-    int request_id;
-    int property_id;
-    int rstatus_id;
-    int user_id;
-    Date request_date;
+    int id;
+    User renter;
+    Property property;
+    Date requestDate;
 
     public Request() {
     }
 
-    public Request(int request_id, int property_id, int rstatus_id, int user_id, Date request_date) {
-        this.request_id = request_id;
-        this.property_id = property_id;
-        this.rstatus_id = rstatus_id;
-        this.user_id = user_id;
-        this.request_date = request_date;
+    public Request(int id, User renter, Property property, Date requestDate) {
+        this.id = id;
+        this.renter = renter;
+        this.property = property;
+        this.requestDate = requestDate;
     }
 
-    public int getRequest_id() {
-        return request_id;
+    public int getId() {
+        return id;
     }
 
-    public void setRequest_id(int request_id) {
-        this.request_id = request_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getProperty_id() {
-        return property_id;
+    public User getRenter() {
+        return renter;
     }
 
-    public void setProperty_id(int property_id) {
-        this.property_id = property_id;
+    public void setRenter(User renter) {
+        this.renter = renter;
     }
 
-    public int getRstatus_id() {
-        return rstatus_id;
+    public Property getProperty() {
+        return property;
     }
 
-    public void setRstatus_id(int rstatus_id) {
-        this.rstatus_id = rstatus_id;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Date getRequestDate() {
+        return requestDate;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public Date getRequest_date() {
-        return request_date;
-    }
-
-    public void setRequest_date(Date request_date) {
-        this.request_date = request_date;
+    public void setRequestDate(Date requestDate) {
+        this.requestDate = requestDate;
     }
 
     @Override
     public String toString() {
-        return "Request{" + "request_id=" + request_id + ", property_id=" + property_id + ", rstatus_id=" + rstatus_id + ", user_id=" + user_id + ", request_date=" + request_date + '}';
+        return "Request{" + "id=" + id + ", renter=" + renter + ", property=" + property + ", requestDate=" + requestDate + '}';
     }
+
+    
     
 }
