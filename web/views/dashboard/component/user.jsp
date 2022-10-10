@@ -39,7 +39,7 @@
         <!--end::Menu separator-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="account/overview.html" class="menu-link px-5">Profile
+            <a href="${baseURL}/profile" class="menu-link px-5">Profile
             </a>
         </div>
         <!--end::Menu item-->
@@ -57,7 +57,7 @@
         <!--end::Menu separator-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-            <a href="#" class="menu-link px-5">Sign Out</a>
+            <a href="${baseURL}/logout" class="menu-link px-5">Sign Out</a>
         </div>
         <!--end::Menu item-->
     </div>

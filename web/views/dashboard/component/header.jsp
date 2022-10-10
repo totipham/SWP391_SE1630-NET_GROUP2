@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!--begin::Header-->
 <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header"
      data-kt-sticky-offset="{default: '200px', lg: '300px'}">
@@ -16,16 +17,16 @@
              data-kt-swapper="true" data-kt-swapper-mode="prepend"
              data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
             <!--begin::Heading-->
-            <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">Dashboard
+            <h1 class="text-dark fw-bolder mt-1 mb-1 fs-2">${pageTitle}
                 <small class="text-muted fs-6 fw-normal ms-1"></small>
             </h1>
             <!--end::Heading-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb fw-bold fs-base mb-1">
                 <li class="breadcrumb-item text-muted">
-                    <a href="index.html" class="text-muted text-hover-primary">Home</a>
+                    <a href="${baseURL}" class="text-muted text-hover-primary">Home</a>
                 </li>
-                <li class="breadcrumb-item text-dark">Dashboards</li>
+                <li class="breadcrumb-item text-dark">${pageTitle}</li>
             </ul>
             <!--end::Breadcrumb-->
         </div>
@@ -41,7 +42,7 @@
             </div>
             <!--end::Aside Toggle-->
             <!--begin::Logo-->
-            <a href="index.html" class="d-lg-none">
+            <a href="${baseURL}" class="d-lg-none">
                 <img alt="Logo" src="${baseURL}/assets/images/logo.png" style="width: 40%;" class="max-h-40px" />
             </a>
             <!--end::Logo-->
