@@ -7,7 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-    <jsp:include page="../base/headImport.jsp" />
+    <!--begin::Head-->
+    <head>
+        <jsp:include page="../base/headImport.jsp" />
+    </head>
+    <!-- end::Header -->
     <!--begin::Body-->
     <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-fixed">
         <!--begin::Main-->
