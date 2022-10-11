@@ -1,11 +1,10 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * LoginController
+ *
  * Record of change:
- *      DATE: Oct 4, 2022            
- *      VERSION: 1.0
- *      AUTHOR: DucPTMHE160517          
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
  */
 package controller.auth;
 
@@ -22,12 +21,15 @@ import java.util.logging.Logger;
 import model.User;
 import utils.ValidateUtility;
 
-/**
- * This is a Servlet responsible for handling login function /login is the URL
- * of the web site Extend HttpServlet class
- *
- * @author DucPTMHE160517
+/**				
+ * The class contains method find update, delete, insert staff information from				
+ * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Still have some issues related to search staff by address				
+ *				
+ * @author DucPTMHE160517				
  */
+
 public class LoginController extends HttpServlet {
 
     private ValidateUtility validate = new ValidateUtility();
