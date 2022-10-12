@@ -82,10 +82,10 @@ public class ChangePasswordController extends HttpServlet {
             request.getRequestDispatcher("views/auth/chgpwd.jsp").forward(request, response);
         } catch (Exception e) {
                 // link to exception site
+                request.getRequestDispatcher("views/auth/DefaulOfChangePassword.jsp").forward(request, response);
         }
 
 //            
     }
 
 }
-// sua lai request.getparameter thanh ham validat giong nhu register controller va comment ten nguoi lam
