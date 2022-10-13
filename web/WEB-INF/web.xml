@@ -59,6 +59,12 @@
     <servlet>
         <servlet-name>SearchPropertyController</servlet-name>
         <servlet-class>controller.property.SearchPropertyController</servlet-class>
+        <servlet-name>DashboardPropertiesController</servlet-name>
+        <servlet-class>controller.dashboard.DashboardPropertiesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>DashboardController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -119,6 +125,10 @@
     <servlet-mapping>
         <servlet-name>SearchPropertyController</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
