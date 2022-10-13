@@ -2,6 +2,7 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IPropertyTypeDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +16,9 @@ class PropertyTypeDAO extends DBContext implements IPropertyTypeDAO {
 
     PropertyType getTypeByID(int id) {
         String sql = "SELECT * FROM [PropertyType] WHERE type_id=?";
-
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();

@@ -2,6 +2,7 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IUserDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,10 +26,12 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         String sql = "SELECT * FROM [User] "
                 + "WHERE username=? COLLATE sql_latin1_general_cp1_cs_as "
                 + "AND password=? COLLATE sql_latin1_general_cp1_cs_as";
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+        Connection connection = getConnection();
         try {
+            
             ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -49,7 +52,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(ps, rs);
+            closeConnection(connection, ps, rs);
         }
         return null;
     }
@@ -62,6 +65,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     @Override
     public User getUserById(int id) throws SQLException {
         String sql = "SELECT * FROM [User] WHERE user_id=?";
+        Connection connection = getConnection();
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -83,7 +87,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(ps, null);
+            closeConnection(connection, ps, null);
         }
         return null;
     }
@@ -95,6 +99,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      */
     public User getUserByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM [User] WHERE username=?";
+        Connection connection = getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -117,7 +122,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(ps, rs);
+            closeConnection(connection, ps, rs);
         }
         return null;
     }
@@ -133,19 +138,19 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     @Override
     public void updateUser(int userid, String name, String phone, String email, String address) throws SQLException {
         String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=? WHERE user_id=?";
-
+        Connection connection = getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, name);
-            st.setString(2, phone);
-            st.setString(3, email);
-            st.setString(4, address);
-            st.setInt(5, userid);
-            st.executeUpdate();
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            ps.setString(3, email);
+            ps.setString(4, address);
+            ps.setInt(5, userid);
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
-            connection.close();
+            closeConnection(connection, ps, null);
         }
     }
 
@@ -157,12 +162,14 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     @Override
     public boolean isDuplicateUsername(String username) throws SQLException {
         String sql = "SELECT user_id FROM [User] WHERE username = ?";
-
+        Connection connection = getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
 
-            ResultSet rs = st.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 return true;
@@ -170,7 +177,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            connection.close();
+            closeConnection(connection, ps, rs);
         }
 
         return false;
@@ -190,6 +197,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     @Override
     public String insertUser(String name, String phone, String email, String address, String username, String password) throws Exception {
         String sql = "INSERT INTO [User] (name, phone, email, address, username, password, role, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        Connection connection = getConnection();
         PreparedStatement ps = null;
         User u = getUser(username, password);
         String message = "Register successfully!";
@@ -209,7 +217,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(ps, null);
+            closeConnection(connection, ps, null);
         }
 
         return message;
@@ -227,6 +235,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 + "SET password = ?\n"
                 + "WHERE user_id = ?";
         PreparedStatement ps = null;
+        Connection connection = getConnection();
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, newpwd);
@@ -234,7 +243,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(ps, null);
+            closeConnection(connection, ps, null);
         }
 
         return ps.executeUpdate();
@@ -246,6 +255,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 + " SET [avatar] = ?\n"
                 + " WHERE user_id = ?";
         PreparedStatement ps = null;
+        Connection connection = getConnection();
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, user.getAvatar());
@@ -255,7 +265,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(ps, null);
+            closeConnection(connection, ps, null);
         }
     }
 }

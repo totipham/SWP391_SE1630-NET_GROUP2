@@ -2,6 +2,7 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IPropertyDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,9 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
     public List<Property> getAllProperties() {
         List<Property> list = new ArrayList<>();
         String sql = "SELECT * FROM [Property]";
-
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
 
@@ -112,8 +114,9 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
     public Property getPropertyById(int pid) {
         Property p = new Property();
         String sql = "SELECT * FROM [Property] WHERE property_id=?";
-
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, pid);
             ResultSet rs = st.executeQuery();

@@ -2,6 +2,7 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IPropertyUtilityDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +19,9 @@ class PropertyUtilityDAO extends DBContext implements IPropertyUtilityDAO {
     List<PropertyUtility> getUtilitiesByPID(int pid) {
         List<PropertyUtility> list = new ArrayList<>();
         String sql = "SELECT * FROM [Utility] WHERE property_id=?";
-
+        Connection connection = null;
         try {
+            connection = getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, pid);
             ResultSet rs = st.executeQuery();
