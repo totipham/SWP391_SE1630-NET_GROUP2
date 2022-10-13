@@ -5,26 +5,28 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBContext {
-
-    protected Connection connection;
-
-    public DBContext() {
+    
+    protected static Connection getConnection() throws SQLException {
+        Connection conn = null;
         try {
-            // Edit URL , username, password to authenticate with your MS SQL Server
             String url = "jdbc:sqlserver://localhost:1433;databaseName= Hostalpy";
             String username = "sa";
             String password = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(url, username, password);
+            
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return conn;
     }
     
-    protected void closeConnection (PreparedStatement ps, ResultSet rs) throws SQLException {
-        connection.close();
+    protected void closeConnection (Connection conn, PreparedStatement ps, ResultSet rs) throws SQLException {
+        conn.close();
         
         if (ps != null) {
             ps.close();
