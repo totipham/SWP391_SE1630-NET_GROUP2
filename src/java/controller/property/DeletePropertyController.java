@@ -1,29 +1,30 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * DeletePropertyController
+ *
  * Record of change:
- *      DATE: Oct 13, 2022            
- *      VERSION: 1.0
- *      AUTHOR: ThuongTTHE163555         
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 13, 2022         1.0           ThuongTTHE163555     First Implement
  */
 
 package controller.property;
 
+import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * [FILE DESCRIPTION HERE]
- *
- * @author ThuongTTHE163555
+/**				
+ * The class contains method find update, delete, insert staff information from				
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author ThuongTTHE163555				
  */
 
-@WebServlet(name="DeletePropertyController", urlPatterns={"/delproperty"})
 public class DeletePropertyController extends HttpServlet {
    
     /** 
@@ -36,7 +37,19 @@ public class DeletePropertyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        //get id from front end
+        String pid = request.getParameter("pid");
+        int id= Integer.parseInt(pid);
+         // delete property  
+        try {
+            PropertyDAOImpl pDAO = new PropertyDAOImpl();
+            pDAO.DeleteProperty(id);
+            //re-load
+            request.getRequestDispatcher("views/dashboard/host/dashboard.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+       
     } 
 
     /** 
