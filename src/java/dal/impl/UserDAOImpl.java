@@ -1,3 +1,11 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package dal.impl;
 
 import dal.DBContext;
@@ -8,9 +16,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.User;
 
-/**
- *
- * @author totipham
+/**				
+ * The class contains method find update, delete, insert user information from DB			
+ * 				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
  */
 public class UserDAOImpl extends DBContext implements IUserDAO {
 
@@ -27,32 +39,32 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 + "WHERE username=? COLLATE sql_latin1_general_cp1_cs_as "
                 + "AND password=? COLLATE sql_latin1_general_cp1_cs_as";
         
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
         Connection connection = getConnection();
         try {
             
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            rs = ps.executeQuery();
-            if (rs.next()) {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            result = statement.executeQuery();
+            if (result.next()) {
                 User user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setEmail(rs.getString("email"));
-                user.setName(rs.getString("name"));
-                user.setPhone(rs.getString("phone"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setAddress(rs.getString("address"));
-                user.setRole(rs.getInt("role"));
+                user.setId(result.getInt("user_id"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
+                user.setRole(result.getInt("role"));
                 return user;
             }
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, ps, rs);
+            closeConnection(connection, statement, result);
         }
         return null;
     }
@@ -66,11 +78,11 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     public User getUserById(int id) throws SQLException {
         String sql = "SELECT * FROM [User] WHERE user_id=?";
         Connection connection = getConnection();
-        PreparedStatement ps = null;
+        PreparedStatement statement = null;
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet result = ps.executeQuery();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
             if (result.next()) {
                 User user = new User();
                 user.setId(result.getInt("user_id"));
@@ -87,7 +99,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, ps, null);
+            closeConnection(connection, statement, null);
         }
         return null;
     }
@@ -100,29 +112,29 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     public User getUserByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM [User] WHERE username=?";
         Connection connection = getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            result = statement.executeQuery();
+            while (result.next()) {
                 User user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setRole(rs.getInt("role"));
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setEmail(rs.getString("email"));
-                user.setName(rs.getString("name"));
-                user.setPhone(rs.getString("phone"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setAddress(rs.getString("address"));
+                user.setId(result.getInt("user_id"));
+                user.setRole(result.getInt("role"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
                 return user;
             }
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, ps, rs);
+            closeConnection(connection, statement, result);
         }
         return null;
     }
@@ -139,18 +151,18 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     public void updateUser(int userid, String name, String phone, String email, String address) throws SQLException {
         String sql = "UPDATE [User] SET name=?, phone=?, email=?, address=? WHERE user_id=?";
         Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
         try {
-            ps.setString(1, name);
-            ps.setString(2, phone);
-            ps.setString(3, email);
-            ps.setString(4, address);
-            ps.setInt(5, userid);
-            ps.executeUpdate();
+            statement.setString(1, name);
+            statement.setString(2, phone);
+            statement.setString(3, email);
+            statement.setString(4, address);
+            statement.setInt(5, userid);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, ps, null);
+            closeConnection(connection, statement, null);
         }
     }
 
@@ -163,21 +175,21 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     public boolean isDuplicateUsername(String username) throws SQLException {
         String sql = "SELECT user_id FROM [User] WHERE username = ?";
         Connection connection = getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
 
-            rs = ps.executeQuery();
+            resultset = statement.executeQuery();
 
-            if (rs.next()) {
+            if (resultset.next()) {
                 return true;
             }
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, ps, rs);
+            closeConnection(connection, statement, resultset);
         }
 
         return false;
@@ -198,26 +210,25 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     public String insertUser(String name, String phone, String email, String address, String username, String password) throws Exception {
         String sql = "INSERT INTO [User] (name, phone, email, address, username, password, role, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = getConnection();
-        PreparedStatement ps = null;
-        User u = getUser(username, password);
+        PreparedStatement statement = null;
         String message = "Register successfully!";
         try {
-            ps = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
 
-            ps.setString(1, name);
-            ps.setString(2, phone);
-            ps.setString(3, email);
-            ps.setString(4, address);
-            ps.setString(5, username);
-            ps.setString(6, password);
-            ps.setInt(7, 1);
-            ps.setString(8, "avatar.jpg");
-            ps.executeUpdate();
+            statement.setString(1, name);
+            statement.setString(2, phone);
+            statement.setString(3, email);
+            statement.setString(4, address);
+            statement.setString(5, username);
+            statement.setString(6, password);
+            statement.setInt(7, 1);
+            statement.setString(8, "avatar.jpg");
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, ps, null);
+            closeConnection(connection, statement, null);
         }
 
         return message;
@@ -234,38 +245,43 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         String sql = "UPDATE [User]\n"
                 + "SET password = ?\n"
                 + "WHERE user_id = ?";
-        PreparedStatement ps = null;
+        PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, newpwd);
-            ps.setInt(2, id);
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, newpwd);
+            statement.setInt(2, id);
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, ps, null);
+            closeConnection(connection, statement, null);
         }
 
-        return ps.executeUpdate();
+        return statement.executeUpdate();
     }
 
+    /**
+     *
+     * @param user
+     * @throws SQLException
+     */
     @Override
     public void updateAvatar(User user) throws SQLException {
         String sql = "UPDATE [User]\n"
                 + " SET [avatar] = ?\n"
                 + " WHERE user_id = ?";
-        PreparedStatement ps = null;
+        PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, user.getAvatar());
-            ps.setInt(2, user.getId());
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getAvatar());
+            statement.setInt(2, user.getId());
 
-            ps.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, ps, null);
+            closeConnection(connection, statement, null);
         }
     }
 }
