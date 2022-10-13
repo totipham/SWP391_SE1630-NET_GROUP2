@@ -49,10 +49,6 @@
         <servlet-class>controller.dashboard.DashboardPropertiesController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DashboardController</servlet-name>
-        <servlet-class>DashboardController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FeedbackController</servlet-name>
         <servlet-class>controller.property.FeedbackController</servlet-class>
     </servlet>
@@ -109,20 +105,12 @@
         <url-pattern>/dashboard/properties</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FeedbackController</servlet-name>
         <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchPropertyController</servlet-name>
         <url-pattern>/search</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
