@@ -13,9 +13,9 @@
         </a>
         <input style="width: 300px; color: #575757;" type="text" name="" id="" placeholder="Keywords/City/Region">
         <button class="btn btn-light">
-            <i class="fa-solid fa-filter"></i>
-            Filter
-        </button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search
+            </button>
     </div>
     <div class="right-header">
         <c:if test="${sessionScope.user != null}">
