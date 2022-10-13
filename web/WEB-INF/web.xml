@@ -52,6 +52,18 @@
         <servlet-name>DashboardController</servlet-name>
         <servlet-class>DashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddUserController</servlet-name>
+        <servlet-class>controller.dashboard.AddUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserController</servlet-name>
+        <servlet-class>controller.dashboard.EditUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveUserController</servlet-name>
+        <servlet-class>controller.dashboard.RemoveUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -103,6 +115,18 @@
     <servlet-mapping>
         <servlet-name>DashboardController</servlet-name>
         <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/dashboard/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserController</servlet-name>
+        <url-pattern>/dashboard/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUserController</servlet-name>
+        <url-pattern>/dashboard/remove</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
