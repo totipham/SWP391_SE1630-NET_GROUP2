@@ -25,7 +25,7 @@
     <div class="aside-menu flex-column-fluid px-3 px-lg-6">
         <!--begin::Aside Menu-->
         <!--begin::Menu-->
-        <div class="menu menu-column menu-pill menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 menu-active-bg-primary fw-bold fs-5 my-5 mt-lg-2 mb-lg-0"
+        <div class="menu menu-column menu-pill menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 menu-active-bg-primary fw-semibold fs-5 my-5 mt-lg-2 mb-lg-0"
              id="kt_aside_menu" data-kt-menu="true">
             <div class="hover-scroll-y me-n3 pe-3" id="kt_aside_menu_scroll" data-kt-scroll="true"
                  data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto"
