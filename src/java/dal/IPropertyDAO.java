@@ -2,9 +2,7 @@ package dal;
 
 import java.util.List;
 import model.Property;
-import model.PropertyImage;
-import model.PropertyType;
-import model.PropertyUtility;
+
 
 /**
  *
@@ -12,28 +10,28 @@ import model.PropertyUtility;
  */
 public interface IPropertyDAO {
 
-    public List<Property> getAllProperties();
+    public List<Property> getAllProperties() throws Exception;
 
-    public List<Property> getPropertiesByKeyword(String keyword);
+    public List<Property> getPropertiesByKeyword(String keyword) throws Exception;
 
-    public List<Property> getPropertiesByOwner(int uid);
+    public List<Property> getPropertiesByOwner(int uid) throws Exception;
 
-    public List<Property> getPropertiesByType(int tid);
+    public List<Property> getPropertiesByType(int tid) throws Exception;
 
     public List<Property> getPropertiesByFiter(String keyword, int lastestTime,
-            int lowestPrice, double maxPrice, double minPrice, double area);
+            int lowestPrice, double maxPrice, double minPrice, double area) throws Exception;
 
-    public Property getPropertyById(int pid);
+    public Property getPropertyById(int pid) throws Exception;
 
-    public void insertProperty(Property newProperty);
+    public void insertProperty(Property newProperty) throws Exception;
 
-    public int getAvailableByPID(int pid);
+    public int getAvailableByPID(int pid) throws Exception;
 
-    public int getAvailableProperty(int uid);
+    public int getAvailableProperty(int uid) throws Exception;
 
-    public int getNumberOfProperty(int uid);
+    public int getNumberOfProperty(int uid) throws Exception;
 
-    public int getNumberOfRentedProperty(int uid);
+    public int getNumberOfRentedProperty(int uid) throws Exception;
 
-    public List<Property> getPropertyByPage(List<Property> list, int start, int end);
+    public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception;
 }

@@ -1,3 +1,11 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 13, 2022         1.0           NgocCMHE161386     First Implement
+ */
 package dal.impl;
 
 import dal.DBContext;
@@ -10,178 +18,202 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Property;
 
-/**
- *
- * @author totipham
+/**				
+ * The class contains method find update, delete, insert user information from DB			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author NgocCMHE161386				
  */
 public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     @Override
-    public List<Property> getAllProperties() {
+    public List<Property> getAllProperties() throws SQLException {
         List<Property> list = new ArrayList<>();
         String sql = "SELECT * FROM [Property]";
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
 
-            while (rs.next()) {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+
+            while (result.next()) {
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
                 PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
                 UserDAOImpl udb = new UserDAOImpl();
-                Property p = new Property();
-                p.setId(rs.getInt("property_id"));
-                p.setName(rs.getString("name"));
-                p.setHost(udb.getUserById(rs.getInt("host_id")));
-                p.setAddress(rs.getString("address"));
-                p.setArea(rs.getDouble("area"));
-                p.setPrice(rs.getDouble("price"));
-                p.setTotal(rs.getInt("total"));
-                p.setUtilities(pUtilityDao.getUtilitiesByPID(rs.getInt("property_id")));
-                p.setCreatedDate(rs.getDate("created_date"));
-                p.setStatus(pStatusDao.getStatusByID(rs.getInt("pstatus_id")));
-                p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
-                p.setDescription(rs.getString("description"));
-                p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
-                list.add(p);
+                Property property = new Property();
+                property.setId(result.getInt("property_id"));
+                property.setName(result.getString("name"));
+                property.setHost(udb.getUserById(result.getInt("host_id")));
+                property.setAddress(result.getString("address"));
+                property.setArea(result.getDouble("area"));
+                property.setPrice(result.getDouble("price"));
+                property.setTotal(result.getInt("total"));
+                property.setUtilities(pUtilityDao.getUtilitiesByPID(result.getInt("property_id")));
+                property.setCreatedDate(result.getDate("created_date"));
+                property.setStatus(pStatusDao.getStatusByID(result.getInt("pstatus_id")));
+                property.setType(pTypeDao.getTypeByID(result.getInt("type_id")));
+                property.setDescription(result.getString("description"));
+                property.setImages(pImgDao.getImagesByPID(result.getInt("property_id")));
+                list.add(property);
             }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, null);
         }
 
         return list;
     }
 
+    /**
+     *
+     * @param keyword
+     * @return
+     * @throws SQLException
+     */
     @Override
-    public List<Property> getPropertiesByKeyword(String keyword) {
+    public List<Property> getPropertiesByKeyword(String keyword) throws SQLException {
         List<Property> list = new ArrayList<>();
         String sql = "SELECT * FROM [Property] WHERE name LIKE ? OR address LIKE ?";
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
 
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + keyword + "%");
-            st.setString(2, "%" + keyword + "%");
-            ResultSet rs = st.executeQuery();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + keyword + "%");
+            statement.setString(2, "%" + keyword + "%");
+            ResultSet result = statement.executeQuery();
 
-            while (rs.next()) {
+            while (result.next()) {
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
                 PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
                 UserDAOImpl udb = new UserDAOImpl();
-                Property p = new Property();
-                p.setId(rs.getInt("property_id"));
-                p.setName(rs.getString("name"));
-                p.setHost(udb.getUserById(rs.getInt("host_id")));
-                p.setAddress(rs.getString("address"));
-                p.setArea(rs.getDouble("area"));
-                p.setPrice(rs.getDouble("price"));
-                p.setTotal(rs.getInt("total"));
-                p.setUtilities(pUtilityDao.getUtilitiesByPID(rs.getInt("property_id")));
-                p.setCreatedDate(rs.getDate("created_date"));
-                p.setStatus(pStatusDao.getStatusByID(rs.getInt("pstatus_id")));
-                p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
-                p.setDescription(rs.getString("description"));
-                p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
-                list.add(p);
+                Property property = new Property();
+                property.setId(result.getInt("property_id"));
+                property.setName(result.getString("name"));
+                property.setHost(udb.getUserById(result.getInt("host_id")));
+                property.setAddress(result.getString("address"));
+                property.setArea(result.getDouble("area"));
+                property.setPrice(result.getDouble("price"));
+                property.setTotal(result.getInt("total"));
+                property.setUtilities(pUtilityDao.getUtilitiesByPID(result.getInt("property_id")));
+                property.setCreatedDate(result.getDate("created_date"));
+                property.setStatus(pStatusDao.getStatusByID(result.getInt("pstatus_id")));
+                property.setType(pTypeDao.getTypeByID(result.getInt("type_id")));
+                property.setDescription(result.getString("description"));
+                property.setImages(pImgDao.getImagesByPID(result.getInt("property_id")));
+                list.add(property);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, null);
         }
         return list;
     }
 
     @Override
-    public List<Property> getPropertiesByOwner(int uid) {
+    public List<Property> getPropertiesByOwner(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Property> getPropertiesByType(int tid) {
+    public List<Property> getPropertiesByType(int tid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Property> getPropertiesByFiter(String keyword, int lastestTime, int lowestPrice, double maxPrice, double minPrice, double area) {
+    public List<Property> getPropertiesByFiter(String keyword, int lastestTime, int lowestPrice, double maxPrice, double minPrice, double area) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Property getPropertyById(int pid) {
-        Property p = new Property();
+    public Property getPropertyById(int pid) throws Exception {
+        Property property = new Property();
         String sql = "SELECT * FROM [Property] WHERE property_id=?";
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, pid);
-            ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, pid);
+            result = statement.executeQuery();
+
+            if (result.next()) {
                 UserDAOImpl udb = new UserDAOImpl();
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
                 PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
-                p.setId(rs.getInt("property_id"));
-                p.setName(rs.getString("name"));
-                p.setHost(udb.getUserById(rs.getInt("host_id")));
-                p.setAddress(rs.getString("address"));
-                p.setArea(rs.getDouble("area"));
-                p.setPrice(rs.getDouble("price"));
-                p.setTotal(rs.getInt("total"));
-                p.setUtilities(pUtilityDao.getUtilitiesByPID(rs.getInt("property_id")));
-                p.setCreatedDate(rs.getDate("created_date"));
-                p.setStatus(pStatusDao.getStatusByID(rs.getInt("pstatus_id")));
-                p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
-                p.setDescription(rs.getString("description"));
-                p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
-
-                return p;
+                property.setId(result.getInt("property_id"));
+                property.setName(result.getString("name"));
+                property.setHost(udb.getUserById(result.getInt("host_id")));
+                property.setAddress(result.getString("address"));
+                property.setArea(result.getDouble("area"));
+                property.setPrice(result.getDouble("price"));
+                property.setTotal(result.getInt("total"));
+                property.setUtilities(pUtilityDao.getUtilitiesByPID(result.getInt("property_id")));
+                property.setCreatedDate(result.getDate("created_date"));
+                property.setStatus(pStatusDao.getStatusByID(result.getInt("pstatus_id")));
+                property.setType(pTypeDao.getTypeByID(result.getInt("type_id")));
+                property.setDescription(result.getString("description"));
+                property.setImages(pImgDao.getImagesByPID(result.getInt("property_id")));
+                return property;
             }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, null);
         }
-
         return null;
     }
 
     @Override
-    public void insertProperty(Property newProperty) {
+    public void insertProperty(Property newProperty) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getAvailableByPID(int pid) {
+    public int getAvailableByPID(int pid) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getAvailableProperty(int uid) {
+    public int getAvailableProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getNumberOfProperty(int uid) {
+    public int getNumberOfProperty(int uid) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getNumberOfRentedProperty(int uid) {
+    public int getNumberOfRentedProperty(int uid) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Property> getPropertyByPage(List<Property> list, int start, int end) {
+    public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         PropertyDAOImpl pd = new PropertyDAOImpl();
         Property p = pd.getPropertyById(2);
         System.out.println(p);
