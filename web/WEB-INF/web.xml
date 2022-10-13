@@ -64,6 +64,10 @@
         <servlet-name>RemoveUserController</servlet-name>
         <servlet-class>controller.dashboard.RemoveUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeletePropertyController</servlet-name>
+        <servlet-class>controller.property.DeletePropertyController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>RemoveUserController</servlet-name>
         <url-pattern>/dashboard/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePropertyController</servlet-name>
+        <url-pattern>/delproperty</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
