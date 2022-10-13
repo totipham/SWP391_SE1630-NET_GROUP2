@@ -56,7 +56,41 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
     @Override
     public List<Property> getPropertiesByKeyword(String keyword) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Property> list = new ArrayList<>();
+        String sql = "SELECT * FROM [Property] WHERE name LIKE ? OR address LIKE ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + keyword + "%");
+            st.setString(2, "%" + keyword + "%");
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                PropertyImageDAO pImgDao = new PropertyImageDAO();
+                PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
+                PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
+                PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
+                UserDAOImpl udb = new UserDAOImpl();
+                Property p = new Property();
+                p.setId(rs.getInt("property_id"));
+                p.setName(rs.getString("name"));
+                p.setHost(udb.getUserById(rs.getInt("host_id")));
+                p.setAddress(rs.getString("address"));
+                p.setArea(rs.getDouble("area"));
+                p.setPrice(rs.getDouble("price"));
+                p.setTotal(rs.getInt("total"));
+                p.setUtilities(pUtilityDao.getUtilitiesByPID(rs.getInt("property_id")));
+                p.setCreatedDate(rs.getDate("created_date"));
+                p.setStatus(pStatusDao.getStatusByID(rs.getInt("pstatus_id")));
+                p.setType(pTypeDao.getTypeByID(rs.getInt("type_id")));
+                p.setDescription(rs.getString("description"));
+                p.setImages(pImgDao.getImagesByPID(rs.getInt("property_id")));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
     }
 
     @Override
