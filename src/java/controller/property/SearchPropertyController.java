@@ -54,7 +54,7 @@ public class SearchPropertyController extends HttpServlet {
             }
         } catch (Exception ex) {
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("views/user/error.jsp").forward(request, response);
+            request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
     }
 
