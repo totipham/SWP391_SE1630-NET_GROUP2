@@ -47,8 +47,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
     @Override
     public void insertRequest(int userID, int propertyID, Date requestDate) throws Exception {
         String sql = "INSERT INTO Request (user_id ,property_id ,request_date, rstatus_id) VALUES (?, ?, ?, ?)";
-        PreparedStatement st = null;
-
+        Connecttion connection = null;
         try {
             st = connection.prepareStatement(sql);
 
