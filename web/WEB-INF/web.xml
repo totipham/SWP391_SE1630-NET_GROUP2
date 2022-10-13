@@ -41,8 +41,8 @@
         <servlet-class>controller.property.RentingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RequestStatusController</servlet-name>
-        <servlet-class>controller.property.RequestStatusController</servlet-class>
+        <servlet-name>UpdateRequestStatusController</servlet-name>
+        <servlet-class>controller.property.UpdateUpdateRequestStatusController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashboardPropertiesController</servlet-name>
@@ -109,8 +109,8 @@
         <url-pattern>/renting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RequestStatusController</servlet-name>
-        <url-pattern>/rentingrequest</url-pattern>
+        <servlet-name>UpdateRequestStatusController</servlet-name>
+        <url-pattern>/updaterstatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DashboardPropertiesController</servlet-name>
