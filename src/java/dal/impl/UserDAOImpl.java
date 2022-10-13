@@ -109,6 +109,13 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      * @param username
      * @return
      */
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws java.sql.SQLException
+     */
     public User getUserByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM [User] WHERE username=?";
         Connection connection = getConnection();
@@ -176,20 +183,20 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         String sql = "SELECT user_id FROM [User] WHERE username = ?";
         Connection connection = getConnection();
         PreparedStatement statement = null;
-        ResultSet resultset = null;
+        ResultSet result = null;
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
 
-            resultset = statement.executeQuery();
+            result = statement.executeQuery();
 
-            if (resultset.next()) {
+            if (result.next()) {
                 return true;
             }
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, resultset);
+            closeConnection(connection, statement, result);
         }
 
         return false;
@@ -272,6 +279,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 + " WHERE user_id = ?";
         PreparedStatement statement = null;
         Connection connection = getConnection();
+
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getAvatar());
