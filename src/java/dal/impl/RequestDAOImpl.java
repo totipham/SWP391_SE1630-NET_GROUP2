@@ -22,8 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Property;
 import model.Request;
 import model.User;
@@ -151,12 +149,5 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
             closeConnection(connection, statement, result);
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        RequestDAOImpl rd = new RequestDAOImpl();
-        //rd.getRequestByRID(7);
-        //System.out.println(rd);
-
     }
 }
