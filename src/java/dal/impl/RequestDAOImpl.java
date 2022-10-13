@@ -1,12 +1,12 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * RequestDAOImpl
+ *
  * Record of change:
- *      DATE: Oct 6, 2022            
- *      VERSION: 1.0
- *      AUTHOR: LANBTHHE160676          
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 6, 2022         1.0           LanBTHHE160676     First Implement
  */
+
  /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -21,22 +21,36 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Property;
 import model.Request;
 import model.User;
 
-/**
- * Desciption:
- *
- * @author LANBTHHE160676
+/**				
+ * The class contains method find update, delete, insert staff information from				
+ * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author LanBTHHE160676				
  */
 public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
+    /**
+     *
+     * @param userID
+     * @param propertyID
+     * @param requestDate
+     * @throws SQLException
+     */
     @Override
-    public void insertRequest(int userID, int propertyID, Date requestDate) {
+    public void insertRequest(int userID, int propertyID, Date requestDate) throws Exception {
         String sql = "INSERT INTO Request (user_id ,property_id ,request_date, rstatus_id) VALUES (?, ?, ?, ?)";
+        PreparedStatement st = null;
+
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+            st = connection.prepareStatement(sql);
 
             st.setInt(1, userID);
             st.setInt(2, propertyID);
@@ -44,52 +58,78 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
             st.setInt(4, 1);
             st.executeUpdate();
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+           throw e;
+        }finally {
+            closeConnection(st,null);
         }
     }
 
+    /**
+     *
+     * @param requestID
+     * @throws SQLException
+     */
     @Override
-    public void deleteRequestByRID(int requestID) {
+    public void deleteRequestByRID(int requestID) throws Exception {
         String sql = "DELETE FROM Request where (request_id) = (?)";
+        PreparedStatement st = null;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+            st = connection.prepareStatement(sql);
 
             st.setInt(1, requestID);
 
             st.executeUpdate();
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            throw e;
+        }finally {
+            closeConnection(st,null);
         }
     }
 
+    /**
+     *
+     * @param requestID
+     * @param newrstatus
+     * @throws SQLException
+     */
     @Override
-    public void updateStatusByRID(int requestID, int newrstatus) {
+    public void updateStatusByRID(int requestID, int newrstatus) throws Exception {
         String sql = "UPDATE Request set rstatus_id = ? where request_id = ?";
+        PreparedStatement st = null;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+            st = connection.prepareStatement(sql);
 
             st.setInt(1, newrstatus);
             st.setInt(2, requestID);
 
             st.executeUpdate();
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+           throw e;
+        }finally {
+            closeConnection(st,null);
         }
     }
 
-    IUserDAO userDAO = new UserDAOImpl();
-    IPropertyDAO propertyDAO = new PropertyDAOImpl();
+    /**
+     *
+     * @param requestID
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Request getRequestByRID(int requestID) {
+    public Request getRequestByRID(int requestID) throws Exception {
         String sql = "SELECT * FROM Request WHERE request_id=?";
         PreparedStatement statement = null;
+        ResultSet result = null;
+        IUserDAO userDAO = new UserDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
         try {
             statement = connection.prepareStatement(sql);
             statement.setInt(1, requestID);
-            ResultSet result = statement.executeQuery();
+            result = statement.executeQuery();
             while (result.next()) {
                 Request request = new Request();
                 request.setId(result.getInt("request_id"));
@@ -98,18 +138,20 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
                 Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
                 request.setProperty(property);
                 request.setRequestDate(result.getDate("request_date"));
-                
+
                 return request;
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            closeConnection(statement, result);
         }
         return null;
     }
 
     public static void main(String[] args) {
         RequestDAOImpl rd = new RequestDAOImpl();
-        //rd.updateStatusByRId(5, 3);
+        //rd.getRequestByRID(7);
         //System.out.println(rd);
 
     }
