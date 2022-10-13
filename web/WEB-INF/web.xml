@@ -53,20 +53,12 @@
         <servlet-class>DashboardController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddUserController</servlet-name>
-        <servlet-class>controller.dashboard.AddUserController</servlet-class>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>controller.property.FeedbackController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditUserController</servlet-name>
-        <servlet-class>controller.dashboard.EditUserController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RemoveUserController</servlet-name>
-        <servlet-class>controller.dashboard.RemoveUserController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeletePropertyController</servlet-name>
-        <servlet-class>controller.property.DeletePropertyController</servlet-class>
+        <servlet-name>SearchPropertyController</servlet-name>
+        <servlet-class>controller.property.SearchPropertyController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -121,20 +113,12 @@
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddUserController</servlet-name>
-        <url-pattern>/dashboard/add</url-pattern>
+        <servlet-name>FeedbackController</servlet-name>
+        <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditUserController</servlet-name>
-        <url-pattern>/dashboard/edituser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RemoveUserController</servlet-name>
-        <url-pattern>/dashboard/remove</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeletePropertyController</servlet-name>
-        <url-pattern>/delproperty</url-pattern>
+        <servlet-name>SearchPropertyController</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
