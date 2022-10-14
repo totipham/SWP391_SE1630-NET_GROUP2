@@ -1,8 +1,15 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 10, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package controller.user;
 
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,67 +21,31 @@ import model.User;
 import utils.FileUtility;
 import utils.ValidateUtility;
 
-/**
- *
- * @author totipham
+/**				
+ * The class contains method do post			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
  */
 @MultipartConfig
 public class UpdateAvatarController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditAvatarController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditAvatarController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
+        
+        //check if user is not null
         if (u == null) {
             response.sendRedirect("login");
         }
@@ -85,37 +56,34 @@ public class UpdateAvatarController extends HttpServlet {
         FileUtility fileUtils = new FileUtility();
         String folder = request.getServletContext().getRealPath("/assets/images");
 
-        System.out.println(folder);
-
         String filename = null;
         try {
 
             Part part = validate.getFieldAjaxFile(request, "avatar", true);
+            
+            //check if file size is not equal to 0
             if (part.getSize() != 0) {
+                
+                //check if current avatar of user is exist
                 if (u.getAvatar() != null && !u.getAvatar().isEmpty()) {
-                    fileUtils.delete(u.getAvatar(), folder);
+                    fileUtils.delete(u.getAvatar(), folder); //delete user avatar
                 }
-                filename = fileUtils.upLoad(part, folder);
+                
+                filename = fileUtils.upLoad(part, folder); //upload avatar file to path
             }
+            
+            //check if file name of avatar is not null
             if (filename != null) {
-                u.setAvatar(filename);
+                u.setAvatar(filename); 
             }
-            userDB.updateAvatar(u);
+            
+            userDB.updateAvatar(u); //insert avatar file name to DB
+            
+            response.sendRedirect("profile");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            request.setAttribute("message", e);
+            request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
-
-        response.sendRedirect("profile");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
