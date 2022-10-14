@@ -161,7 +161,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-solid" name="name"
+                                                <input type="text" class="form-control form-control-solid bg-white border" name="name"
                                                        placeholder="" value="" />
                                                 <!--end::Input-->
                                             </div>
@@ -178,7 +178,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-solid" name="address"
+                                                <input type="text" class="form-control form-control-solid bg-white border" name="address"
                                                        placeholder="" value="" />
                                                 <!--end::Input-->
                                             </div>
@@ -199,7 +199,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Combo Box-->
-                                                <select class="form-select" aria-label="Select property type" name="type">
+                                                <select class="form-select bg-white border" aria-label="Select property type" name="type">
                                                     <option>Select Type</option>
                                                     <option value="1">Motel</option>
                                                     <option value="2">Dorm</option>
@@ -220,7 +220,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Input-->
-                                                <textarea class="form-control form-control-solid" rows="3"
+                                                <textarea class="form-control form-control-solid bg-white border" rows="3"
                                                           name="description" placeholder=""></textarea>
                                                 <!--end::Input-->
                                             </div>
@@ -237,7 +237,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Input-->
-                                                <input type="number" class="form-control form-control-solid" name="total"
+                                                <input type="number" class="form-control form-control-solid bg-white border" name="total"
                                                        placeholder="" value="" />
                                                 <!--end::Input-->
                                             </div>
@@ -258,7 +258,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Input-->
-                                                <input type="number" class="form-control form-control-solid" name="price"
+                                                <input type="number" class="form-control form-control-solid bg-white border" name="price"
                                                        placeholder="" value="" />
                                                 <!--end::Input-->
                                             </div>
@@ -277,26 +277,26 @@
                                                                         <label class="form-label">Name:</label>
                                                                         <input type="text"
                                                                                name="uname"
-                                                                               class="form-control mb-2 mb-md-0"
+                                                                               class="form-control mb-2 mb-md-0 bg-white border"
                                                                                placeholder="Name" />
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="form-label">Fee:</label>
                                                                         <input type="number"
                                                                                name="ufee"
-                                                                               class="form-control mb-2 mb-md-0"
+                                                                               class="form-control mb-2 mb-md-0 bg-white border"
                                                                                placeholder="Fee" />
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="form-label">Period:</label>
                                                                         <input type="text"
                                                                                name="uperiod"
-                                                                               class="form-control mb-2 mb-md-0"
+                                                                               class="form-control mb-2 mb-md-0 bg-white border"
                                                                                placeholder="Period" />
                                                                     </div>
                                                                     <div class="col-md-2">
                                                                         <a href="javascript:;" data-repeater-delete
-                                                                           class="btn btn-sm btn-light-danger mt-3 mt-md-8">
+                                                                           class="btn btn-light-danger mt-3 mt-md-8">
                                                                             <i class="la la-trash-o"></i>
                                                                         </a>
                                                                     </div>
@@ -431,7 +431,7 @@
             });
 
             var myDropzone = new Dropzone("#upload-image-dropzone", {
-                url: "uploadimage", // Set the url for your upload script location
+                url: "uploadpimage", // Set the url for your upload script location
                 paramName: "thumbnail", // The name that will be used to transfer the file
                 maxFiles: 3,
                 maxFilesize: 10, // MB

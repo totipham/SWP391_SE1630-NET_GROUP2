@@ -86,7 +86,7 @@
                             <!--begin::Row-->
                             <div class="row g-xl-8">
                                 <!--begin::Col-->
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-4">
                                     <!--begin::Property-->
                                     <div class="property-card shadow my-2">
                                         <div class="property-card__thumbnail">
