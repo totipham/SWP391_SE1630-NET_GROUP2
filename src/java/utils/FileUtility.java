@@ -1,7 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Sept 29, 2022   1.0                 DucPTMHE160517   First Implement
  */
 package utils;
 
@@ -19,12 +22,29 @@ import java.util.Random;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 
+/**				
+ * The class contains method find update, delete, upload images			
+ * 				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
+ */
+
 public class FileUtility {
 
+    /**
+     *
+     * @param part
+     * @param folder
+     * @return
+     * @throws IOException
+     */
     public String upLoad(Part part, String folder) throws IOException {
         String file = Paths.get(part.getSubmittedFileName()).getFileName().toString();
         Path path = Paths.get(folder);
 
+        //check if path is not existed
         if (!Files.exists(path)) {
             Files.createDirectory(path);
         }
@@ -33,25 +53,33 @@ public class FileUtility {
         OutputStream outputStream = null;
         try {
             File outputFilePath = new File(Paths.get(path.toString(), file).toString());
+            
+            //Check if this filename has existed
             if (outputFilePath.exists()) {
                 Random random = new Random();
                 file = random.nextInt(1000000000) + "-" + file.replaceAll("\\s+", "-");
-                outputFilePath = new File(Paths.get(path.toString(), file).toString());
+                outputFilePath = new File(Paths.get(path.toString(), file).toString()); //set new name
             }
             inputStream = part.getInputStream();
             outputStream = new FileOutputStream(outputFilePath);
             int read = 0;
             final byte[] bytes = new byte[1024];
+            
+            //keep read bytes from input stream until it equals to -1
             while ((read = inputStream.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             file = "";
+            throw e;
         } finally {
+            
+            //check if output stream is not null
             if (outputStream != null) {
                 outputStream.close();
             }
+            
+            //check if input stream is not null
             if (inputStream != null) {
                 inputStream.close();
             }
@@ -59,16 +87,28 @@ public class FileUtility {
         return file;
     }
 
+    /**
+     *
+     * @param fileName
+     * @param folder
+     * @throws IOException
+     */
     public void delete(String fileName, String folder) throws IOException {
         Path path = Paths.get(folder);
         try {
             File file = new File(Paths.get(path.toString(), fileName).toString());
             file.delete();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 
+    /**
+     *
+     * @param UPLOAD_DIR
+     * @param request
+     * @return
+     */
     public List<String> uploadFiles(String UPLOAD_DIR, HttpServletRequest request) {
         List<String> fileNames = new ArrayList<String>();
         try {
