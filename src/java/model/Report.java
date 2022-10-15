@@ -124,8 +124,6 @@ public class Report {
     public String toString() {
         return "Report{" + "id=" + id + ", sender=" + sender + ", reportedUser=" + reportedUser + ", reportedProperty=" + reportedProperty + ", reportedDate=" + reportedDate + ", header=" + header + ", time=" + time + '}';
     }
-
-   
     
             
     
