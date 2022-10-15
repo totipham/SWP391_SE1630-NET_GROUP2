@@ -9,9 +9,7 @@
 package controller.property;
 
 import dal.IPropertyTypeDAO;
-import dal.IUserDAO;
-import dal.impl.PropertyTypeDAO;
-import dal.impl.UserDAOImpl;
+import dal.impl.PropertyTypeDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -21,9 +19,8 @@ import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
- * The class contains method find update, delete, insert staff information from
- * Staff table in database. In the update or insert method, all data will be
- * normalized (trim space) before update/insert into database The method wil
+ * The class contains method insert new property type to DB
+ *  The method will
  * throw an object of <code>java.lang.Exception</code> class if there is any
  * error occurring when finding, inserting, or updating data
  * <p>
@@ -64,16 +61,16 @@ public class AddCategoryController extends HttpServlet {
         try {
             //check role of current user is admin or not
             if (user.getRole() == 3) {
-                IPropertyTypeDAO propertyTypeDAO = new PropertyTypeDAO();
+                IPropertyTypeDAO propertyTypeDAO = new PropertyTypeDAOImpl();
                 propertyTypeDAO.insertPropertyType(newCategory);
                 request.setAttribute("message", "Add new category successful");
                 request.getRequestDispatcher("*").forward(request, response);
             } else {
-                request.setAttribute("error", "You don't hove permission to access this function");
+                request.setAttribute("message", "You don't have permission to access this function");
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
-            request.setAttribute("error", "You don't have permission to access this function");
+            request.setAttribute("message", "You don't have permission to access this function");
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }

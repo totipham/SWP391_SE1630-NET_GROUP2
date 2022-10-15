@@ -33,7 +33,7 @@ import java.util.Calendar;
  *
  * @author LANBTHHE160676
  */
-@WebServlet(name = "RentingController", urlPatterns = {"/renting"})
+@WebServlet(name = "RentingController", urlPatterns = {"/renting"}) //chyen sang web.xml
 public class RentingController extends HttpServlet {
 
     private ValidateUtility validate = new ValidateUtility();
@@ -67,8 +67,9 @@ public class RentingController extends HttpServlet {
                     request.setAttribute("user", (User) session.getAttribute("user"));
                     request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
 
-                } catch (NumberFormatException ex) {
-                    System.out.println(ex);
+                } catch (Exception ex) {
+                    request.setAttribute("message", ex);
+                    request.getRequestDispatcher("/views/error.jsp").forward(request, response);
                 }
             }
         } else {
