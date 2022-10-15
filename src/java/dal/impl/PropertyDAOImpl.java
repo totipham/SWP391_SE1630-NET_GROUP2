@@ -48,9 +48,9 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
             while (result.next()) {
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
-                PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
+                PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
-                PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
+                PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
                 UserDAOImpl udb = new UserDAOImpl();
                 Property property = new Property();
                 property.setId(result.getInt("property_id"));
@@ -98,9 +98,9 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
             while (result.next()) {
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
-                PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
+                PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
-                PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
+                PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
                 UserDAOImpl udb = new UserDAOImpl();
                 Property property = new Property();
                 property.setId(result.getInt("property_id"));
@@ -157,9 +157,9 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
             if (result.next()) {
                 UserDAOImpl udb = new UserDAOImpl();
                 PropertyImageDAO pImgDao = new PropertyImageDAO();
-                PropertyTypeDAO pTypeDao = new PropertyTypeDAO();
+                PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
-                PropertyUtilityDAO pUtilityDao = new PropertyUtilityDAO();
+                PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
                 property.setId(result.getInt("property_id"));
                 property.setName(result.getString("name"));
                 property.setHost(udb.getUserById(result.getInt("host_id")));
@@ -184,8 +184,30 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
     }
 
     @Override
-    public void insertProperty(Property newProperty) throws Exception{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void insertProperty(Property newProperty) throws SQLException{
+        String sql = "INSERT INTO Property (name, host_id, address, description, price, area, created_date, total, pstatus_id, type_id)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, newProperty.getName());
+            statement.setInt(2, newProperty.getHost().getId());
+            statement.setString(3, newProperty.getAddress());
+            statement.setString(4, newProperty.getDescription());
+            statement.setDouble(5, newProperty.getPrice());
+            statement.setDouble(6, newProperty.getArea());
+            statement.setDate(7, newProperty.getCreatedDate());
+            statement.setInt(8, newProperty.getTotal());
+            statement.setInt(9, 1);
+            statement.setInt(10, newProperty.getType().getId());
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, result);
+        }
     }
 
     @Override

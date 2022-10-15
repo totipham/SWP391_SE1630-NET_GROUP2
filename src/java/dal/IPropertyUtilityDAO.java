@@ -8,6 +8,7 @@
  */
 package dal;
 
+import java.sql.SQLException;
 import java.util.List;
 import model.PropertyUtility;
 
@@ -27,15 +28,15 @@ public interface IPropertyUtilityDAO {
      *
      * @param pid
      * @return
-     * @throws Exception
+     * @throws SQLException
      */
-    public List<PropertyUtility> getUtilitiesByPID(int pid) throws Exception;
+    public List<PropertyUtility> getUtilitiesByPID(int pid) throws SQLException;
 
     /**
      *
      * @param property_id
      * @param propertyUtility
-     * @throws Exception
+     * @throws SQLException
      */
-    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws Exception;
+    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws SQLException;
 }

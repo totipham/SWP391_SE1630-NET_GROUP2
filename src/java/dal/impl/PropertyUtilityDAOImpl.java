@@ -27,10 +27,10 @@ import model.PropertyUtility;
  *				
  * @author DucPTMHE160517				
  */
-class PropertyUtilityDAO extends DBContext implements IPropertyUtilityDAO {
+public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilityDAO {
 
     @Override
-    public List<PropertyUtility> getUtilitiesByPID(int pid) throws Exception{
+    public List<PropertyUtility> getUtilitiesByPID(int pid) throws SQLException{
         List<PropertyUtility> list = new ArrayList<>();
         String sql = "SELECT * FROM [Utility] WHERE property_id=?";
         Connection connection = null;
@@ -62,7 +62,7 @@ class PropertyUtilityDAO extends DBContext implements IPropertyUtilityDAO {
     }
     
     @Override
-    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws Exception {
+    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws SQLException {
         String sql = "INSERT INTO Utility (property_id, name, price, period) "
                 + "VALUES (?, ?, ?, ?)";
         Connection connection = null;

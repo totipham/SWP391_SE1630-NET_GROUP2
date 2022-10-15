@@ -25,6 +25,17 @@ public class Property {
     private Date createdDate;
     private List<PropertyUtility> utilities;
 
+    public Property(String name, User host, String address, String description, double price, double area, int total, Date createdDate) {
+        this.name = name;
+        this.host = host;
+        this.address = address;
+        this.description = description;
+        this.area = area;
+        this.price = price;
+        this.createdDate = createdDate;
+        this.total = total;
+    }
+
     public Property(int id, String name, int total, double area, double price, PropertyType type, PropertyStatus status, ArrayList<PropertyImage> images, String address, String description, User host, Date createdDate, List<PropertyUtility> utilities) {
         this.id = id;
         this.name = name;
