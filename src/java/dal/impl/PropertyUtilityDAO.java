@@ -1,3 +1,11 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Sep 28, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package dal.impl;
 
 import dal.DBContext;
@@ -10,36 +18,69 @@ import java.util.ArrayList;
 import java.util.List;
 import model.PropertyUtility;
 
-/**
- *
- * @author totipham
+/**				
+ * The class contains method find update, delete, insert property utility to/from DB			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if 
+ * there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
  */
 class PropertyUtilityDAO extends DBContext implements IPropertyUtilityDAO {
 
-    List<PropertyUtility> getUtilitiesByPID(int pid) {
+    @Override
+    public List<PropertyUtility> getUtilitiesByPID(int pid) throws Exception{
         List<PropertyUtility> list = new ArrayList<>();
         String sql = "SELECT * FROM [Utility] WHERE property_id=?";
         Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
         try {
             connection = getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, pid);
-            ResultSet rs = st.executeQuery();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, pid);
+            result = statement.executeQuery();
 
-            while (rs.next()) {
+            //keep surf result while next result is can read
+            while (result.next()) {
                 PropertyUtility pu = new PropertyUtility();
-                pu.setId(rs.getInt("utility_id"));
-                pu.setName(rs.getString("name"));
-                pu.setPrice(rs.getDouble("price"));
-                pu.setPid(rs.getInt("property_id"));
-                pu.setPeriod(rs.getString("period"));
+                pu.setId(result.getInt("utility_id"));
+                pu.setName(result.getString("name"));
+                pu.setPrice(result.getDouble("price"));
+                pu.setPid(result.getInt("property_id"));
+                pu.setPeriod(result.getString("period"));
                 list.add(pu);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            closeConnection(connection, statement, result);
         }
-
+            
         return list;
+    }
+    
+    @Override
+    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws Exception {
+        String sql = "INSERT INTO Utility (property_id, name, price, period) "
+                + "VALUES (?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, property_id);
+            statement.setString(2, propertyUtility.getName());
+            statement.setDouble(3, propertyUtility.getPrice());
+            statement.setString(4, propertyUtility.getPeriod());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
     }
 
 }

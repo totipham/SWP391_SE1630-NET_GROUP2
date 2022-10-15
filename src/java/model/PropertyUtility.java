@@ -1,8 +1,21 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Sep 29, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package model;
 
-/**
- *
- * @author totipham
+/**				
+ * The class contains attribute of Property Utility			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if 
+ * there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
  */
 public class PropertyUtility {
 
@@ -14,6 +27,15 @@ public class PropertyUtility {
 
     public PropertyUtility() {
     }
+
+    public PropertyUtility(int pid, String name, double price, String period) {
+        this.pid = pid;
+        this.name = name;
+        this.price = price;
+        this.period = period;
+    }
+    
+    
 
     public PropertyUtility(int id, int pid, String name, double price, String period) {
         this.id = id;
