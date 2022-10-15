@@ -10,6 +10,33 @@
     <!--begin::Head-->
     <head>
         <jsp:include page="../base/headImport.jsp" />
+        <style>
+            input, select, textarea {
+                border-radius: 16px !important;
+            }
+            
+            .upload-group label {
+                background-color: #306844;
+                color: white;
+                padding: 0.5rem;
+                font-family: sans-serif;
+                border-radius: 0.3rem;
+                cursor: pointer;
+                margin-top: 1rem;
+            }
+
+            .upload-group #file-chosen{
+                margin-left: 0.3rem;
+                font-family: sans-serif;
+            }
+
+            .utility-row {
+                background: #fff;
+                padding: 16px;
+                border: 1px solid #eee;
+                border-radius: 16px;
+            }
+        </style>
     </head>
     <!-- end::Header -->
     <!--begin::Body-->
@@ -145,7 +172,7 @@
                                 <!--end::Nav-->
 
                                 <!--begin::Form-->
-                                <form class="form w-lg-500px mx-auto" id="add-property-stepper" action="a" method="get">
+                                <form class="form w-lg-500px mx-auto" id="add-property-stepper" action="addproperty" enctype="multipart/form-data" method="post">
                                     <!--begin::Group-->
                                     <div class="mb-5">
                                         <!--begin::Step 1-->
@@ -162,7 +189,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid bg-white border" name="name"
-                                                       placeholder="" value="" />
+                                                       placeholder="" value=""/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -179,15 +206,11 @@
 
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid bg-white border" name="address"
-                                                       placeholder="" value="" />
+                                                       placeholder="" value=""/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
-                                        </div>
-                                        <!--end::Step 1-->
 
-                                        <!--begin::Step 2-->
-                                        <div class="flex-column" data-kt-stepper-element="content">
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-10">
                                                 <!--begin::Label-->
@@ -199,15 +222,20 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Combo Box-->
-                                                <select class="form-select bg-white border" aria-label="Select property type" name="type">
+                                                <select class="form-select bg-white border" aria-label="Select property type" name="typeid">
                                                     <option>Select Type</option>
-                                                    <option value="1">Motel</option>
-                                                    <option value="2">Dorm</option>
+                                                    <option value="1">Dorm</option>
+                                                    <option value="2">Motel</option>
                                                     <option value="3">Private House</option>
                                                 </select>
                                                 <!--end::Combo Box-->
                                             </div>
                                             <!--end::Input group-->
+                                        </div>
+                                        <!--end::Step 1-->
+
+                                        <!--begin::Step 2-->
+                                        <div class="flex-column" data-kt-stepper-element="content">
 
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-10">
@@ -238,7 +266,24 @@
 
                                                 <!--begin::Input-->
                                                 <input type="number" class="form-control form-control-solid bg-white border" name="total"
-                                                       placeholder="" value="" />
+                                                       placeholder="" value=""/>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label d-flex align-items-center">
+                                                    <span class="required">Property Area</span>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                       title="Enter property area"></i>
+                                                </label>
+                                                <!--end::Label-->
+
+                                                <!--begin::Input-->
+                                                <input type="number" class="form-control form-control-solid bg-white border" name="area"
+                                                       placeholder="" value=""/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -259,7 +304,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="number" class="form-control form-control-solid bg-white border" name="price"
-                                                       placeholder="" value="" />
+                                                       placeholder="" value=""/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -268,27 +313,34 @@
                                             <div class="fv-row mb-10">
                                                 <!--begin::Repeater-->
                                                 <div id="utility-form-repeater">
+                                                    <!--begin::Label-->
+                                                    <label class="form-label d-flex align-items-center">
+                                                        <span class="">Utility Fee</span>
+                                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                           title="Enter property utility fee"></i>
+                                                    </label>
+                                                    <!--end::Label-->
                                                     <!--begin::Form group-->
                                                     <div class="repeater"  data-limit="5">
                                                         <div data-repeater-list="utility-form-repeater">
-                                                            <div id="form-repeater" data-repeater-item>
+                                                            <div id="form-repeater" class="utility-row my-3" data-repeater-item>
                                                                 <div class="form-group row">
                                                                     <div class="col-md-4">
-                                                                        <label class="form-label">Name:</label>
+                                                                        <label class="form-label required">Name:</label>
                                                                         <input type="text"
                                                                                name="uname"
                                                                                class="form-control mb-2 mb-md-0 bg-white border"
                                                                                placeholder="Name" />
                                                                     </div>
                                                                     <div class="col-md-3">
-                                                                        <label class="form-label">Fee:</label>
+                                                                        <label class="form-label required">Fee:</label>
                                                                         <input type="number"
                                                                                name="ufee"
                                                                                class="form-control mb-2 mb-md-0 bg-white border"
                                                                                placeholder="Fee" />
                                                                     </div>
                                                                     <div class="col-md-3">
-                                                                        <label class="form-label">Period:</label>
+                                                                        <label class="form-label required">Period:</label>
                                                                         <input type="text"
                                                                                name="uperiod"
                                                                                class="form-control mb-2 mb-md-0 bg-white border"
@@ -327,25 +379,16 @@
                                         <div class="flex-column" data-kt-stepper-element="content">
                                             <!--begin::Input group-->
                                             <div class="fv-row">
-                                                <!--begin::Dropzone-->
-                                                <div class="dropzone" id="upload-image-dropzone">
-                                                    <!--begin::Message-->
-                                                    <div class="dz-message needsclick">
-                                                        <!--begin::Icon-->
-                                                        <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                                        <!--end::Icon-->
+                                                <div class="upload-group">
+                                                    <!-- actual upload which is hidden -->
+                                                    <input type="file" accept="image/png, image/jpeg" name="images" multiple multiple id="actual-btn" hidden/>
 
-                                                        <!--begin::Info-->
-                                                        <div class="ms-4">
-                                                            <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop files here or
-                                                                click to upload.</h3>
-                                                            <span class="fs-7 fw-semibold text-gray-400">Upload up to 10
-                                                                files</span>
-                                                        </div>
-                                                        <!--end::Info-->
-                                                    </div>
+                                                    <!-- our custom upload button -->
+                                                    <label for="actual-btn">Choose File</label>
+
+                                                    <!-- name of file chosen -->
+                                                    <span id="file-chosen">No file chosen</span>
                                                 </div>
-                                                <!--end::Dropzone-->
                                             </div>
                                             <!--end::Input group-->
                                         </div>
@@ -366,7 +409,8 @@
 
                                         <!--begin::Wrapper-->
                                         <div>
-                                            <button type="submit" class="btn btn-primary" data-kt-stepper-action="submit">
+                                            <p id="error"></p>
+                                            <button id="submit-btn" type="submit" class="btn btn-primary" data-kt-stepper-action="submit">
                                                 <span class="indicator-label">
                                                     Submit
                                                 </span>
@@ -402,12 +446,13 @@
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
         <!--begin::Page Custom Javascript(used by this page)-->
-        <script src="${baseURL}/views/js/custom/widgets.js"></script>
-        <script src="${baseURL}/views/js/custom/dropzonejs.js"></script>
-        <script src="${baseURL}/views/plugins/custom/prismjs/prismjs.bundle.js"></script>
-        <script src="${baseURL}/views/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
-        <script src="${baseURL}/views/plugins/custom/formrepeater/basic.js"></script>
+        <script src="${baseURL}/assets/js/custom/widgets.js"></script>
+        <script src="${baseURL}/assets/js/custom/dropzonejs.js"></script>
+        <script src="${baseURL}/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+        <script src="${baseURL}/assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
+        <script src="${baseURL}/assets/plugins/custom/formrepeater/basic.js"></script>
         <!--end::Page Custom Javascript-->
+
         <script>
             // Stepper lement
             var element = document.querySelector("#add-property-stepper");
@@ -430,18 +475,112 @@
                 stepper.goPrevious(); // go previous step
             });
 
-            var myDropzone = new Dropzone("#upload-image-dropzone", {
-                url: "uploadpimage", // Set the url for your upload script location
-                paramName: "thumbnail", // The name that will be used to transfer the file
-                maxFiles: 3,
-                maxFilesize: 10, // MB
-                addRemoveLinks: true,
-                accept: function (file, done) {
-                    if (file.name == "wow.jpg") {
-                        done("Naha, you don't.");
-                    } else {
-                        done();
+            const actualBtn = document.getElementById('actual-btn');
+
+            const fileChosen = document.getElementById('file-chosen');
+
+            actualBtn.addEventListener('change', function () {
+                var files = $(this)[0].files;
+                fileChosen.textContent = "You have selected " + files.length + " images for this property"
+            })
+
+
+            // Define form element
+            const form = document.getElementById('add-property-stepper');
+
+            // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+            var validator = FormValidation.formValidation(
+                    form,
+                    {
+                        fields: {
+//                            'name': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Name input is required'
+//                                    }
+//                                }
+//                            },
+//                            'address': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Address input is required'
+//                                    }
+//                                }
+//                            },
+//                            'type': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Text input is required'
+//                                    }
+//                                }
+//                            },
+//                            'description': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Text input is required'
+//                                    }
+//                                }
+//                            },
+//                            'total': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Text input is required'
+//                                    }
+//                                }
+//                            },
+//                            'price': {
+//                                validators: {
+//                                    notEmpty: {
+//                                        message: 'Text input is required'
+//                                    }
+//                                }
+//                            },
+                        },
+
+                        plugins: {
+                            trigger: new FormValidation.plugins.Trigger(),
+                            bootstrap: new FormValidation.plugins.Bootstrap5({
+                                rowSelector: '.fv-row',
+                                eleInvalidClass: '',
+                                eleValidClass: ''
+                            })
+                        }
                     }
+            );
+
+            // Submit button handler
+            const submitButton = document.getElementById('submit-btn');
+            submitButton.addEventListener('click', function (e) {
+
+
+                // Validate form before submit
+                if (validator) {
+                    validator.validate().then(function (status) {
+                        console.log('validated!');
+
+                        if (status == 'Valid') {
+                            e.currentTarget.submit(); // Submit form
+
+                            // Show loading indication
+                            submitButton.setAttribute('data-kt-indicator', 'on');
+
+                            // Disable button to avoid multiple click
+                            submitButton.disabled = true;
+
+                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            setTimeout(function () {
+                                // Remove loading indication
+                                submitButton.removeAttribute('data-kt-indicator');
+
+
+                            }, 1000);
+                        } else {
+                            // Prevent default button action
+                            e.preventDefault();
+                            submitButton.style.background = "#ae2012";
+
+                        }
+                    });
                 }
             });
         </script>

@@ -86,6 +86,7 @@ public class ValidateUtility {
     public Part getFieldAjaxFile(HttpServletRequest request, String fieldName, boolean required) throws Exception {
         Part value = null;
         value = request.getPart(fieldName);
+        System.out.println("CUTTTT " + value);
         if (value == null) {
             if (required) {
                 String error = "Field " + fieldName + " is required";

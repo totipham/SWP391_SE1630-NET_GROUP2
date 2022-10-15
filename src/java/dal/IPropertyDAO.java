@@ -10,6 +10,11 @@ import model.Property;
  */
 public interface IPropertyDAO {
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public List<Property> getAllProperties() throws Exception;
 
     public List<Property> getPropertiesByKeyword(String keyword) throws Exception;
@@ -23,7 +28,12 @@ public interface IPropertyDAO {
 
     public Property getPropertyById(int pid) throws Exception;
 
-    public void insertProperty(Property newProperty) throws Exception;
+    /**
+     *
+     * @param newProperty
+     * @throws Exception
+     */
+    public int insertProperty(Property newProperty) throws Exception;
 
     public int getAvailableByPID(int pid) throws Exception;
 
