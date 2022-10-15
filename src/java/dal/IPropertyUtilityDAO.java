@@ -38,5 +38,5 @@ public interface IPropertyUtilityDAO {
      * @param propertyUtility
      * @throws SQLException
      */
-    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws SQLException;
+    public void insertPropertyUtility(PropertyUtility propertyUtility) throws SQLException;
 }

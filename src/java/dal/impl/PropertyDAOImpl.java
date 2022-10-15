@@ -18,20 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Property;
 
-/**				
- * The class contains method find update, delete, insert user information from DB			
- * 				
- * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author NgocCMHE161386				
+/**
+ * The class contains method find update, delete, insert property information from
+ * DB
+ *
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author NgocCMHE161386
  */
 public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
     /**
      *
-     * @return
-     * @throws SQLException
+     * @return @throws SQLException
      */
     @Override
     public List<Property> getAllProperties() throws SQLException {
@@ -47,7 +49,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
             result = statement.executeQuery();
 
             while (result.next()) {
-                PropertyImageDAO pImgDao = new PropertyImageDAO();
+                PropertyImageDAOImpl pImgDao = new PropertyImageDAOImpl();
                 PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
@@ -97,7 +99,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
-                PropertyImageDAO pImgDao = new PropertyImageDAO();
+                PropertyImageDAOImpl pImgDao = new PropertyImageDAOImpl();
                 PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
@@ -156,7 +158,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
             if (result.next()) {
                 UserDAOImpl udb = new UserDAOImpl();
-                PropertyImageDAO pImgDao = new PropertyImageDAO();
+                PropertyImageDAOImpl pImgDao = new PropertyImageDAOImpl();
                 PropertyTypeDAOImpl pTypeDao = new PropertyTypeDAOImpl();
                 PropertyStatusDAO pStatusDao = new PropertyStatusDAO();
                 PropertyUtilityDAOImpl pUtilityDao = new PropertyUtilityDAOImpl();
@@ -184,15 +186,17 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
     }
 
     @Override
-    public void insertProperty(Property newProperty) throws SQLException{
-        String sql = "INSERT INTO Property (name, host_id, address, description, price, area, created_date, total, pstatus_id, type_id)";
+    public int insertProperty(Property newProperty) throws SQLException {
+        String sql = "INSERT INTO Property (name, host_id, address, description, "
+                + "price, area, created_date, total, pstatus_id, type_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet result = null;
-        
+
         try {
             connection = getConnection();
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql, statement.RETURN_GENERATED_KEYS);
             statement.setString(1, newProperty.getName());
             statement.setInt(2, newProperty.getHost().getId());
             statement.setString(3, newProperty.getAddress());
@@ -203,15 +207,24 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
             statement.setInt(8, newProperty.getTotal());
             statement.setInt(9, 1);
             statement.setInt(10, newProperty.getType().getId());
+
+            statement.executeUpdate();
+            result = statement.getGeneratedKeys();
+
+            if (result.next()) {
+                return result.getInt(1);
+            }
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            closeConnection(connection, statement, null);
         }
+
+        return -1;
     }
 
     @Override
-    public int getAvailableByPID(int pid) throws Exception{
+    public int getAvailableByPID(int pid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -221,24 +234,24 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
     }
 
     @Override
-    public int getNumberOfProperty(int uid) throws Exception{
+    public int getNumberOfProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int getNumberOfRentedProperty(int uid) throws Exception{
+    public int getNumberOfRentedProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception{
+    public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public static void main(String[] args) throws Exception {
         PropertyDAOImpl pd = new PropertyDAOImpl();
         Property p = pd.getPropertyById(2);
-        System.out.println(p);
+        System.out.println("ID: " + pd.insertProperty(p));;
 
     }
 }

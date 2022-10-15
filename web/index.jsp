@@ -33,9 +33,10 @@
         <div class="container-fluid">
             <span class="part-title">Rental Spaces</span>
             <div class="row my-3">
-                <div class="col-md-3">
 
-                    <c:forEach items="${requestScope.list}" var="p">
+
+                <c:forEach items="${requestScope.list}" var="p">
+                    <div class="col-md-3">
                         <div class="property-card shadow my-2">
                             <a href="property?id=${p.id}">
                                 <div class="property-card__thumbnail">
@@ -55,11 +56,8 @@
                                 </div>
                             </a>
                         </div>
-                    </c:forEach>
-
-
-                </div>
-
+                    </div>
+                </c:forEach>
             </div>
         </div>
         <div class="footer">

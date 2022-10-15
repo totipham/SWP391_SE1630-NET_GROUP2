@@ -25,10 +25,11 @@ public class Property {
     private Date createdDate;
     private List<PropertyUtility> utilities;
 
-    public Property(String name, User host, String address, String description, double price, double area, int total, Date createdDate) {
+    public Property(String name, User host, String address, PropertyType type, String description, double price, double area, int total, Date createdDate) {
         this.name = name;
         this.host = host;
         this.address = address;
+        this.type = type;
         this.description = description;
         this.area = area;
         this.price = price;

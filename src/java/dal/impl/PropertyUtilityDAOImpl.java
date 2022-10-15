@@ -62,7 +62,7 @@ public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilit
     }
     
     @Override
-    public void insertPropertyUtility(int property_id, PropertyUtility propertyUtility) throws SQLException {
+    public void insertPropertyUtility(PropertyUtility propertyUtility) throws SQLException {
         String sql = "INSERT INTO Utility (property_id, name, price, period) "
                 + "VALUES (?, ?, ?, ?)";
         Connection connection = null;
@@ -71,7 +71,7 @@ public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilit
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, property_id);
+            statement.setInt(1, propertyUtility.getPid());
             statement.setString(2, propertyUtility.getName());
             statement.setDouble(3, propertyUtility.getPrice());
             statement.setString(4, propertyUtility.getPeriod());
