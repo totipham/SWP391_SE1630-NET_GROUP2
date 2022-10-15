@@ -37,7 +37,7 @@ public interface IReportDAO {
      * @param content
      * @throws Exception
      */
-    public void insertReportUser (int sendId, int reportUserId, Date reportDate, String header, String content) throws Exception;
+    public void insertReportUser (int senderId, int reportUserId, Date reportDate, String header, String content) throws Exception;
 
     /**
      *
@@ -48,5 +48,5 @@ public interface IReportDAO {
      * @param content
      * @throws Exception
      */
-    public void insertReportProperty (int sendId, int reportPropertyId, Date reportDate, String header, String content) throws Exception;
+    public void insertReportProperty (int senderId, int reportPropertyId, Date reportDate, String header, String content) throws Exception;
 }

@@ -16,7 +16,6 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IReportDAO;
-import dal.IRequestDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,7 +32,7 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
 
     /**
      *
-     * @param sendId
+     * @param senderId
      * @param reportUserId
      * @param reportDate
      * @param header
@@ -41,14 +40,14 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
      * @throws Exception
      */
     @Override
-    public void insertReportUser(int sendId, int reportUserId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (send_id ,report_user_id ,time, header, content) VALUES (?, ?, ?, ?)";
+    public void insertReportUser(int senderId, int reportUserId, Date reportDate, String header, String content) throws Exception {
+        String sql = "INSERT INTO Report (sender_id ,report_user_id ,time, header, content) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
             statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, sendId);
+            statement.setInt(1, senderId);
             statement.setInt(2, reportUserId);
             statement.setDate(3, reportDate);
             statement.setString(4, header);
@@ -64,7 +63,7 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
 
     /**
      *
-     * @param sendId
+     * @param senderId
      * @param reportPropertyId
      * @param reportDate
      * @param header
@@ -72,14 +71,14 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
      * @throws Exception
      */
     @Override
-    public void insertReportProperty(int sendId, int reportPropertyId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (send_id ,report_property_id ,time, header, content) VALUES (?, ?, ?, ?)";
+    public void insertReportProperty(int senderId, int reportPropertyId, Date reportDate, String header, String content) throws Exception {
+        String sql = "INSERT INTO Report (sender_id ,report_property_id ,time, header, content) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
             statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, sendId);
+            statement.setInt(1, senderId);
             statement.setInt(2, reportPropertyId);
             statement.setDate(3, reportDate);
             statement.setString(4, header);
