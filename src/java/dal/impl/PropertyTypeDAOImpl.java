@@ -16,18 +16,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.PropertyType;
 
-/**				
- * The class contains method find update, delete, insert property type to/from DB			
- * 				
- * The method will throw an object  of <code>java.lang.Exception</code> class if 
- * there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author DucPTMHE160517				
+/**
+ * The class contains method find update, delete, insert property type to/from
+ * DB
+ *
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
  */
 public class PropertyTypeDAOImpl extends DBContext implements IPropertyTypeDAO {
 
-    public PropertyType getTypeByID(int id) throws SQLException{
+    @Override
+    public PropertyType getTypeByID(int id) throws SQLException {
         String sql = "SELECT * FROM [PropertyType] WHERE type_id=?";
         Connection connection = null;
         PreparedStatement statement = null;
@@ -52,5 +55,23 @@ public class PropertyTypeDAOImpl extends DBContext implements IPropertyTypeDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public void insertPropertyType(String newPropertyType) throws SQLException {
+        String sql = "INSERT INTO PropertyType (ptype) VALUES (?)";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        try {
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1, newPropertyType);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
     }
 }

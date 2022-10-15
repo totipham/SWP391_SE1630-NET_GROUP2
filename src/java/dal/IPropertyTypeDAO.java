@@ -4,21 +4,20 @@
  *
  * Record of change:
  * DATE            Version             AUTHOR           DESCRIPTION
- * Sep 28, 2022         1.0           DucPTMHE160517     First Implement
- */
+ * Oct 13, 2022       1.0           LanBTHHE160676     First Implement
+*/
 package dal;
 
 import java.sql.SQLException;
 import model.PropertyType;
 
+
 /**				
- * The class contains method find update, delete, insert property type to/from DB			
- * 				
- * The method will throw an object  of <code>java.lang.Exception</code> class if 
- * there is any error occurring when finding, inserting, or updating data				
+ * The class contains method find update, delete, insert property type						
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
  * <p>Bugs: Haven't found yet				
  *				
- * @author DucPTMHE160517				
+ * @author LanBTHHE160676		
  */
 public interface IPropertyTypeDAO {
 
@@ -29,4 +28,11 @@ public interface IPropertyTypeDAO {
      * @throws SQLException
      */
     public PropertyType getTypeByID(int id) throws SQLException;
+
+    /**
+     *
+     * @param newPropertyType
+     * @throws SQLException
+     */
+    public void insertPropertyType(String newPropertyType) throws SQLException;
 }
