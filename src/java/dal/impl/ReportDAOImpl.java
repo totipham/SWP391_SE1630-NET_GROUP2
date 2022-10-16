@@ -19,6 +19,9 @@ import dal.IReportDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import model.Report;
 
 /**				
  * The class contains method find update, delete, insert staff information from				
@@ -30,66 +33,32 @@ import java.sql.PreparedStatement;
  */
 public class ReportDAOImpl extends DBContext implements IReportDAO{
 
-    /**
-     *
-     * @param senderId
-     * @param reportUserId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
     @Override
-    public void insertReportUser(int senderId, int reportUserId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (sender_id ,report_user_id ,time, header, content) VALUES (?, ?, ?, ?)";
+    public void insertReport(int reportTypeID, int senderId, String target, int targetID,Date reportTime, String header, String content) throws SQLException {
+         String sql = "INSERT INTO Report (rtype_id, sender_id, target, target_id, time, header, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
             statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, senderId);
-            statement.setInt(2, reportUserId);
-            statement.setDate(3, reportDate);
-            statement.setString(4, header);
-            statement.setString(5, content);
+            statement.setInt(1, reportTypeID);
+            statement.setInt(2, senderId);
+            statement.setString(3,target);
+            statement.setInt(4,targetID );
+            statement.setDate(5, reportTime);
+            statement.setString(6, header);
+            statement.setString(7, content);
             statement.executeUpdate();
 
-        } catch (Exception e) {
-           throw e;
-        }finally {
+            
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
             closeConnection(connection, statement, null);
         }
+
+     
     }
 
-    /**
-     *
-     * @param senderId
-     * @param reportPropertyId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
-    @Override
-    public void insertReportProperty(int senderId, int reportPropertyId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (sender_id ,report_property_id ,time, header, content) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = null;
-        Connection connection = getConnection();
-        try {
-            statement = connection.prepareStatement(sql);
-
-            statement.setInt(1, senderId);
-            statement.setInt(2, reportPropertyId);
-            statement.setDate(3, reportDate);
-            statement.setString(4, header);
-            statement.setString(5, content);
-            statement.executeUpdate();
-
-        } catch (Exception e) {
-           throw e;
-        }finally {
-            closeConnection(connection, statement, null);
-        }
-    }
-
+    
 }
