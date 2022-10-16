@@ -158,12 +158,8 @@
         <url-pattern>/sendreport</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendRentingController</servlet-name>
-        <url-pattern>/sendrenting</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateProfileController</servlet-name>
-        <url-pattern>/updateprofile</url-pattern>
+        <servlet-name>AddCategoryController</servlet-name>
+        <url-pattern>/dashboard/addcategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
