@@ -15,10 +15,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Hostalpy</title>
     <%
-            IPropertyDAO pd = new PropertyDAOImpl();
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
             
-            List <Property> list = pd.getAllProperties();
-            request.setAttribute("list", list);
+            List<Property> propertyList = propertyDAO.getAllProperties();
+            request.setAttribute("list", propertyList);
     %>
     <jsp:include page="views/base/headerImport.jsp" />
     <style>

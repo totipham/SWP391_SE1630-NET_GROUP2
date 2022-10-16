@@ -24,7 +24,7 @@ Author     : DucPTMHE160517
                 font-weight: 500;
             }
 
-            .form-container input{
+            .form-container input[type='text'], .form-container input[type='email']{
                 background: #f7f7f7;
                 width: 100%;
                 display: block;
@@ -40,16 +40,16 @@ Author     : DucPTMHE160517
         <jsp:include page="../component/navbar-nosearch.jsp" />
         <c:set var="p" scope="request" value="${property}" />
         <c:set var="u" scope="request" value="${user}" />
-        <div class="container mt-2">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="property-card shadow my-2">
+        <div class="mt-2 px-10">
+            <div class="grid grid-cols-3 gap-10">
+                <div class="col-span-1">
+                    <div class="property-card shadow-xl my-2">
                         <a href="property?id=${p.id}">
                             <div class="property-card__thumbnail">
                                 <img src="${baseURL}/assets/images/${p.getImages().get(0).getFileName()}" alt="Thumbnail">
                             </div>
                             <div class="property-card__information">
-                                <div class="property-card__information__short">
+                                <div class="property-card__information__short text-primary">
                                     <span>${p.getType().getType()}</span>
                                     <span>•</span>
                                     <span>${p.area}m2</span>
@@ -63,28 +63,27 @@ Author     : DucPTMHE160517
                         </a>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-span-2">
                     <div class="form-container shadow">
                         <div class="text-center">
-                            <h3 class="mb-3">Renting Request Form</h3>
+                            <h3 class="text-2xl font-semibold">Renting Request Form</h3>
                         </div>
                         <form action="renting" method="POST">
-                            <input type="text" name="pid" value="${p.id}" hidden />
-                            <input type="text" name="uid" value="${u.id}" hidden />
-                            <span>Fullname:</span>
-                            <input type="text" name="name" value="${u.name}" placeholder="Name *" minlength="3" maxlength="20" required />
-                            <span>Email:</span>
-                            <input type="email" name="email" value="${u.email}" placeholder="Email *" minlength="11" maxlength="200"
-                                   required />
-                            <span>Phone:</span>
-                            <input type="text" name="phone" value="${u.phone}" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}" />
-                            <span>Address:</span>
-                            <input type="text" name="address" value="${u.address}" placeholder="Address *" minlength="10" maxlength="30"
+                            <input type="hidden" name="pid" value="${p.id}" />
+                            <input type="hidden" name="uid" value="${u.id}" hidden />
+                            <span class="text-base">Fullname: <span class="text-red-400">*</span></span>
+                            <input class="px-5" type="text" name="name" value="${u.name}" placeholder="Name *" minlength="3" maxlength="20" required />
+                            <span class="text-base">Email: <span class="text-red-400">*</span></span>
+                            <input class="px-5" type="email" name="email" value="${u.email}" placeholder="Email *" minlength="11" maxlength="200" required />
+                            <span class="text-base">Phone: <span class="text-red-400">*</span></span>
+                            <input class="px-5" type="text" name="phone" value="${u.phone}" placeholder="Phone *" pattern="0[35789]{1}[0-9]{8}" />
+                            <span class="text-base">Address: <span class="text-red-400">*</span></span>
+                            <input class="px-5" type="text" name="address" value="${u.address}" placeholder="Address *" minlength="10" maxlength="30"
                                    required />
                             <p style="color: red">${requestScope.error}</p>
                             <p style="color: green">${requestScope.message}</p>
                             <div class="text-center">
-                                <input type="submit" class="btn btn-primary mt-5 mx-auto" value="Send Renting Request">
+                                <input type="submit" class="bg-primary text-white mx-auto cursor-pointer mt-5" value="Send Renting Request">
                             </div>
                         </form>
                     </div>

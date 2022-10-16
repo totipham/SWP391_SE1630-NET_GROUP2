@@ -11,11 +11,13 @@
         <a href="${baseURL}">
             <img src="${baseURL}/assets/images/logo-minimized.png" alt="" class="logo">
         </a>
-        <input style="width: 300px; color: #575757;" type="text" name="" id="" placeholder="Keywords/City/Region">
-        <button class="bg-[#eaeaea] h-[50px] px-3 rounded">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            Search
-        </button>
+        <form action="search" method="GET">
+            <input style="width: 300px; color: #575757;" type="text" name="keyword" id="" placeholder="Keywords/City/Region">
+            <button class="bg-[#eaeaea] h-[50px] px-3 rounded">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search
+            </button>
+        </form>
     </div>
     <div class="right-header">
         <c:if test="${sessionScope.user != null}">

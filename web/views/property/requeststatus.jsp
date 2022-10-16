@@ -6,10 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div class="request-status shadow">
-    <h4 class="text-center mb-4">Requesting Status</h4>
+<div class="request-status shadow-xl">
+    <h4 class="text-center mb-4 font-semibold">Requesting Status</h4>
     <div class="text-center">
-        <img src="${baseURL}/assets/images/sent.png" alt="Sent" height="80" class="my-3">
+        <div class="w-24 mx-auto">
+            <img src="${baseURL}/assets/images/sent.png" alt="Sent" class="my-3">
+        </div>
         <p>Your renting information has sent to this property owner!</p>
         <c:choose>
             <%--<c:when test="${requestScope.state.name == 'sent'}">--%>

@@ -65,7 +65,7 @@ Author     : DucPTMHE160517
                                 <img src="${baseURL}/assets/images/${reportedProperty.getImages().get(0).getFileName()}" alt="Thumbnail">
                             </div>
                             <div class="property-card__information">
-                                <div class="property-card__information__short">
+                                <div class="property-card__information__short text-primary">
                                     <span>${reportedProperty.type.type}</span>
                                     <span>•</span>
                                     <span>${reportedProperty.area}m2</span>
