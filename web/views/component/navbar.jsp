@@ -12,10 +12,10 @@
             <img src="${baseURL}/assets/images/logo-minimized.png" alt="" class="logo">
         </a>
         <input style="width: 300px; color: #575757;" type="text" name="" id="" placeholder="Keywords/City/Region">
-        <button class="btn btn-light">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Search
-            </button>
+        <button class="bg-[#eaeaea] h-[50px] px-3 rounded">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Search
+        </button>
     </div>
     <div class="right-header">
         <c:if test="${sessionScope.user != null}">
@@ -31,12 +31,14 @@
             <c:if test="${sessionScope.user != null}">
                 <c:set var="u" scope="session" value="${user}" />
                 <div class="user-wrapper">
-                    <span style="font-weight: 500; color: #575757; margin-right: 5px">${u.name}</span>
-                    <a class="navbar--user-menu">
-                        <img src="${baseURL}/assets/images/${u.avatar != null ? u.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle border border-3 border-success" width="60" height="60">
-                    </a>
+                    <div class="flex flex-row items-center gap-3">
+                        <span style="font-weight: 500; color: #575757; margin-right: 5px">${u.name}</span>
+                        <a class="navbar--user-menu">
+                            <img src="${baseURL}/assets/images/${u.avatar != null ? u.avatar : "avatar.png"}" alt="Avatar" class="rounded-full border border-[3px] border-primary" width="60" height="60">
+                        </a>
+                    </div>
                     <ul class="user-wrapper--menu shadow">
-                        <c:if test="${sessionScope.user.getRole() == 1 || requestScope.user.getRole() == 2}">
+                        <c:if test="${sessionScope.user.getRole() == 1 || sessionScope.user.getRole() == 2}">
                             <li><a href="dashboard">Dashboard</a></li>
                             </c:if>
                             <c:if test="${sessionScope.user.getRole() == 3}">

@@ -31,7 +31,7 @@
                         <img src="${baseURL}/assets/images/${u.avatar != null ? u.avatar : "avatar.png"}" alt="Avatar" class="rounded-circle border border-3 border-success" width="60" height="60">
                     </a>
                     <ul class="user-wrapper--menu shadow">
-                        <c:if test="${sessionScope.user.getRole() == 1 || requestScope.user.getRole() == 2}">
+                        <c:if test="${sessionScope.user.getRole() == 1 || sessionScope.user.getRole() == 2}">
                             <li><a href="dashboard">Dashboard</a></li>
                             </c:if>
                             <c:if test="${sessionScope.user.getRole() == 3}">

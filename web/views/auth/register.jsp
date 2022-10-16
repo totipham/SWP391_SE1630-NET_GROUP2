@@ -205,7 +205,7 @@
         <div class="container right-panel-active" id="container">
             <div class="form-container sign-up-container">
                 <form action="register" method="POST">
-                    <h1>Create Account</h1>
+                    <h1 class="text-2xl font-semibold mb-5">Create Account</h1>
                     <input type="text" name="name" placeholder="Name *" minlength="3" maxlength="20" required/>
                     <input type="text" name="username" placeholder="Username *" minlength="3" maxlength="20" required/>
                     <input type="password" name="password" placeholder="Password *" minlength="3" maxlength="20" required/>
@@ -214,15 +214,15 @@
                     <input type="text" name="address" placeholder="Address *" minlength="10" maxlength="30" required/>
                     <p style="color: red">${requestScope.error}</p>
                     <p style="color: green">${requestScope.success}</p>
-                    <button class="my-3">Sign Up</button>
+                    <button class="bg-primary text-white font-semibold my-3 w-[50%] h-[45px] rounded-sm ">Sign Up</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
-                        <h1>Hello, Friend!</h1>
+                        <h1 class="text-3xl font-semibold mb-4">Hello, Friend!</h1>
                         <p>Start to rent new living place from now easily!</p>
-                        <a href="login" style="color: #fff" class="button ghost">Sign In</a>
+                        <a href="login" style="color: #fff" class="button ghost w-[50%] h-[45px] rounded-sm ">Sign In</a>
                     </div>
                 </div>
             </div>

@@ -20,7 +20,7 @@
                     <span>KTX Ông Bà</span>
                     <p>Your property request has been accepted by host.</p>
                 </div>
-                <button class="btn btn-success">View Property</button>
+                <button class="btn btn-primary text-white mt-3">View Property</button>
             </div>
         </div>
         <div class="my-2 text-center">

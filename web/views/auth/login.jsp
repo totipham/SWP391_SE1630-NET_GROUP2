@@ -219,20 +219,20 @@
         <div class="container" id="container">
             <div class="form-container sign-in-container">
                 <form action="login" method="POST">
-                    <h1>Sign in</h1>
+                    <h1 class="text-2xl font-semibold mb-5">Sign in</h1>
                     <input type="text" name="username" placeholder="Username" minlength="3" maxlength="20" required />
                     <input type="password" name="password" placeholder="Password" minlength="3" maxlength="20" required/>
                     <p style="color: red">${requestScope.message}</p>
                     <a href="forgot">Forgot your password?</a>
-                    <button>Sign In</button>
+                    <button class="bg-primary text-white w-[50%] h-[45px] rounded-sm font-semibold">Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-right">
-                        <h1>Welcome Back!</h1>
+                        <h1 class="text-3xl font-semibold mb-4">Welcome Back!</h1>
                         <p>To keep connected with us please login with your personal info</p>
-                        <a href="register" style="color: #fff" class="button ghost">Sign Up</a>
+                        <a href="register" style="color: #fff" class="button ghost w-[50%] h-[45px] rounded-sm ">Sign Up</a>
                     </div>
                 </div>
             </div>

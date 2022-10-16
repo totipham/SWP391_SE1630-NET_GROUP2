@@ -31,13 +31,13 @@
     <jsp:include page="views/component/navbar.jsp" />
     <div id="main">
         <div class="container-fluid">
-            <span class="part-title">Rental Spaces</span>
-            <div class="row my-3">
+            <span class="text-2xl font-semibold">Rental Spaces</span>
+            <div class="grid grid-cols-4 gap-4 my-3">
 
 
                 <c:forEach items="${requestScope.list}" var="p">
-                    <div class="col-md-3">
-                        <div class="property-card shadow my-2">
+                    <div class="col-span-1">
+                        <div class="property-card shadow-lg border-none my-2">
                             <a href="property?id=${p.id}">
                                 <div class="property-card__thumbnail">
                                     <img src="${baseURL}/assets/images/${p.getImages().get(0).getFileName()}" alt="Thumbnail">
@@ -48,7 +48,7 @@
                                         <span>•</span>
                                         <span>${p.area}m2</span>
                                     </div>
-                                    <span class="property-card__information__name">${p.name}</span>
+                                    <span class="text-2xl font-semibold">${p.name}</span>
                                     <span class="property-card__information__address">${p.address}</span>
                                     <div class="property-card__information__bottom">
                                         <span>${p.price}₫/month</span>

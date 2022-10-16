@@ -53,7 +53,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">My Properties</span>
+                                <span class="menu-title active">My Properties</span>
                             </a>
                         </div>
                         <div class="menu-item">
