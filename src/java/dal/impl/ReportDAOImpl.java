@@ -32,57 +32,31 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
 
     /**
      *
-     * @param senderId
-     * @param reportUserId
+     * @param reportTypeId
+     * @param currentUserId
+     * @param target
+     * @param targetId
      * @param reportDate
      * @param header
      * @param content
      * @throws Exception
      */
     @Override
-    public void insertReportUser(int senderId, int reportUserId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (sender_id ,report_user_id ,time, header, content) VALUES (?, ?, ?, ?)";
+    public void insertReport(int reportTypeId, int currentUserId, String target, int targetId, Date reportDate, String header, String content) throws Exception{
+        String sql = "INSERT INTO Request (rtype_id,sender_id ,target,target_id,time, header, content ) "
+                + "VALUES (?, ?, ?, ?,?,?,?)";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
             statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, senderId);
-            statement.setInt(2, reportUserId);
-            statement.setDate(3, reportDate);
-            statement.setString(4, header);
-            statement.setString(5, content);
-            statement.executeUpdate();
-
-        } catch (Exception e) {
-           throw e;
-        }finally {
-            closeConnection(connection, statement, null);
-        }
-    }
-
-    /**
-     *
-     * @param senderId
-     * @param reportPropertyId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
-    @Override
-    public void insertReportProperty(int senderId, int reportPropertyId, Date reportDate, String header, String content) throws Exception {
-        String sql = "INSERT INTO Report (sender_id ,report_property_id ,time, header, content) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = null;
-        Connection connection = getConnection();
-        try {
-            statement = connection.prepareStatement(sql);
-
-            statement.setInt(1, senderId);
-            statement.setInt(2, reportPropertyId);
-            statement.setDate(3, reportDate);
-            statement.setString(4, header);
-            statement.setString(5, content);
+            statement.setInt(1, reportTypeId);
+            statement.setInt(2, currentUserId);
+            statement.setString(3, target);
+            statement.setInt(4, targetId);
+            statement.setDate(5, reportDate);
+            statement.setString(6, header);
+            statement.setString(7, content);
             statement.executeUpdate();
 
         } catch (Exception e) {

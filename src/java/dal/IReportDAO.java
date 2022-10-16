@@ -30,23 +30,14 @@ public interface IReportDAO {
 
     /**
      *
-     * @param sendId
-     * @param reportUserId
+     * @param reportTypeId
+     * @param currentUserId
+     * @param target
+     * @param targetId
      * @param reportDate
      * @param header
      * @param content
      * @throws Exception
      */
-    public void insertReportUser (int senderId, int reportUserId, Date reportDate, String header, String content) throws Exception;
-
-    /**
-     *
-     * @param sendId
-     * @param reportPropertyId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
-    public void insertReportProperty (int senderId, int reportPropertyId, Date reportDate, String header, String content) throws Exception;
+    public void insertReport(int reportTypeId, int currentUserId, String target, int targetId, Date reportDate, String header, String content) throws Exception;
 }
