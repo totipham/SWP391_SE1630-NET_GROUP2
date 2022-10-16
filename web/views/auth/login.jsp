@@ -219,7 +219,7 @@
         <div class="container" id="container">
             <div class="form-container sign-in-container">
                 <form action="login" method="POST">
-                    <h1 class="text-2xl font-semibold mb-5">Sign in</h1>
+                    <h1 class="text-3xl font-semibold mb-5">Sign in</h1>
                     <input type="text" name="username" placeholder="Username" minlength="3" maxlength="20" required />
                     <input type="password" name="password" placeholder="Password" minlength="3" maxlength="20" required/>
                     <p style="color: red">${requestScope.message}</p>
