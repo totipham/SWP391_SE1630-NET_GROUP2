@@ -41,12 +41,19 @@ public class SearchPropertyController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            List<Property> searchingProperty = null;
             IPropertyDAO propertyDAO = new PropertyDAOImpl();
             String keyword = request.getParameter("keyword");
-            List<Property> searchingProperty = propertyDAO.getPropertiesByKeyword(keyword);
+            if (keyword == null || keyword.isEmpty()) {
+                response.sendRedirect(request.getContextPath() + "/properties");
+                return;
+            } else {
+                searchingProperty = propertyDAO.getPropertiesByKeyword(keyword);
+            }
 
             //Check searching property list is empty or not
             if (searchingProperty != null) {
+                request.setAttribute("keyword", keyword);
                 request.setAttribute("listProperty", searchingProperty);
                 request.getRequestDispatcher("views/property/properties.jsp").forward(request, response);
             } else {

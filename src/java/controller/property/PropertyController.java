@@ -1,3 +1,11 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 16, 2022       1.0           DucPTMHE160517     First Implement
+ */
 package controller.property;
 
 import dal.IPropertyDAO;
@@ -11,10 +19,13 @@ import jakarta.servlet.http.HttpSession;
 import model.Property;
 import model.User;
 
-/**
- *
- * @author Asus
- */
+/**				
+ * The class contains method select all property			
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Still have some issues related to search staff by address				
+ *				
+ * @author DucPTMHE160517				
+ */	
 public class PropertyController extends HttpServlet {
 
     /**
