@@ -17,56 +17,59 @@ package model;
 import java.sql.Date;
 
 /**				
+ * The class contains method find update, delete, insert staff information from				
+ * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
  *				
  * @author LanBTHHE160676				
  */
 public class Report {
     private int id;
-    private ReportType reportType;
     private User sender;
-    private String target;
-    private int targetId;
-    private Date date;
+    private User reportedUser;
+    private Property reportedProperty;
+    private Date reportedDate;
     private String header;
-    private String content;
+    private String time;
 
     public Report() {
     }
 
-    public Report(int id, ReportType reportType, User sender, String target, int targetId, Date date, String header, String content) {
+    public Report(int id, User sender, User reportedUser, Property reportedProperty, Date reportedDate, String header, String time) {
         this.id = id;
-        this.reportType = reportType;
         this.sender = sender;
-        this.target = target;
-        this.targetId = targetId;
-        this.date = date;
+        this.reportedUser = reportedUser;
+        this.reportedProperty = reportedProperty;
+        this.reportedDate = reportedDate;
         this.header = header;
-        this.content = content;
+        this.time = time;
     }
 
-    public String getTarget() {
-        return target;
+    public Report(int id, User sender, Property reportedProperty, Date reportedDate, String header, String time) {
+        this.id = id;
+        this.sender = sender;
+        this.reportedProperty = reportedProperty;
+        this.reportedDate = reportedDate;
+        this.header = header;
+        this.time = time;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public Report(int id, User sender, User reportedUser, Date reportedDate, String header, String time) {
+        this.id = id;
+        this.sender = sender;
+        this.reportedUser = reportedUser;
+        this.reportedDate = reportedDate;
+        this.header = header;
+        this.time = time;
     }
 
-   
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public ReportType getReportType() {
-        return reportType;
-    }
-
-    public void setReportType(ReportType reportType) {
-        this.reportType = reportType;
     }
 
     public User getSender() {
@@ -77,20 +80,28 @@ public class Report {
         this.sender = sender;
     }
 
-    public int getTargetId() {
-        return targetId;
+    public User getReportedUser() {
+        return reportedUser;
     }
 
-    public void setTargetId(int targetId) {
-        this.targetId = targetId;
+    public void setReportedUser(User reportedUser) {
+        this.reportedUser = reportedUser;
     }
 
-    public Date getDate() {
-        return date;
+    public Property getReportedProperty() {
+        return reportedProperty;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setReportedProperty(Property reportedProperty) {
+        this.reportedProperty = reportedProperty;
+    }
+
+    public Date getReportedDate() {
+        return reportedDate;
+    }
+
+    public void setReportedDate(Date reportedDate) {
+        this.reportedDate = reportedDate;
     }
 
     public String getHeader() {
@@ -101,18 +112,20 @@ public class Report {
         this.header = header;
     }
 
-    public String getContent() {
-        return content;
+    public String getTime() {
+        return time;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
     public String toString() {
-        return "Report{" + "id=" + id + ", reportType=" + reportType + ", sender=" + sender + ", target=" + target + ", targetId=" + targetId + ", date=" + date + ", header=" + header + ", content=" + content + '}';
+        return "Report{" + "id=" + id + ", sender=" + sender + ", reportedUser=" + reportedUser + ", reportedProperty=" + reportedProperty + ", reportedDate=" + reportedDate + ", header=" + header + ", time=" + time + '}';
     }
+
+   
     
             
     
