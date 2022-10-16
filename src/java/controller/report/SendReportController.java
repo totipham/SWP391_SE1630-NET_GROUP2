@@ -58,14 +58,14 @@ public class SendReportController extends HttpServlet {
                     IPropertyDAO propertyDAO = new PropertyDAOImpl();
                     Property reportedProperty = propertyDAO.getPropertyById(targetId);
                     request.setAttribute("target", reportedProperty);
-                    request.getRequestDispatcher("*").forward(request, response);
+                    request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     break;
                 }
                 case "user": {
                     IUserDAO userDAO = new UserDAOImpl();
                     User reportedUser = userDAO.getUserById(targetId);
                     request.setAttribute("target", reportedUser);
-                    request.getRequestDispatcher("*").forward(request, response);
+                    request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     break;
                 }
             }
