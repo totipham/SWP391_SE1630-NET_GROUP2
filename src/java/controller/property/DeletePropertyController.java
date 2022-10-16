@@ -9,12 +9,16 @@
 
 package controller.property;
 
+import controller.auth.LoginController;
+import dal.IPropertyDAO;
 import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**				
  * The class contains method find update, delete, insert staff information from				
@@ -42,12 +46,13 @@ public class DeletePropertyController extends HttpServlet {
         int id= Integer.parseInt(pid);
          // delete property  
         try {
-            PropertyDAOImpl pDAO = new PropertyDAOImpl();
-            pDAO.DeleteProperty(id);
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            propertyDAO.deletePropertyByID(id);
             //re-load
-            request.getRequestDispatcher("views/dashboard/host/dashboard.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/dashboard/properties");
         } catch (Exception e) {
-            System.out.println(e);
+            request.setAttribute("message", e);
+            request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
        
     } 

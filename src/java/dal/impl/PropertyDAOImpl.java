@@ -10,7 +10,6 @@ package dal.impl;
 
 import dal.DBContext;
 import dal.IPropertyDAO;
-import dal.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +19,8 @@ import java.util.List;
 import model.Property;
 
 /**
- * The class contains method find update, delete, insert property information from
- * DB
+ * The class contains method find update, delete, insert property information
+ * from DB
  *
  * The method will throw an object of <code>java.lang.Exception</code> class if
  * there is any error occurring when finding, inserting, or updating data
@@ -293,8 +292,24 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
         return list;
     }
-    
-        public static void main(String[] args) throws Exception {
+
+    public void deletePropertyByID(int id) throws Exception {
+        String strDelete = "DELETE FROM [dbo].[Property]\n"
+                + "      WHERE property_id=?";
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            statement = connection.prepareCall(strDelete);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
         PropertyDAOImpl pd = new PropertyDAOImpl();
         List<Property> list = pd.getPropertyByHostId(2);
         for (Property p : list) {

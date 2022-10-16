@@ -1,13 +1,25 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 10, 2022         1.0           ThuongTTHE163555     First Implement
+ */
 package dal;
 
 import java.util.List;
 import model.Property;
 
-
-/**
- *
- * @author totipham
+/**				
+ * The class contains method find update, delete, insert property from DB			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author ThuongTTHE163555				
  */
+
 public interface IPropertyDAO {
 
     /**
@@ -31,19 +43,65 @@ public interface IPropertyDAO {
     /**
      *
      * @param newProperty
+     * @return 
      * @throws Exception
      */
     public int insertProperty(Property newProperty) throws Exception;
 
+    /**
+     *
+     * @param pid
+     * @return
+     * @throws Exception
+     */
     public int getAvailableByPID(int pid) throws Exception;
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     public int getAvailableProperty(int uid) throws Exception;
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     public int getNumberOfProperty(int uid) throws Exception;
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     public int getNumberOfRentedProperty(int uid) throws Exception;
 
+    /**
+     *
+     * @param list
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception;
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public List<Property> getPropertyByHostId(int id) throws Exception;
+    
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
+    public void deletePropertyByID(int id) throws Exception;
 }
