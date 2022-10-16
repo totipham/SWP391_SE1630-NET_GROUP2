@@ -8,25 +8,32 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="${baseURL}/assets/css/slider.css">
-<form action="properties" method="GET">
-    <input type="text" class="shadow mb-4 w-100" name="keyword" value="${requestScope.keyword}" placeholder="Enter keyword..." required/>
-    <c:if test="${requestScope.keyword != null}">
-        <iframe class="shadow" width="100%" height="30%" style="border:0" loading="lazy"
-                allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=${requestScope.keyword}">
-        </iframe>
-    </c:if>
-    <div class="d-flex flex-row justify-content-between align-items-center mt-3">
-        <button class="btn btn-light shadow-sm disabled mx-1"><b>Sort</b></button>
-        <select class="btn btn-light shadow-sm form-select mx-1" name="created-date-sort">
+
+<form action="search" method="GET">
+    <div class="flex flex-row gap-3">
+        <input type="text" class="mb-4 w-[100%] px-3 bg-[#eee]" name="keyword" value="${requestScope.keyword}" placeholder="Enter keyword..." required/>
+        <input type="submit" class="bg-primary cursor-pointer text-white px-5 py-3 rounded" value="Search" />
+
+    </div>
+</form>
+<c:if test="${requestScope.keyword != null}">
+    <iframe class="shadow rounded-lg" width="100%" height="30%" style="border:0" loading="lazy"
+            allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=${requestScope.keyword}">
+    </iframe>
+</c:if>
+<form class="bg-white px-5 py-3 border border-5 border-[#ddd] mt-5 rounded-lg" action="filter" method="GET">
+    <div class="flex flex-row justify-between items-center mt-3">
+        <div class="bg-transparent mx-1 inline px-5 py-3 rounded"><b>Sort By</b></div>
+        <select class="btn btn-light bg-[#eee] form-select mx-1 border border-[3px] border-[#ddd] outline-none rounded" name="created-date-sort">
             <option ${requestScope.dateSort == -1 ? "selected" : null}>Created</option>
             <option value="lastest" ${requestScope.dateSort == 0 ? "selected" : null}>Lastest</option>
             <option value="oldest" ${requestScope.dateSort == 1 ? "selected" : null}>Oldest</option>
         </select>
-        <select class="btn btn-light shadow-sm form-select mx-1" name="price-sort">
+        <select class="btn btn-light bg-[#eee] form-select mx-1 border border-[3px] border-[#ddd] outline-none rounded" name="price-sort">
             <option ${requestScope.dateSort == -1 ? "selected" : null}>Price</option>
-            <option value="lowest-first" ${requestScope.priceSort == 1 ? "selected" : null}><b>$</b> Lowest</option>
-            <option value="highest-first" ${requestScope.priceSort == 0 ? "selected" : null}><b>$</b> Highest</option>
+            <option value="lowest-first" ${requestScope.priceSort == 1 ? "selected" : null}><b>$</b> Lowest Price</option>
+            <option value="highest-first" ${requestScope.priceSort == 0 ? "selected" : null}><b>$</b> Highest Price</option>
         </select>
     </div>
     <div class="chart-area">
@@ -40,26 +47,24 @@
             </div>
             <div class="form_control">
                 <div class="form_control_container">
-                    <div class="form_control_container__time">Min Price:</div>
-                    <input name="fromPrice" class="form_control_container__time__input bg-white shadow-sm mx-1" style="width: 200px"
+                    <span class="text-black">Min Price:</span>
+                    <input name="fromPrice" class="text-black px-3 form_control_container__time__input bg-white shadow-sm mx-1 text-center" style="width: 200px; background: #eee"
                            type="text" id="fromInput" value="${requestScope.minPrice == null ? 600000 : requestScope.minPrice}" min="0" max="10000000" />
                 </div>
                 <div class="form_control_container">
-                    <div class="form_control_container__time">Max Price:</div>
-                    <input name="toPrice" class="form_control_container__time__input bg-white shadow-sm mx-1" style="width: 200px"
+                    <span class="text-black">Max Price:</span>
+                    <input name="toPrice" class="text-black px-3 form_control_container__time__input bg-white shadow-sm mx-1 text-center" style="width: 200px; background: #eee"
                            type="text" id="toInput" value="${requestScope.maxPrice == null ? 3000000 : requestScope.maxPrice}" min="0" max="10000000" />
                 </div>
             </div>
         </div>
     </div>
-    <div class="utilities-filter d-flex flex-row justify-content-between mt-2">
-        <div>
-            <img src="${baseURL}/assets/images/area-icon.png" alt="">
-            <input type="text" pattern="\d*" class="shadow mb-4 d-inline" name="area-num" value="${requestScope.area == -1 ? '': requestScope.area}"
-                   maxlength="2" />
-        </div>
+    <div class="flex flex-col mt-3">
+        <span>Area: </span>
+        <input type="text" pattern="\d*" class="text-black px-3 shadow mb-4 w-24 text-center bg-[#eee]" name="area-num" value="${requestScope.area == -1 ? '': requestScope.area}"
+               maxlength="2" />
     </div>
     <input name="advanced-search" value="1" hidden />
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="bg-primary text-white px-5 py-3 rounded ">Filter</button>
 </form>
 <script src="${baseURL}/assets/js/slider.js"></script>

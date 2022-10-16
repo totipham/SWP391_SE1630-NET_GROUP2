@@ -63,19 +63,19 @@
     <body>
         <c:import url="../component/navbar-nosearch.jsp" />
         <div id="main">
-            <div class="container mb-4">
-                <div class="row">
-                    <div class="col-md-4">
+            <div class="container mx-auto mb-4">
+                <div class="grid grid-cols-6 gap-10">
+                    <div class="col-span-2">
                         <%@include file="filter.jsp" %>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-span-4">
                         <c:if test="${requestScope.keyword != null}">
                             <div class="search-keyword mt-3 mb-4">
-                                <span>Search result for</span>
-                                <span>"${requestScope.keyword}"</span>
+                                <span class="text-xl">Search result for</span>
+                                <span class="text-xl text-primary font-semibold">"${requestScope.keyword}"</span>
                             </div>
                         </c:if>
-                        <c:if test="${requestScope.keyword == null}">
+                        <c:if test="${requestScope.keyword == null || requestScope.keyword == ''}">
                             <div class="search-keyword mt-3 mb-4">
                                 <span>All </span>
                                 <span><b>Properties</b></span>
@@ -100,21 +100,18 @@
 
                             </nav>
                             <c:forEach items="${requestScope.listProperty}" var="p">
-                                <a href="property?id=${p.id}" class="d-flex flex-row p-3 my-4 card-property bg-white shadow">
+                                <a href="property?id=${p.id}" class="flex flex-row p-3 my-4 card-property bg-white border border-1 border-[#eee] shadow-xl">
                                     <div style="height: 160px; width: 260px; background: url(${baseURL}/assets/images/${p.getImages().get(0).getFileName()});background-repeat: no-repeat;background-size: 100% 100%; border-radius: 10px;"></div>
-                                    <div class="px-4 d-flex flex-column aligns-items-center">
+                                    <div class="px-4 flex flex-col">
                                         <p style="margin-bottom: 0">${p.name}</p>
                                         <p style="font-weight: 400; font-size: 18px;">${p.address}</p>
                                         <div>
                                             <span>₫${p.price}</span>
                                             <span>/month</span>
                                         </div>
-                                        <div class="d-flex flex-row mt-auto justify-content-between w-100">
-
-                                            <div>
-                                                <img src="${baseURL}/assets/images/area-icon.png" alt="">
-                                                <span>${p.area}m2</span>
-                                            </div>
+                                        <div class="flex flex-row mt-auto gap-2">
+                                            <img src="${baseURL}/assets/images/area-icon.png" alt="">
+                                            <span>${p.area}m2</span>
                                         </div>
                                     </div>
                                 </a>
