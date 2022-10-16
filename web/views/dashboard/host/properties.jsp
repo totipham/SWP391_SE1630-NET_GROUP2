@@ -85,34 +85,37 @@
                         <div class="container-fluid" id="kt_content_container">
                             <!--begin::Row-->
                             <div class="row g-xl-8">
-                                <!--begin::Col-->
-                                <div class="col-xxl-4">
-                                    <!--begin::Property-->
-                                    <div class="property-card shadow my-2">
-                                        <div class="property-card__thumbnail">
-                                            <img src="${baseURL}/assets/images/thumbnail.jpg" alt="Thumbnail">
-                                        </div>
-                                        <div class="property-card__information">
-                                            <div class="property-card__information__short">
-                                                <span>APARTMENT</span>
-                                                <span>•</span>
-                                                <span>150m2</span>
+
+                                <c:forEach items="${requestScope.listProperty}" var="property">
+                                    <!--begin::Col-->
+                                    <div class="col-xxl-4">
+                                        <!--begin::Property-->
+                                        <div class="property-card shadow my-2">
+                                            <div class="property-card__thumbnail">
+                                                <img src="${baseURL}/assets/images/${property.getImages().get(0).getFileName()}" alt="Thumbnail">
                                             </div>
-                                            <span class="property-card__information__name">KTX Ông Bà</span>
-                                            <span class="property-card__information__address mb-2">Thạch Hoà, Thạch Thất, Hà
-                                                Nội</span>
-                                            <span><b class="text-primary">3,000,000đ</b>/month</span>
-                                            <div class="property-card__information__bottom">
-                                                <a href="#" class="btn btn-icon btn-primary"><i
-                                                        class="fa-solid fa-pen"></i></a>
-                                                <a href="#" class="btn btn-icon btn-danger"><i
-                                                        class="fa-solid fa-trash"></i></a>
+                                            <div class="property-card__information">
+                                                <div class="property-card__information__short">
+                                                    <span>${property.type.type}</span>
+                                                    <span>•</span>
+                                                    <span>${property.area}m2</span>
+                                                </div>
+                                                <span class="property-card__information__name">${property.name}</span>
+                                                <span class="property-card__information__address mb-2">${property.address}</span>
+                                                    <span><b class="text-primary">${property.price}đ</b>/month</span>
+                                                    <div class="property-card__information__bottom">
+                                                        <a href="editproperty?pid=${property.id}" class="btn btn-icon btn-primary"><i
+                                                                class="fa-solid fa-pen"></i></a>
+                                                        <a href="deleteproperty?pid=${property.id}" class="btn btn-icon btn-danger"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </div>
                                             </div>
                                         </div>
+                                        <!--end::Property-->
                                     </div>
-                                    <!--end::Property-->
-                                </div>
-                                <!--end::Col-->
+                                    <!--end::Col-->
+                                </c:forEach>
+
                             </div>
                             <!--end::Row-->
                         </div>

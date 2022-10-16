@@ -45,5 +45,5 @@ public interface IPropertyDAO {
 
     public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception;
 
-    public List<Property> getPropertyByHostId(int id);
+    public List<Property> getPropertyByHostId(int id) throws Exception;
 }

@@ -22,19 +22,21 @@ import java.util.List;
 import model.Property;
 import model.User;
 
-/**				
- * The class contains method find update, delete, insert staff information from				
- * 				
- * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author DucPTMHE160517				
+/**
+ * The class contains method find update, delete, insert staff information from
+ *
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
  */
-
 public class DashboardPropertiesController extends HttpServlet {
-   
-    /** 
+
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -42,8 +44,8 @@ public class DashboardPropertiesController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
         User user = (User) session.getAttribute("user");
@@ -53,23 +55,28 @@ public class DashboardPropertiesController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        
-        //check if user role is equal to 1
-        if (user.getRole() == 1) {
-            
-        } else if (user.getRole() == 2) { //check if role of user equal to 2
-            IPropertyDAO propertyDAO = new PropertyDAOImpl();
-            List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId());
-            
-            request.setAttribute("listProperty", listProperty);
-            request.setAttribute("user", user);
-            request.setAttribute("page", "Properties");
-            request.getRequestDispatcher("../views/dashboard/host/properties.jsp").forward(request, response);
-        } else {
-            request.setAttribute("message", "You don't have right to access this page!");
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+
+        try {
+            //check if user role is equal to 1
+            if (user.getRole() == 1) {
+
+            } else if (user.getRole() == 2) { //check if role of user equal to 2
+                IPropertyDAO propertyDAO = new PropertyDAOImpl();
+                List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId());
+
+                request.setAttribute("listProperty", listProperty);
+                request.setAttribute("user", user);
+                request.setAttribute("page", "Properties");
+                request.getRequestDispatcher("../views/dashboard/host/properties.jsp").forward(request, response);
+            } else {
+                request.setAttribute("message", "You don't have right to access this page!");
+                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            request.setAttribute("message", ex);
+            request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
-        
+
     }
 
 }
