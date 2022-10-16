@@ -44,4 +44,6 @@ public interface IPropertyDAO {
     public int getNumberOfRentedProperty(int uid) throws Exception;
 
     public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception;
+
+    public List<Property> getPropertyByHostId(int id);
 }

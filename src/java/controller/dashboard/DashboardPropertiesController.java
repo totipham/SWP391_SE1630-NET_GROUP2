@@ -1,16 +1,16 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * DashboardPropertiesController
+ *
  * Record of change:
- *      DATE: Oct 10, 2022            
- *      VERSION: 1.0
- *      AUTHOR: DucPTMHE160517          
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
  */
-
 package controller.dashboard;
 
+import dal.IPropertyDAO;
 import dal.IUserDAO;
+import dal.impl.PropertyDAOImpl;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -18,12 +18,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Property;
 import model.User;
 
-/**
- * [FILE DESCRIPTION HERE]
- *
- * @author DucPTMHE160517
+/**				
+ * The class contains method find update, delete, insert staff information from				
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet				
+ *				
+ * @author DucPTMHE160517				
  */
 
 public class DashboardPropertiesController extends HttpServlet {
@@ -41,40 +46,29 @@ public class DashboardPropertiesController extends HttpServlet {
         
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
-        User u = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
 
         //if user is not login
-        if (u == null) {
+        if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         
-        
-        
         //check if user role is equal to 1
-        if (u.getRole() == 1) {
+        if (user.getRole() == 1) {
             
-        } else if (u.getRole() == 2) { //check if role of user equal to 2
-            request.setAttribute("user", u);
+        } else if (user.getRole() == 2) { //check if role of user equal to 2
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId());
+            
+            request.setAttribute("listProperty", listProperty);
+            request.setAttribute("user", user);
             request.setAttribute("page", "Properties");
             request.getRequestDispatcher("../views/dashboard/host/properties.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "You don't have right to access this page!");
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
-        
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
         
     }
 

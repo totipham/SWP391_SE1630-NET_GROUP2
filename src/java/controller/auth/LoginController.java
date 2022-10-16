@@ -24,7 +24,7 @@ import utils.ValidateUtility;
 /**				
  * The class contains method find update, delete, insert staff information from				
  * 				
- * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
  * <p>Bugs: Haven't found yet				
  *				
  * @author DucPTMHE160517				

@@ -1,9 +1,16 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package controller.property;
 
 import dal.IPropertyDAO;
 import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,8 +19,14 @@ import java.util.List;
 import model.Property;
 
 /**
+ * The class contains method find update, delete, insert staff information from
  *
- * @author Asus
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
  */
 public class PropertiesController extends HttpServlet {
 
@@ -39,5 +52,4 @@ public class PropertiesController extends HttpServlet {
             request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
     }
-
 }
