@@ -49,7 +49,6 @@ public class SendReportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
         try {
@@ -57,14 +56,14 @@ public class SendReportController extends HttpServlet {
                 case "property": {
                     IPropertyDAO propertyDAO = new PropertyDAOImpl();
                     Property reportedProperty = propertyDAO.getPropertyById(targetId);
-                    request.setAttribute("target", reportedProperty);
+                    request.setAttribute("reportedProperty", reportedProperty);
                     request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     break;
                 }
                 case "user": {
                     IUserDAO userDAO = new UserDAOImpl();
                     User reportedUser = userDAO.getUserById(targetId);
-                    request.setAttribute("target", reportedUser);
+                    request.setAttribute("reportedUser", reportedUser);
                     request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     break;
                 }
