@@ -10,9 +10,11 @@ package controller.report;
 
 import dal.IPropertyDAO;
 import dal.IReportDAO;
+import dal.IReportTypeDAO;
 import dal.IUserDAO;
 import dal.impl.PropertyDAOImpl;
 import dal.impl.ReportDAOImpl;
+import dal.impl.ReportTypeDAOImpl;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -22,7 +24,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 import model.Property;
+import model.ReportType;
 import model.User;
 
 /**
@@ -49,22 +53,35 @@ public class SendReportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
         String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
         try {
             switch (target) {
                 case "property": {
                     IPropertyDAO propertyDAO = new PropertyDAOImpl();
+                    IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
                     Property reportedProperty = propertyDAO.getPropertyById(targetId);
+                    List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
                     request.setAttribute("reportedProperty", reportedProperty);
+                    request.setAttribute("reportTypeList", reportTypeList);
                     request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     break;
                 }
                 case "user": {
-                    IUserDAO userDAO = new UserDAOImpl();
-                    User reportedUser = userDAO.getUserById(targetId);
-                    request.setAttribute("reportedUser", reportedUser);
-                    request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
+                    if (currentUser.getId() != targetId) {
+                        IUserDAO userDAO = new UserDAOImpl();
+                        IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
+                        User reportedUser = userDAO.getUserById(targetId);
+                        List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
+                        request.setAttribute("reportTypeList", reportTypeList);
+                        request.setAttribute("reportedUser", reportedUser);
+                        request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("message", "You can't report yourself");
+                        request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+                    }
                     break;
                 }
             }
@@ -88,6 +105,7 @@ public class SendReportController extends HttpServlet {
         //processRequest(request, response);
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
+        int reportTypeId = Integer.parseInt(request.getParameter("type"));
         String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
         String header = request.getParameter("header");
@@ -96,16 +114,7 @@ public class SendReportController extends HttpServlet {
         try {
             IReportDAO reportDAO = new ReportDAOImpl();
             int currentUserId = currentUser.getId();
-            switch (target) {
-                case "property": {
-                    reportDAO.insertReportProperty(currentUserId, targetId, reportDate, header, content);
-                    break;
-                }
-                case "user": {
-                    reportDAO.insertReportUser(currentUserId, targetId, reportDate, header, content);
-                    break;
-                }
-            }
+            reportDAO.insertReport(reportTypeId, currentUserId, target, targetId, reportDate, header, content);
         } catch (Exception ex) {
             request.setAttribute("error", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
