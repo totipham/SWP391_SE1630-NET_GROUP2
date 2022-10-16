@@ -16,6 +16,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 
 /**
@@ -41,11 +43,19 @@ public class RequestStatusController extends HttpServlet {
         int requestStatusID = Integer.parseInt(request.getParameter("rstatusID"));
         //user choose delete renting request
         if (action.equalsIgnoreCase("delete")) {
-            deleteRequest(requestID);
+            try {
+                deleteRequest(requestID);
+            } catch (Exception ex) {
+                Logger.getLogger(RequestStatusController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         //user choose update renting request status
         if (action.equalsIgnoreCase("update")) {
-            updateRequest(requestID,requestStatusID);
+            try {
+                updateRequest(requestID,requestStatusID);
+            } catch (Exception ex) {
+                Logger.getLogger(RequestStatusController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         request.setAttribute("message", action +" successful");
         request.getRequestDispatcher("*").forward(request, response);
@@ -65,11 +75,11 @@ public class RequestStatusController extends HttpServlet {
     }
     IRequestDAO requestDAO = new RequestDAOImpl();
 
-    private void deleteRequest(int rid) {
+    private void deleteRequest(int rid) throws Exception {
         requestDAO.deleteRequestByRID(rid);
     }
 
-    private void updateRequest(int rid, int newStatus) {
+    private void updateRequest(int rid, int newStatus) throws Exception {
         
         requestDAO.updateStatusByRID(rid, newStatus);
     }
