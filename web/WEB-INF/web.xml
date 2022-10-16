@@ -38,7 +38,7 @@
     </servlet>
     <servlet>
         <servlet-name>RentingController</servlet-name>
-        <servlet-class>controller.property.RentingController</servlet-class>
+        <servlet-class>controller.property.SendRentingController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateRequestStatusController</servlet-name>
@@ -76,6 +76,14 @@
     <servlet>
         <servlet-name>SendReportController</servlet-name>
         <servlet-class>controller.report.SendReportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendRentingController</servlet-name>
+        <servlet-class>controller.property.SendRentingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <servlet-class>controller.user.UpdateProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -149,6 +157,14 @@
         <servlet-name>SendReportController</servlet-name>
         <url-pattern>/sendreport</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendRentingController</servlet-name>
+        <url-pattern>/sendrenting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/updateprofile</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -163,4 +179,10 @@
             <default-content-type>text/html</default-content-type>
         </jsp-property-group>
     </jsp-config>
+    <multipart-config>
+        <location>/tmp</location>
+        <max-file-size>20848820</max-file-size>
+        <max-request-size>418018841</max-request-size>
+        <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
 </web-app>

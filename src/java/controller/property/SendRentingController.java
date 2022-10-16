@@ -33,8 +33,7 @@ import java.util.Calendar;
  *
  * @author LANBTHHE160676
  */
-@WebServlet(name = "RentingController", urlPatterns = {"/renting"}) //chyen sang web.xml
-public class RentingController extends HttpServlet {
+public class SendRentingController extends HttpServlet {
 
     private ValidateUtility validate = new ValidateUtility();
 
@@ -50,7 +49,7 @@ public class RentingController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        PropertyDAOImpl propDAO = new PropertyDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
         boolean loggedIn = session != null && session.getAttribute("user") != null;
 
         //check if user is logged in or not
@@ -63,7 +62,7 @@ public class RentingController extends HttpServlet {
                 try {
                     String pid_raw = request.getParameter("pid");
                     int pid = Integer.parseInt(pid_raw);
-                    request.setAttribute("property", propDAO.getPropertyById(pid));
+                    request.setAttribute("property", propertyDAO.getPropertyById(pid));
                     request.setAttribute("user", (User) session.getAttribute("user"));
                     request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
 
@@ -97,8 +96,8 @@ public class RentingController extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("uid"));
             int pid = Integer.parseInt(request.getParameter("pid"));
             Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-            IRequestDAO reqDAO = new RequestDAOImpl();
-            reqDAO.insertRequest(uid, pid, currentDate);
+            IRequestDAO requestDAO = new RequestDAOImpl();
+            requestDAO.insertRequest(uid, pid, currentDate);
 
             IUserDAO userDAO = new UserDAOImpl();
             userDAO.updateUser(uid, fullname, phone, email, address);

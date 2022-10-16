@@ -1,8 +1,8 @@
 package controller.property;
 
+import dal.IPropertyDAO;
 import dal.impl.PropertyDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,33 +18,6 @@ import model.User;
 public class PropertyController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PropertyController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PropertyController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -55,73 +28,45 @@ public class PropertyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = 0;
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
         String id_raw = request.getParameter("id");
+
+        //Check if id raw is null or id raw equals to empty string
         if (id_raw == null || id_raw.equals("")) {
             response.sendRedirect("properties");
             return;
         }
 
-        PropertyDAOImpl pd = new PropertyDAOImpl();
-        int id = 0;
-
         try {
             id = Integer.parseInt(id_raw);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
-        }
 
-        Property p = pd.getPropertyById(id);
-//        RequestDAO rd = new ReservationDAO();
-        if (p != null) {
+            Property property = propertyDAO.getPropertyById(id);
+            
+            //Check if property is not null
+            if (property != null) {
 
-            HttpSession session = request.getSession();
-            User u = (User) session.getAttribute("user");
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("user");
 
-            if (u != null) {
-                if (p.getHost().getId() == u.getId()) {
-                    request.setAttribute("is_owner", true);
-                } else {
-//                    ReservationState rstate = rd.checkReservationState(id, u.getId());
-//
-//                    if (rstate != null) {
-//                        request.setAttribute("state", rstate);
-//                    }
+                //Check if user is not null
+                if (user != null) {
+                    
+                    //Check if property's host is equal to this loggin user
+                    if (property.getHost().getId() == user.getId()) {
+                        request.setAttribute("is_owner", true);
+                    }
                 }
+
+                request.setAttribute("property", property);
+                request.getRequestDispatcher("views/property/property.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("properties");
             }
-//            if (pd.getAvailableByPID(id) <= 0) {
-//                request.setAttribute("is_available", "true");
-//            }
-
-            request.setAttribute("property", p);
-            request.getRequestDispatcher("views/property/property.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("properties");
+        } catch (Exception ex) {
+            request.setAttribute("message", ex);
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
         }
-
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

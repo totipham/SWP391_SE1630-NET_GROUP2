@@ -1,12 +1,12 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * ProfileController
+ *
  * Record of change:
- *      DATE: Oct 6, 2022            
- *      VERSION: 1.0
- *      AUTHOR: AnhVHHE160580          
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 16, 2022       1.0           DucPTMHE160517     First Implement
  */
+
 package controller.user;
 
 import dal.IUserDAO;
@@ -20,16 +20,17 @@ import jakarta.servlet.http.HttpSession;
 import model.User;
 import utils.ValidateUtility;
 
-/**
- * This is a Servlet responsible for handling show profile function /profile is
- * the URL of the web site Extend HttpServlet class
- *
- * @author AnhVHHE160580
- */
-public class ProfileController extends HttpServlet {
+/**				
+ * The class contains method find update, delete, insert staff information from				
+ * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
+ * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Still have some issues related to search staff by address				
+ *				
+ * @author DucPTMHE160517				
+ */				
 
-    private ValidateUtility validate = new ValidateUtility();
-
+public class UpdateProfileController extends HttpServlet {
+   private ValidateUtility validate = new ValidateUtility();
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -75,7 +76,7 @@ public class ProfileController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
@@ -103,6 +104,6 @@ public class ProfileController extends HttpServlet {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
         }
-
     }
+
 }
