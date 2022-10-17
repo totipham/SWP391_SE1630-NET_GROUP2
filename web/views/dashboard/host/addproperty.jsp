@@ -591,6 +591,18 @@
                                     }
                                 }
                             },
+                            'images': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Utility period is required'
+                                    },
+                                    file: {
+                                        minFiles: 3,
+                                        maxFiles: 5,
+                                        message: 'Number of property images must between 1 and 5',
+                                    }
+                                }
+                            },
                         },
 
                         plugins: {
