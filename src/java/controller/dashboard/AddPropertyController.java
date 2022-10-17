@@ -78,7 +78,7 @@ public class AddPropertyController extends HttpServlet {
         } else if (u.getRole() == 2) { //check if role of user equal to 2
             request.setAttribute("user", u);
             request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/host/addproperty.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "You don't have right to access this page!");
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
@@ -150,7 +150,7 @@ public class AddPropertyController extends HttpServlet {
         } catch (Exception ex) {
             request.setAttribute("error", ex.getMessage());
             request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/host/addproperty.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
         }
 
         String filename = null;
@@ -179,7 +179,7 @@ public class AddPropertyController extends HttpServlet {
             
             request.setAttribute("message", "Add successfully!");
             request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/host/addproperty.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("message", e);

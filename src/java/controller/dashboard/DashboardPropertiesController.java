@@ -67,7 +67,7 @@ public class DashboardPropertiesController extends HttpServlet {
                 request.setAttribute("listProperty", listProperty);
                 request.setAttribute("user", user);
                 request.setAttribute("page", "Properties");
-                request.getRequestDispatcher("../views/dashboard/host/properties.jsp").forward(request, response);
+                request.getRequestDispatcher("../views/dashboard/property/properties.jsp").forward(request, response);
             } else {
                 request.setAttribute("message", "You don't have right to access this page!");
                 request.getRequestDispatcher("../views/error.jsp").forward(request, response);
