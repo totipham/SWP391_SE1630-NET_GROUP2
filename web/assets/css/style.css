@@ -1,5 +1,7 @@
 :root {
     --main-bg-color: #306844;
+    --rating-color-default: #bbbbbb;
+    --rating-color-active: #FFAD0F;
 }
 
 
