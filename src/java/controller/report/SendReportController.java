@@ -58,7 +58,7 @@ public class SendReportController extends HttpServlet {
         
         //check if current user is null
         if (currentUser == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
             return;
         }
         
@@ -112,7 +112,7 @@ public class SendReportController extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         int reportTypeId = Integer.parseInt(request.getParameter("type"));
-        String target = request.getParameter("target");
+        //String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
         String header = request.getParameter("header");
         String content = request.getParameter("content");
@@ -120,7 +120,7 @@ public class SendReportController extends HttpServlet {
         try {
             IReportDAO reportDAO = new ReportDAOImpl();
             int currentUserId = currentUser.getId();
-            reportDAO.insertReport(reportTypeId, currentUserId, target, targetId, reportDate, header, content);
+            reportDAO.insertReport(reportTypeId, currentUserId,  targetId, reportDate, header, content);
         } catch (Exception ex) {
             request.setAttribute("error", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
