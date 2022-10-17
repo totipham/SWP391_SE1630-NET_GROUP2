@@ -135,13 +135,13 @@ public class AddPropertyController extends HttpServlet {
         String[] uPeriod = null;
         
         try {
-            propertyName = validate.getField(request, "name", true, 5, 30);;
-            propertyAddress = request.getParameter("address");
-            propertyTypeId = Integer.parseInt(request.getParameter("typeid"));
-            propertyDescription = request.getParameter("description");
-            propertyPrice = Double.parseDouble(request.getParameter("price"));
-            propertyArea = Double.parseDouble(request.getParameter("area"));
-            propertyTotal = Integer.parseInt(request.getParameter("total"));
+            propertyName = validate.getField(request, "name", true, 5, 30);
+            propertyAddress = validate.getField(request, "address", true, 5, 50);
+            propertyTypeId = validate.fieldInt(request, "typeid", 1, 100);
+            propertyDescription = validate.getField(request, "description", true, 10, 255);
+            propertyPrice = validate.fieldDouble(request, "price", 100000, 10000000);
+            propertyArea = validate.fieldDouble(request, "area", 1, 100);
+            propertyTotal = validate.fieldInt(request, "total", 1, 100);
             createdDate = Date.valueOf(LocalDate.now());
 
             uName = request.getParameterValues("uname");
@@ -165,7 +165,7 @@ public class AddPropertyController extends HttpServlet {
 
             //loop until last file name in list of file
             for (int i = 0; i < uName.length; i++) {
-                PropertyUtility pUtility = new PropertyUtility(propertyID, uName[i], Double.parseDouble(uPrice[i]), uPeriod[i]);
+                PropertyUtility pUtility = new PropertyUtility(propertyID, uName[i], Double.parseDouble(uPrice[i]), uPeriod[i].toLowerCase());
                 propertyUtilityDAO.insertPropertyUtility(pUtility); //insert utility to DB
             }
 

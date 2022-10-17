@@ -112,22 +112,38 @@ public class ValidateUtility {
         return value;
     }
 
-    public int fieldInt(String value, String message) throws Exception {
+    public int fieldInt(HttpServletRequest request, String fieldName, int min, int max) throws Exception {
+        String value = null;
+
+        value = request.getParameter(fieldName).trim();
         int number = 0;
         try {
             number = Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            throw new Exception(message);
+            
+            if (number > max || number < min) {
+                throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
+                        + " must greater than " + min + " and less than " + max);
+            }
+        } catch (Exception e) {
+            throw e;
         }
         return number;
     }
 
-    public double fieldDouble(String value, String message) throws Exception {
+    public double fieldDouble(HttpServletRequest request, String fieldName, double min, double max) throws Exception {
+        String value = null;
+
+        value = request.getParameter(fieldName).trim();
         double number = 0;
         try {
             number = Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            throw new Exception(message);
+            
+            if (number > max || number < min) {
+                throw new Exception(fieldName.substring(0, 1).toUpperCase().concat(fieldName.substring(1, fieldName.length()).toLowerCase())
+                        + " must greater than " + min + " and less than " + max);
+            }
+        } catch (Exception e) {
+            throw e;
         }
         return number;
     }
