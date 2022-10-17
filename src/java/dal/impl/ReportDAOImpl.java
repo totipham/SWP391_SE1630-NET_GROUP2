@@ -42,9 +42,9 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
      * @throws Exception
      */
     @Override
-    public void insertReport(int reportTypeId, int currentUserId, String target, int targetId, Date reportDate, String header, String content) throws Exception{
+    public void insertReport(int reportTypeId, int currentUserId,  int targetId, Date reportDate, String header, String content) throws Exception{
         String sql = "INSERT INTO Request (rtype_id,sender_id ,target,target_id,time, header, content ) "
-                + "VALUES (?, ?, ?, ?,?,?,?)";
+                + "VALUES (?, ?, ?, ?,?,?)";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         try {
@@ -52,11 +52,11 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
 
             statement.setInt(1, reportTypeId);
             statement.setInt(2, currentUserId);
-            statement.setString(3, target);
-            statement.setInt(4, targetId);
-            statement.setDate(5, reportDate);
-            statement.setString(6, header);
-            statement.setString(7, content);
+            //statement.setString(3, target);
+            statement.setInt(3, targetId);
+            statement.setDate(4, reportDate);
+            statement.setString(4, header);
+            statement.setString(6, content);
             statement.executeUpdate();
 
         } catch (Exception e) {

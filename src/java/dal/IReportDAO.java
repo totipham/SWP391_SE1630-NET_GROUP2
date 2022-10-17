@@ -39,5 +39,5 @@ public interface IReportDAO {
      * @param content
      * @throws Exception
      */
-    public void insertReport(int reportTypeId, int currentUserId, String target, int targetId, Date reportDate, String header, String content) throws Exception;
+    public void insertReport(int reportTypeId, int currentUserId,  int targetId, Date reportDate, String header, String content) throws Exception;
 }
