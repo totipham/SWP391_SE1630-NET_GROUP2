@@ -53,31 +53,34 @@ public class SendReportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
+        
+        //check if current user is null
+        if (currentUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+        
         String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
+
         try {
+            IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
+            List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
             switch (target) {
                 case "property": {
                     IPropertyDAO propertyDAO = new PropertyDAOImpl();
-                    IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
                     Property reportedProperty = propertyDAO.getPropertyById(targetId);
-                    List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
                     request.setAttribute("reportedProperty", reportedProperty);
-                    request.setAttribute("reportTypeList", reportTypeList);
-                    request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
+
                     break;
                 }
                 case "user": {
                     if (currentUser.getId() != targetId) {
                         IUserDAO userDAO = new UserDAOImpl();
-                        IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
                         User reportedUser = userDAO.getUserById(targetId);
-                        List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
-                        request.setAttribute("reportTypeList", reportTypeList);
                         request.setAttribute("reportedUser", reportedUser);
-                        request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
                     } else {
                         request.setAttribute("message", "You can't report yourself");
                         request.getRequestDispatcher("/views/error.jsp").forward(request, response);
@@ -85,8 +88,11 @@ public class SendReportController extends HttpServlet {
                     break;
                 }
             }
+            request.setAttribute("targetid", targetId);
+            request.setAttribute("reportTypeList", reportTypeList);
+            request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.setAttribute("error", ex);
+            request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }
