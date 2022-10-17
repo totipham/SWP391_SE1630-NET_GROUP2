@@ -1,5 +1,6 @@
 package dal;
 
+import java.util.List;
 import model.User;
 
 /**
@@ -72,4 +73,11 @@ public interface IUserDAO {
      * @throws Exception
      */
     public void updateAvatar(User user) throws Exception;
+    
+    /**
+     *    
+     * @return
+     * @throws Exception
+     */
+    public List<User> getAllUserSystem() throws Exception;
 }

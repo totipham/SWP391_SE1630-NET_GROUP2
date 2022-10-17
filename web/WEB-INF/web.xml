@@ -94,8 +94,8 @@
         <servlet-class>controller.dashboard.AddUserController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddCategoryController</servlet-name>
-        <servlet-class>controller.property.AddCategoryController</servlet-class>
+        <servlet-name>ViewUserOfSystem</servlet-name>
+        <servlet-class>controller.user.ViewSystemUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -184,11 +184,7 @@
     <servlet-mapping>
         <servlet-name>AddUserController</servlet-name>
         <url-pattern>/dashboard/adduser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddCategoryController</servlet-name>
-        <url-pattern>/dashboard/addcategory</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>
             30

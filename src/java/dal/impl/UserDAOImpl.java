@@ -14,22 +14,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
 
-/**				
- * The class contains method find update, delete, insert user information from DB			
- * 				
- * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author DucPTMHE160517				
+/**
+ * The class contains method find update, delete, insert user information from
+ * DB
+ *
+ * The method wil throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
  */
 public class UserDAOImpl extends DBContext implements IUserDAO {
 
     /**
      *
-     * @param username for username of user. It is <code>java.lang.String</code> object
-     * @param password for password of user. It is <code>java.lang.String</code> object
+     * @param username for username of user. It is <code>java.lang.String</code>
+     * object
+     * @param password for password of user. It is <code>java.lang.String</code>
+     * object
      * @return <code>User</code> object
      * @throws Exception
      */
@@ -38,12 +45,12 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         String sql = "SELECT * FROM [User] "
                 + "WHERE username=? COLLATE sql_latin1_general_cp1_cs_as "
                 + "AND password=? COLLATE sql_latin1_general_cp1_cs_as";
-        
+
         PreparedStatement statement = null;
         ResultSet result = null;
         Connection connection = getConnection();
         try {
-            
+
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -109,7 +116,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      * @param username
      * @return
      */
-
     /**
      *
      * @param username
@@ -291,5 +297,44 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } finally {
             closeConnection(connection, statement, null);
         }
+    }
+
+    public List<User> getAllUserSystem() throws SQLException {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [user_id]\n"
+                + "      ,[name]\n"
+                + "      ,[role]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[email]\n"
+                + "      ,[phone]\n"
+                + "      ,[avatar]\n"
+                + "      ,[address]\n"
+                + "  FROM [dbo].[User]";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            while (result.next()) {
+                User user = new User();                
+                user.setId(result.getInt("user_id"));                
+                user.setRole(result.getInt("role"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
+                list.add(user);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }        
     }
 }
