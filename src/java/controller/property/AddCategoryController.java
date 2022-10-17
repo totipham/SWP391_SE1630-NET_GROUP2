@@ -17,10 +17,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
+import utils.ValidateUtility;
 
 /**
- * The class contains method insert new property type to DB
- *  The method will
+ * The class contains method insert new property type to DB The method will
  * throw an object of <code>java.lang.Exception</code> class if there is any
  * error occurring when finding, inserting, or updating data
  * <p>
@@ -29,6 +29,8 @@ import model.User;
  * @author LanBTHHE160676
  */
 public class AddCategoryController extends HttpServlet {
+
+    private ValidateUtility validate = new ValidateUtility();
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -41,7 +43,27 @@ public class AddCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
+        //check if current user is null
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            return;
+        }
+
+        try {
+            //check role of current user is admin or not
+            if (user.getRole() == 3) {
+                request.getRequestDispatcher("*").forward(request, response);
+            } else {
+                request.setAttribute("message", "You don't have permission to access this function");
+                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            request.setAttribute("message", ex);
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -55,24 +77,18 @@ public class AddCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        String newCategory = request.getParameter("Category");
+        //String newCategory = request.getParameter("Category");
+
         try {
-            //check role of current user is admin or not
-            if (user.getRole() == 3) {
-                IPropertyTypeDAO propertyTypeDAO = new PropertyTypeDAOImpl();
-                propertyTypeDAO.insertPropertyType(newCategory);
-                request.setAttribute("message", "Add new category successful");
-                request.getRequestDispatcher("*").forward(request, response);
-            } else {
-                request.setAttribute("message", "You don't have permission to access this function");
-                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
-            }
+            String newCategory = validate.getField(request, "Category", true, 3, 10);
+            IPropertyTypeDAO propertyTypeDAO = new PropertyTypeDAOImpl();
+            propertyTypeDAO.insertPropertyType(newCategory);
+            request.setAttribute("message", "Add new category successful");
         } catch (Exception ex) {
-            request.setAttribute("message", "You don't have permission to access this function");
+            request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
+
     }
 
 }
