@@ -85,6 +85,10 @@
         <servlet-name>UpdateProfileController</servlet-name>
         <servlet-class>controller.user.UpdateProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeletePropertyController</servlet-name>
+        <servlet-class>controller.dashboard.DeletePropertyController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -164,6 +168,10 @@
     <servlet-mapping>
         <servlet-name>UpdateProfileController</servlet-name>
         <url-pattern>/updateprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePropertyController</servlet-name>
+        <url-pattern>/dashboard/deleteproperty</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

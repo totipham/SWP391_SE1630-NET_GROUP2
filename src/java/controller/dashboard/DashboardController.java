@@ -46,7 +46,7 @@ public class DashboardController extends HttpServlet {
 
         //if user is not login
         if (u == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
             return;
         }
         

@@ -299,7 +299,8 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         PreparedStatement statement = null;
         Connection connection = null;
         try {
-            statement = connection.prepareCall(strDelete);
+            connection = getConnection();
+            statement = connection.prepareStatement(strDelete);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (Exception e) {

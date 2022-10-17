@@ -4,22 +4,21 @@
  *
  * Record of change:
  * DATE            Version             AUTHOR           DESCRIPTION
- * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
+ * Oct 13, 2022         1.0           ThuongTTHE163555     First Implement
  */
 package controller.dashboard;
 
+import controller.auth.LoginController;
 import dal.IPropertyDAO;
-import dal.IUserDAO;
 import dal.impl.PropertyDAOImpl;
-import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Property;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 
 /**
@@ -30,9 +29,9 @@ import model.User;
  * <p>
  * Bugs: Haven't found yet
  *
- * @author DucPTMHE160517
+ * @author ThuongTTHE163555
  */
-public class DashboardPropertiesController extends HttpServlet {
+public class DeletePropertyController extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,36 +44,32 @@ public class DashboardPropertiesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         HttpSession session = request.getSession();
-        IUserDAO userDAO = new UserDAOImpl();
         User user = (User) session.getAttribute("user");
 
-        //if user is not login
+        //check if user is null
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
+        //get id from front end
+        String pid = request.getParameter("pid");
+        // delete property  
         try {
-            //check if user role is equal to 1
-            if (user.getRole() == 1) {
-
-            } else if (user.getRole() == 2) { //check if role of user equal to 2
+            //check if user role equal to 2 or to 3
+            if (user.getRole() == 2 || user.getRole() == 3) {
+                int id = Integer.parseInt(pid);
                 IPropertyDAO propertyDAO = new PropertyDAOImpl();
-                List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId());
-
-                request.setAttribute("listProperty", listProperty);
-                request.setAttribute("user", user);
-                request.setAttribute("page", "Properties");
-                request.getRequestDispatcher("../views/dashboard/host/properties.jsp").forward(request, response);
+                propertyDAO.deletePropertyByID(id);
+                //re-load
+                response.sendRedirect(request.getContextPath() + "/dashboard/properties");
             } else {
-                request.setAttribute("message", "You don't have right to access this page!");
-                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+                throw new Exception("Don't have permission to access this page!");
             }
-        } catch (Exception ex) {
-            request.setAttribute("message", ex);
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("message", e);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
 
     }

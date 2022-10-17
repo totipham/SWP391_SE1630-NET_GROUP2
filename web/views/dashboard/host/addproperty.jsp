@@ -395,7 +395,8 @@
                                         <!--end::Step 4-->
                                     </div>
                                     <!--end::Group-->
-
+                                    <span style="color: red">${requestScope.error}</span>
+                                    <span style="color: green">${requestScope.message}</span>
                                     <!--begin::Actions-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Wrapper-->
@@ -409,6 +410,7 @@
 
                                         <!--begin::Wrapper-->
                                         <div>
+                                            
                                             <p id="error"></p>
                                             <button id="submit-btn" type="submit" class="btn btn-primary" data-kt-stepper-action="submit">
                                                 <span class="indicator-label">
@@ -493,48 +495,48 @@
                     form,
                     {
                         fields: {
-//                            'name': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Name input is required'
-//                                    }
-//                                }
-//                            },
-//                            'address': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Address input is required'
-//                                    }
-//                                }
-//                            },
-//                            'type': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'description': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'total': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'price': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
+                            'name': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Name input is required'
+                                    }
+                                }
+                            },
+                            'address': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Address input is required'
+                                    }
+                                }
+                            },
+                            'type': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Text input is required'
+                                    }
+                                }
+                            },
+                            'description': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Text input is required'
+                                    }
+                                }
+                            },
+                            'total': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Text input is required'
+                                    }
+                                }
+                            },
+                            'price': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Text input is required'
+                                    }
+                                }
+                            },
                         },
 
                         plugins: {

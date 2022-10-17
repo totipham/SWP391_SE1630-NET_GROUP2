@@ -21,15 +21,16 @@ import java.util.logging.Logger;
 import model.User;
 import utils.ValidateUtility;
 
-/**				
- * The class contains method find update, delete, insert staff information from				
- * 				
- * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author DucPTMHE160517				
+/**
+ * The class contains method find update, delete, insert staff information from
+ *
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
  */
-
 public class LoginController extends HttpServlet {
 
     private ValidateUtility validate = new ValidateUtility();
@@ -48,12 +49,18 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("user") != null;
+        String redirect = request.getParameter("redirect");
 
         //Check if user is logged in or not
         if (loggedIn) {
             //redirect to homepage
             response.sendRedirect(request.getContextPath());
         } else {
+            if (redirect == null || redirect.equals("")) {
+
+            } else {
+                request.setAttribute("redirect", redirect);
+            }
             //redirect to login page
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
         }
@@ -76,13 +83,21 @@ public class LoginController extends HttpServlet {
             String username = validate.getField(request, "username", true, 3, 20);
             String password = validate.getField(request, "password", true, 3, 20);
 
+            String redirect = request.getParameter("redirect");
+
             User userFromDB = userDAO.getUser(username, password);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
             //Check if user is not null
             if (userFromDB != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", userFromDB);
-                response.sendRedirect(request.getContextPath());
+
+                if (!redirect.isEmpty() && redirect != null) {
+                    response.sendRedirect(request.getContextPath() + redirect);
+                } else {
+                    response.sendRedirect(request.getContextPath());
+                }
+
             } else {
                 throw new Exception("Username or password wrong!");
             }

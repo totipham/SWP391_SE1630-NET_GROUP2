@@ -68,7 +68,7 @@ public class AddPropertyController extends HttpServlet {
 
         //if user is not login
         if (u == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
             return;
         }
 
@@ -96,23 +96,23 @@ public class AddPropertyController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
         User user = (User) session.getAttribute("user");
 
         //if user is not login
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
             return;
         }
 
         //check if role of user is host or admin
-        if (user.getRole() != 2 && user.getRole() != 3) { 
+        if (user.getRole() != 2 && user.getRole() != 3) {
             request.setAttribute("message", "You don't have right to access this page!");
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
-        
+
         ValidateUtility validate = new ValidateUtility();
         FileUtility fileUtils = new FileUtility();
         List<PropertyUtility> propertyUtilityList = new ArrayList<>();
@@ -120,53 +120,66 @@ public class AddPropertyController extends HttpServlet {
         IPropertyImageDAO propertyImageDAO = new PropertyImageDAOImpl();
         IPropertyUtilityDAO propertyUtilityDAO = new PropertyUtilityDAOImpl();
         IPropertyDAO propertyDAO = new PropertyDAOImpl();
-        
-        String folder = request.getServletContext().getRealPath("/assets/images");
-        
-        String propertyName = request.getParameter("name");
-        String propertyAddress = request.getParameter("address");
-        int propertyTypeId = Integer.parseInt(request.getParameter("typeid"));
-        String propertyDescription = request.getParameter("description");
-        double propertyPrice = Double.parseDouble(request.getParameter("price"));
-        double propertyArea = Double.parseDouble(request.getParameter("area"));
-        int propertyTotal = Integer.parseInt(request.getParameter("total"));
-        Date createdDate = Date.valueOf(LocalDate.now());
-        
-        String[] uName = request.getParameterValues("uname");
-        String[] uPrice = request.getParameterValues("ufee");
-        String[] uPeriod = request.getParameterValues("uperiod");
 
-        String filename = null;
+        String folder = request.getServletContext().getRealPath("/assets/images");
+        String propertyName = "";
+        String propertyAddress = "";
+        int propertyTypeId = 0;
+        String propertyDescription = "";
+        double propertyPrice = 0;
+        double propertyArea = 0;
+        int propertyTotal = 0;
+        Date createdDate = null;
+        String[] uName = null;
+        String[] uPrice = null;
+        String[] uPeriod = null;
         
         try {
+            propertyName = validate.getField(request, "name", true, 5, 30);;
+            propertyAddress = request.getParameter("address");
+            propertyTypeId = Integer.parseInt(request.getParameter("typeid"));
+            propertyDescription = request.getParameter("description");
+            propertyPrice = Double.parseDouble(request.getParameter("price"));
+            propertyArea = Double.parseDouble(request.getParameter("area"));
+            propertyTotal = Integer.parseInt(request.getParameter("total"));
+            createdDate = Date.valueOf(LocalDate.now());
+
+            uName = request.getParameterValues("uname");
+            uPrice = request.getParameterValues("ufee");
+            uPeriod = request.getParameterValues("uperiod");
+        } catch (Exception ex) {
+            request.setAttribute("error", ex.getMessage());
+            request.setAttribute("page", "Add Property");
+            request.getRequestDispatcher("../views/dashboard/host/addproperty.jsp").forward(request, response);
+        }
+
+        String filename = null;
+
+        try {
             PropertyType propertyType = propertyTypeDAO.getTypeByID(propertyTypeId);
-            
-            Property property = new Property(propertyName, user, propertyAddress, 
+
+            Property property = new Property(propertyName, user, propertyAddress,
                     propertyType, propertyDescription, propertyPrice, propertyArea, propertyTotal, createdDate);
-            
-            System.out.println(property);
+
             int propertyID = propertyDAO.insertProperty(property); //insert property to DB
-            System.out.println("PropertyID: " + propertyID);
-            //insert each property utility to DB
+
+            //loop until last file name in list of file
             for (int i = 0; i < uName.length; i++) {
                 PropertyUtility pUtility = new PropertyUtility(propertyID, uName[i], Double.parseDouble(uPrice[i]), uPeriod[i]);
-                System.out.println(pUtility);
                 propertyUtilityDAO.insertPropertyUtility(pUtility); //insert utility to DB
             }
-            
+
             List<String> listFile = fileUtils.uploadFiles("/assets/images", request);
+
+            //loop until last file name in list of file
             for (String fileName : listFile) {
                 PropertyImage propertyImage = new PropertyImage(propertyID, fileName);
-                System.out.println(propertyImage);
                 propertyImageDAO.insertPropertyImage(propertyImage);
             }
-
-            for (int i = 0; i < uName.length; i++) {
-                System.out.println("NAME: " + uName[i]);
-                System.out.println("FEE: " + uPrice[i]);
-                System.out.println("PERIOD: " + uPeriod[i]);
-            }
-
+            
+            request.setAttribute("message", "Add successfully!");
+            request.setAttribute("page", "Add Property");
+            request.getRequestDispatcher("../views/dashboard/host/addproperty.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("message", e);

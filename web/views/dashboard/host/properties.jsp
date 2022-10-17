@@ -106,7 +106,7 @@
                                                     <div class="property-card__information__bottom">
                                                         <a href="editproperty?pid=${property.id}" class="btn btn-icon btn-primary"><i
                                                                 class="fa-solid fa-pen"></i></a>
-                                                        <a href="deleteproperty?pid=${property.id}" class="btn btn-icon btn-danger"><i
+                                                                <a onclick="askToDelete(${property.id})" class="btn btn-icon btn-danger"><i
                                                                 class="fa-solid fa-trash"></i></a>
                                                     </div>
                                             </div>
@@ -132,6 +132,13 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
+        
+        <script>
+            function askToDelete(pid){
+                if (confirm("Are you sure to delete this property ?") == true) {window.location.replace("${baseURL}/dashboard/deleteproperty?pid=" + pid)}
+            }
+            
+        </script>
     </body>
     <!--end::Body-->
 
