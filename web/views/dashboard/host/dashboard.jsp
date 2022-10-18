@@ -58,7 +58,7 @@
                                         <div class="card-body pt-2 pb-4 d-flex align-items-center">
                                             <!--begin::Chart-->
                                             <div class="d-flex flex-center me-5 pt-2">
-                                                <div id="expected-earning-chart" style="min-width: 70px; min-height: 70px"
+                                                <div id="expected_earning_chart" style="min-width: 70px; min-height: 70px"
                                                      data-kt-size="70" data-kt-line="11"></div>
                                             </div>
                                             <!--end::Chart-->
@@ -180,7 +180,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body d-flex align-items-end px-0 pb-0">
                                             <!--begin::Chart-->
-                                            <div id="average-daily-chart" class="w-100" style="height: 80px"></div>
+                                            <div id="average_daily_chart" class="w-100" style="height: 80px"></div>
                                             <!--end::Chart-->
                                         </div>
                                         <!--end::Card body-->
@@ -278,7 +278,7 @@
                                             </div>
                                             <!--end::Statistics-->
                                             <!--begin::Chart-->
-                                            <div id="rents-this-month-chart" class="min-h-auto ps-4 pe-6" style="height: 300px">
+                                            <div id="rents_this_month_chart" class="min-h-auto ps-4 pe-6" style="height: 300px">
                                             </div>
                                             <!--end::Chart-->
                                         </div>
@@ -345,48 +345,6 @@
                                 <!--end:::Col-->
                                 <!--begin:::Col-->
                                 <div class="col-xxl-7">
-                                    <!--begin::Row-->
-                                    <div class="row g-xl-8">
-                                        <!--begin:::Col-->
-                                        <div class="col">
-                                            <!--begin::Chart Widget 1-->
-                                            <div class="card card-xl-stretch mb-5 mb-xl-8">
-                                                <!--begin::Body-->
-                                                <div class="card-body p-0 d-flex justify-content-between flex-column">
-                                                    <div class="d-flex flex-stack card-p flex-grow-1">
-                                                        <!--begin::Icon-->
-                                                        <div class="symbol symbol-45px symbol-circle">
-                                                            <div class="symbol-label">
-                                                                <!--begin::Svg Icon | path: icons/duotone/Shopping/Cart4.svg-->
-                                                                <i class="fa-solid fa-dollar-sign"></i>
-                                                                <!--end::Svg Icon-->
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Icon-->
-                                                        <!--begin::Text-->
-                                                        <div class="d-flex flex-column text-end">
-                                                            <a href="#"
-                                                               class="fw-bold text-black fs-2">Daily
-                                                                Income</a>
-                                                            <span class="text-gray-400 fw-bold fs-6">Oct 1 - Oct 16
-                                                                2022</span>
-                                                        </div>
-                                                        <!--end::Text-->
-                                                    </div>
-                                                    <!--begin::Chart-->
-                                                    <div class="pt-1">
-                                                        <div id="kt_chart_widget_1_chart"
-                                                             class="card-rounded-bottom h-125px">
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Chart-->
-                                                </div>
-                                            </div>
-                                            <!--end::Chart Widget 1-->
-                                        </div>
-                                        <!--end:::Col-->
-                                    </div>
-                                    <!--end::Row-->
                                     <!--begin::Row-->
                                     <div class="row g-xl-8">
                                         <!--begin:::Col-->
@@ -511,140 +469,8 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
-        <script>
-            var element = document.getElementById('kt_apexcharts_3');
-
-            var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var baseColor = KTUtil.getCssVariableValue('--kt-info');
-            var lightColor = KTUtil.getCssVariableValue('--kt-info-light');
-
-            if (!element) {
-                return;
-            }
-
-            var options = {
-                series: [{
-                        name: 'Net Profit',
-                        data: [30, 40, 40, 90, 90, 70, 70]
-                    }],
-                chart: {
-                    fontFamily: 'inherit',
-                    type: 'area',
-                    height: height,
-                    toolbar: {
-                        show: false
-                    }
-                },
-                plotOptions: {
-
-                },
-                legend: {
-                    show: false
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                fill: {
-                    type: 'solid',
-                    opacity: 1
-                },
-                stroke: {
-                    curve: 'smooth',
-                    show: true,
-                    width: 3,
-                    colors: [baseColor]
-                },
-                xaxis: {
-                    categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    labels: {
-                        style: {
-                            colors: labelColor,
-                            fontSize: '12px'
-                        }
-                    },
-                    crosshairs: {
-                        position: 'front',
-                        stroke: {
-                            color: baseColor,
-                            width: 1,
-                            dashArray: 3
-                        }
-                    },
-                    tooltip: {
-                        enabled: true,
-                        formatter: undefined,
-                        offsetY: 0,
-                        style: {
-                            fontSize: '12px'
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: labelColor,
-                            fontSize: '12px'
-                        }
-                    }
-                },
-                states: {
-                    normal: {
-                        filter: {
-                            type: 'none',
-                            value: 0
-                        }
-                    },
-                    hover: {
-                        filter: {
-                            type: 'none',
-                            value: 0
-                        }
-                    },
-                    active: {
-                        allowMultipleDataPointsSelection: false,
-                        filter: {
-                            type: 'none',
-                            value: 0
-                        }
-                    }
-                },
-                tooltip: {
-                    style: {
-                        fontSize: '12px'
-                    },
-                    y: {
-                        formatter: function (val) {
-                            return '$' + val + ' thousands'
-                        }
-                    }
-                },
-                colors: [lightColor],
-                grid: {
-                    borderColor: borderColor,
-                    strokeDashArray: 4,
-                    yaxis: {
-                        lines: {
-                            show: true
-                        }
-                    }
-                },
-                markers: {
-                    strokeColor: baseColor,
-                    strokeWidth: 3
-                }
-            };
-
-            var chart = new ApexCharts(element, options);
-            chart.render();
-        </script>
+        
+        <jsp:include page="./datachart.jsp" />
     </body>
     <!--end::Body-->
 
