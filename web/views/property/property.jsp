@@ -31,7 +31,7 @@
                 position: relative;
             }
 
-            .property-image a {
+            .property-image .report {
                 color: #fff;
                 font-size: 24px;
                 position: absolute;
@@ -39,20 +39,19 @@
                 right: 10px;
                 z-index: 9;
             }
-
-            .property-image i:hover {
-                color: #e8e8e8;
-            }
         </style>
     </head>
     <body>
         <jsp:include page="../component/navbar.jsp" />
         <c:set var="p" scope="request" value="${property}" />
         <div class="container mx-auto mt-4">
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-3 gap-7">
                 <div class="col-span-2">
                     <div class="property-image">
-                        <a href="sendreport?target=property&targetid=${p.id}" title="Report ${p.name}"><i class="fa-solid fa-flag"></i></a>
+                        <div class="report bg-white hover:bg-gray-100 cursor-pointer rounded-full w-fit text-center px-5">
+                            <a class="text-black text-lg" href="sendreport?target=property&targetid=${p.id}" title="Report ${p.name}"><i class="fa-solid fa-flag text-red-700"></i> Report</a>
+                        </div>
+                        
                         <div class="fotorama" >
                             <c:forEach items="${p.images}" var="i">
                                 <img src="${baseURL}/assets/images/${i.fileName}">
@@ -62,11 +61,7 @@
                     <div class="grid grid-cols-3 my-5">
                         <div class="col-span-2">
                             <h3 class="text-2xl my-3"><b>🏡${p.name}</b></h3>
-                            <p style="font-weight: 400; font-size: 16px;">${p.address}</p>
-                            <div class="my-3">
-                                <span style="font-size: 20px"><b>₫${p.price}</b></span>
-                                <span>/month</span>
-                            </div>
+                            <p class=" my-3" style="font-weight: 400; font-size: 16px;">${p.address}</p>
                             <p><i>${p.description}</i></p>
                         </div>
                         <div class="col-span-1">
@@ -113,11 +108,23 @@
                             loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=`${p.name}, ${p.address}`">
                     </iframe>
-                    <div class="text-center my-3">
-                        <button class="text-white bg-primary py-3 px-5 rounded"><a href="sendrenting?pid=${p.id}">Send Renting Request</a></button>
+                    <div class="flex flex-col bg-white rounded-2xl shadow-xl border border-[#eee] p-7 mx-auto mt-5 ">
+                        <div class="flex flex-row justify-between mb-7">
+                            <div>
+                                <span class="text-black font-semibold text-2xl" id="price">${p.price}</span>
+                                <span>/month</span>
+                            </div>
+                            <div>
+                                <span>★ 5.0 • <a class="no-underline" href="#"><u>15 reviews</u></a></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3">
+                            <span>Love this property ?</span>
+                            <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center">RESERVE NOW</a>
+                        </div>
                     </div>
                     <%--<c:if test="${requestScope.state != null}">--%>
-                    <jsp:include page="requeststatus.jsp" />
+                    <%--<jsp:include page="requeststatus.jsp" />--%>
                     <%--</c:if>--%>
                     <%--<c:if test="${requestScope.state == null}">--%>
                     <%--<jsp:include page="requestStatus.jsp" />--%>
@@ -139,5 +146,18 @@
                 </div>
             </div>
         </div>
+        <script>
+            var formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'VND',
+
+                // These options are needed to round to whole numbers if that's what you want.
+                //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+                //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+            });
+
+            const price = document.getElementById('price').innerHTML;
+            document.getElementById("price").innerHTML = formatter.format(price);
+        </script>
     </body>
 </html>
