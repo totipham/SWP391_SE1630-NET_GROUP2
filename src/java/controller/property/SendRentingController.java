@@ -1,11 +1,10 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- * RentingController
+ *
  * Record of change:
- *      DATE: Oct 5, 2022            
- *      VERSION: 1.0
- *      AUTHOR: LANBTHHE160676          
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Oct 5, 2022         1.0           LanBTHHE160676     First Implement
  */
 package controller.property;
 
