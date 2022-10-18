@@ -4,7 +4,7 @@
  *
  * Record of change:
  * DATE            Version             AUTHOR           DESCRIPTION
- * Oct 14, 2022       1.0           DucPTMHE160517     First Implement
+ * Oct 18, 2022       1.0           DucPTMHE160517     First Implement
  */
 
 package controller.dashboard;
@@ -28,7 +28,7 @@ import model.User;
  * @author DucPTMHE160517				
  */				
 
-public class DashboardController extends HttpServlet {
+public class HostDashboardController extends HttpServlet {
    
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -51,15 +51,14 @@ public class DashboardController extends HttpServlet {
         }
         
         
-        
         //check if user role is equal to 1
-        if (u.getRole() == 1) {
-            response.sendRedirect(request.getContextPath() + "/dashboard/admin");
-        } else if (u.getRole() == 2) { //check if role of user equal to 2
-            response.sendRedirect(request.getContextPath() + "/dashboard/host");
+        if (u.getRole() == 2) { //check if role of user equal to 2
+            request.setAttribute("user", u);
+            request.setAttribute("page", "Dashboard");
+            request.getRequestDispatcher("../views/dashboard/host/dashboard.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "You don't have right to access this page!");
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
     } 
 
