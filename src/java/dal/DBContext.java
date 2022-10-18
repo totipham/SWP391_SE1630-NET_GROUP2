@@ -1,3 +1,11 @@
+/*
+ * Copyright(C) 2022, FPT University.
+ * Hostalpy
+ *
+ * Record of change:
+ * DATE            Version             AUTHOR           DESCRIPTION
+ * Sep 4, 2022         1.0           DucPTMHE160517     First Implement
+ */
 package dal;
 
 import java.sql.Connection;
@@ -7,7 +15,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * The class contains method get connection and close connection 
+ *
+ * The method will throw an object of <code>java.lang.Exception</code> class if
+ * there is any error
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author DucPTMHE160517
+ */
 public class DBContext {
     
     protected static Connection getConnection() throws SQLException {
