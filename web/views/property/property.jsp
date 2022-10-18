@@ -104,11 +104,7 @@
                     </div>
                 </div>
                 <div class="col-span-1">
-                    <iframe style="border-radius: 20px" class="shadow-xl mb-4" width="100%" height="30%" style="border:0"
-                            loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=`${p.name}, ${p.address}`">
-                    </iframe>
-                    <div class="flex flex-col bg-white rounded-2xl shadow-xl border border-[#eee] p-7 mx-auto mt-5 ">
+                    <div class="flex flex-col bg-white rounded-2xl shadow-xl border border-[#eee] p-7 mx-auto mb-10">
                         <div class="flex flex-row justify-between mb-7">
                             <div>
                                 <span class="text-black font-semibold text-2xl" id="price">${p.price}</span>
@@ -123,6 +119,11 @@
                             <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center">RESERVE NOW</a>
                         </div>
                     </div>
+                    <iframe style="border-radius: 20px" class="shadow-2xl mb-4 border border-[#eee]" width="100%" height="30%" style="border:0"
+                            loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=`${p.name}, ${p.address}`">
+                    </iframe>
+                    
                     <%--<c:if test="${requestScope.state != null}">--%>
                     <%--<jsp:include page="requeststatus.jsp" />--%>
                     <%--</c:if>--%>

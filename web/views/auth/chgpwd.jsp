@@ -13,17 +13,6 @@
         <jsp:include page="../base/headerImport.jsp" />
         <title>Hostalpy - Change Password</title>
         <style>
-            .form-segment {
-                background-color: #fff;
-                width: 50%;
-                min-height: 500px;
-                border-radius: 15px;
-
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
 
             .form-segment h2 {
                 color: #fff;
@@ -84,12 +73,12 @@
 
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="container-fluid">
-            <div class="form-segment shadow w-25" style="">
-                <div class="text-center pt-5">
+        <div class="container">
+            <div class="form-segment shadow w-[30%] p-5 mx-auto rounded-2xl shadow-xl mt-5 border border-[#eee]" style="">
+                <div class="text-center">
+                    <h1 class="mb-5">Change Password</h1>
                     <form action="chgpwd" class="form-login" method="POST">
-                        <h1>Change Password</h1>
-                        <input type="password" name="oldpassword" placeholder="Old Password" class="mt-5" minlength="3" maxlength="20" required/>
+                        <input type="password" name="oldpassword" placeholder="Old Password" class="mt-10" minlength="3" maxlength="20" required/>
                         <input type="password" name="password" id="password" placeholder="New Password" minlength="3" maxlength="20" required/>
                         <input type="password" name="repassword" id="repassword"  placeholder="Re New Password" minlength="3" maxlength="20" required/>
                         <p id='message'></p>
