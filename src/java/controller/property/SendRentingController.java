@@ -22,6 +22,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import model.User;
 import utils.ValidateUtility;
 import java.sql.Date;
@@ -72,7 +74,8 @@ public class SendRentingController extends HttpServlet {
                 }
             }
         } else {
-            response.sendRedirect(request.getContextPath());
+            String redirect = request.getServletPath() + "?" + request.getQueryString();
+            response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString()));
         }
     }
 

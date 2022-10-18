@@ -22,6 +22,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -58,7 +60,8 @@ public class SendReportController extends HttpServlet {
         
         //check if current user is null
         if (currentUser == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getRequestURI().substring(request.getContextPath().length()));
+            String redirect = request.getServletPath() + "?" + request.getQueryString();
+            response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString()));
             return;
         }
         
