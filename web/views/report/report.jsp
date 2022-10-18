@@ -38,7 +38,6 @@ Author     : DucPTMHE160517
     </head>
     <body>
         <jsp:include page="../component/navbar-nosearch.jsp" />
-        <c:set var="targetid" scope="request" value="${target.id}" />
         <div class="mt-2 px-10">
             <div class="grid grid-cols-3 gap-10">
                 <div class="col-span-1">
@@ -87,7 +86,8 @@ Author     : DucPTMHE160517
                             <h3 class="text-2xl font-semibold">Report</h3>
                         </div>
                         <form class="mt-5" action="sendreport" method="POST">
-                            <input name="targetid" value="${targetid}" hidden/>
+                            <input name="targetid" value="${requestScope.targetid}" hidden/>
+                            <input name="target" value="${requestScope.target}" hidden/>
                             <span class="text-base">Type: <span class="text-red-400">*</span></span>
                             <select name="type"
                                     class="bg-[#f7f7f7] px-5 w-[100%] h-12 rounded my-3 outline-none cursor-pointer"
@@ -105,7 +105,11 @@ Author     : DucPTMHE160517
                                 <textarea class="p-5 bg-[#f7f7f7] h-[150px] w-[100%] outline-none rounded-lg" name="content" placeholder="Enter your report content" required></textarea>
                             </div>
                             <div class="text-center mt-10">
-                                <input type="submit" class="bg-primary text-white mx-auto cursor-pointer"
+                                <c:if test="${requestScope.message != null}">
+                                    <p style="color: green" class="mb-5">${requestScope.message}</p>
+                                </c:if>
+                                
+                                <input type="submit" class="bg-primary text-white mx-auto cursor-pointer mt-3"
                                        value="Report">
                             </div>
                         </form>

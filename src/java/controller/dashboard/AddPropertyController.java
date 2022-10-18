@@ -64,19 +64,19 @@ public class AddPropertyController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
-        User u = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
 
         //if user is not login
-        if (u == null) {
+        if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
             return;
         }
 
         //check if user role is equal to 1
-        if (u.getRole() == 1) {
+        if (user.getRole() == 1) {
 
-        } else if (u.getRole() == 2) { //check if role of user equal to 2
-            request.setAttribute("user", u);
+        } else if (user.getRole() == 2) { //check if role of user equal to 2
+            request.setAttribute("user", user);
             request.setAttribute("page", "Add Property");
             request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
         } else {

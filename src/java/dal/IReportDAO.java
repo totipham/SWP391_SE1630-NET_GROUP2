@@ -14,6 +14,7 @@
 package dal;
 
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  * The class contains method find update, delete, insert staff information from
@@ -28,16 +29,5 @@ import java.sql.Date;
  */
 public interface IReportDAO {
 
-    /**
-     *
-     * @param reportTypeId
-     * @param currentUserId
-     * @param target
-     * @param targetId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
-    public void insertReport(int reportTypeId, int currentUserId,  int targetId, Date reportDate, String header, String content) throws Exception;
+    public void insertReport(int reportTypeId, int currentUserId,  int targetId, String target, Date reportDate, String header, String content) throws SQLException;
 }

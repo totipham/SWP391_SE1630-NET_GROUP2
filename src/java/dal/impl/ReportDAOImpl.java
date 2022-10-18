@@ -19,6 +19,7 @@ import dal.IReportDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**				
  * The class contains method find update, delete, insert staff information from				
@@ -30,36 +31,26 @@ import java.sql.PreparedStatement;
  */
 public class ReportDAOImpl extends DBContext implements IReportDAO{
 
-    /**
-     *
-     * @param reportTypeId
-     * @param currentUserId
-     * @param target
-     * @param targetId
-     * @param reportDate
-     * @param header
-     * @param content
-     * @throws Exception
-     */
     @Override
-    public void insertReport(int reportTypeId, int currentUserId,  int targetId, Date reportDate, String header, String content) throws Exception{
-        String sql = "INSERT INTO Request (rtype_id,sender_id ,target,target_id,time, header, content ) "
-                + "VALUES (?, ?, ?, ?,?,?)";
+    public void insertReport(int reportTypeId, int currentUserId,  int targetId, String target, Date reportDate, String header, String content) throws SQLException{
+        String sql = "INSERT INTO Report (rtype_id, sender_id, target_id, target, time, header, content) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
-        Connection connection = getConnection();
+        Connection connection = null;
         try {
+            connection = getConnection();
             statement = connection.prepareStatement(sql);
 
             statement.setInt(1, reportTypeId);
             statement.setInt(2, currentUserId);
-            //statement.setString(3, target);
             statement.setInt(3, targetId);
-            statement.setDate(4, reportDate);
-            statement.setString(4, header);
-            statement.setString(6, content);
+            statement.setString(4, target);
+            statement.setDate(5, reportDate);
+            statement.setString(6, header);
+            statement.setString(7, content);
             statement.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
            throw e;
         }finally {
             closeConnection(connection, statement, null);
