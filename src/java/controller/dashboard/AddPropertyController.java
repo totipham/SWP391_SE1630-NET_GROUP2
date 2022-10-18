@@ -12,11 +12,9 @@ import dal.IPropertyDAO;
 import dal.IPropertyImageDAO;
 import dal.IPropertyTypeDAO;
 import dal.IPropertyUtilityDAO;
-import dal.IUserDAO;
 import dal.impl.PropertyDAOImpl;
 import dal.impl.PropertyTypeDAOImpl;
 import dal.impl.PropertyImageDAOImpl;
-import dal.impl.UserDAOImpl;
 import dal.impl.PropertyUtilityDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -27,7 +25,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,13 +37,9 @@ import utils.FileUtility;
 import utils.ValidateUtility;
 
 /**
- * The class contains method find update, delete, insert staff information from
- * Staff table in database. In the update or insert method, all data will be
- * normalized (trim space) before update/insert into database The method wil
- * throw an object of <code>java.lang.Exception</code> class if there is any
- * error occurring when finding, inserting, or updating data
- * <p>
- * Bugs: Still have some issues related to search staff by address
+ * This is a Servlet responsible for handling add new property function 
+ * /dashboard/addproperty is the URL
+ * Bugs: Haven't found yet
  *
  * @author DucPTMHE160517
  */
@@ -65,25 +58,22 @@ public class AddPropertyController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        IUserDAO userDAO = new UserDAOImpl();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user"); //get user from session
 
-        //if user is not login
+        //check if user is not login
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath()); //redirect to login page
             return;
         }
 
-        //check if user role is equal to 1
-        if (user.getRole() == 1) {
-
-        } else if (user.getRole() == 2) { //check if role of user equal to 2
+        //check if user role is equal to 2
+        if (user.getRole() == 2) {
             request.setAttribute("user", user);
-            request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
+            request.setAttribute("page", "Add Property"); //set page name
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response); //forward to add property page
         } else {
             request.setAttribute("message", "You don't have right to access this page!");
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response); //forward to error page
         }
     }
 
@@ -100,30 +90,27 @@ public class AddPropertyController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        IUserDAO userDAO = new UserDAOImpl();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user"); //get user from session
 
         //if user is not login
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath()); //redirect to login page
             return;
         }
 
-        //check if role of user is host or admin
-        if (user.getRole() != 2 && user.getRole() != 3) {
+        //check if role of user is host
+        if (user.getRole() != 2) {
             request.setAttribute("message", "You don't have right to access this page!");
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response); //redirect error page
         }
 
         ValidateUtility validate = new ValidateUtility();
         FileUtility fileUtils = new FileUtility();
-        List<PropertyUtility> propertyUtilityList = new ArrayList<>();
         IPropertyTypeDAO propertyTypeDAO = new PropertyTypeDAOImpl();
         IPropertyImageDAO propertyImageDAO = new PropertyImageDAOImpl();
         IPropertyUtilityDAO propertyUtilityDAO = new PropertyUtilityDAOImpl();
         IPropertyDAO propertyDAO = new PropertyDAOImpl();
 
-        String folder = request.getServletContext().getRealPath("/assets/images");
         String propertyName = "";
         String propertyAddress = "";
         int propertyTypeId = 0;
@@ -137,13 +124,13 @@ public class AddPropertyController extends HttpServlet {
         String[] uPeriod = null;
         
         try {
-            propertyName = validate.getField(request, "name", true, 5, 30);
-            propertyAddress = validate.getField(request, "address", true, 5, 50);
-            propertyTypeId = validate.fieldInt(request, "typeid", 1, 100);
-            propertyDescription = validate.getField(request, "description", true, 10, 255);
-            propertyPrice = validate.fieldDouble(request, "price", 100000, 10000000);
-            propertyArea = validate.fieldDouble(request, "area", 1, 100);
-            propertyTotal = validate.fieldInt(request, "total", 1, 100);
+            propertyName = validate.getField(request, "name", true, 5, 30); //require to get field name, field must between 5 and 30 character
+            propertyAddress = validate.getField(request, "address", true, 5, 50); //require to get field name, field must between 5 and 30 character
+            propertyTypeId = validate.fieldInt(request, "typeid", 1, 100); //require to get field typeid, field must greater than 1 and less than 100
+            propertyDescription = validate.getField(request, "description", true, 10, 255); //require to get field description, field must between 10 and 255 character
+            propertyPrice = validate.fieldDouble(request, "price", 100000, 10000000); //require to get field price, field must greater than 100000 and less than 10000000
+            propertyArea = validate.fieldDouble(request, "area", 1, 100); //require to get field area, field must greater than 1 and less than 100
+            propertyTotal = validate.fieldInt(request, "total", 1, 100); //require to get field total, field must greater than 1 and less than 100
             createdDate = Date.valueOf(LocalDate.now());
 
             uName = request.getParameterValues("uname");
@@ -152,11 +139,9 @@ public class AddPropertyController extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex.getMessage());
-            request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
+            request.setAttribute("page", "Add Property"); //set page name
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response); //redirect to add property page
         }
-
-        String filename = null;
 
         try {
             PropertyType propertyType = propertyTypeDAO.getTypeByID(propertyTypeId);
@@ -172,22 +157,22 @@ public class AddPropertyController extends HttpServlet {
                 propertyUtilityDAO.insertPropertyUtility(pUtility); //insert utility to DB
             }
 
-            List<String> listFile = fileUtils.uploadFiles("/assets/images", request);
+            List<String> listFile = fileUtils.uploadFiles("/assets/images", request); //upload list of file to storage
 
             //loop until last file name in list of file
             for (String fileName : listFile) {
                 PropertyImage propertyImage = new PropertyImage(propertyID, fileName);
-                propertyImageDAO.insertPropertyImage(propertyImage);
+                propertyImageDAO.insertPropertyImage(propertyImage); //insert this file to DB
             }
             
-            request.setAttribute("message", "Add successfully!");
-            request.setAttribute("page", "Add Property");
-            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
+            request.setAttribute("message", "Add successfully!"); //set message
+            request.setAttribute("page", "Add Property"); //set page name
+            request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response); //redirect to add property page
 
         } catch (Exception ex) {
             Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response); //redirect to error page
         }
     }
 

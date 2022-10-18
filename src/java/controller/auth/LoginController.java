@@ -22,7 +22,7 @@ import model.User;
 import utils.ValidateUtility;
 
 /**
- * The class contains method find update, delete, insert staff information from
+ * This is a Servlet responsible for handling login function /Login is the URL
  *
  * The method will throw an object of <code>java.lang.Exception</code> class if
  * there is any error occurring when finding, inserting, or updating data
@@ -33,9 +33,6 @@ import utils.ValidateUtility;
  */
 public class LoginController extends HttpServlet {
 
-    private ValidateUtility validate = new ValidateUtility();
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -53,16 +50,14 @@ public class LoginController extends HttpServlet {
 
         //Check if user is logged in or not
         if (loggedIn) {
-            //redirect to homepage
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getContextPath()); //redirect to homepage
         } else {
-            if (redirect == null || redirect.equals("")) {
-
-            } else {
+            //check if redirect is not null and not equals empty string
+            if (redirect != null && !redirect.equals("")) {
                 request.setAttribute("redirect", redirect);
             }
-            //redirect to login page
-            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+            
+            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response); //redirect to login page
         }
     }
 
@@ -77,11 +72,12 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ValidateUtility validate = new ValidateUtility();
+        IUserDAO userDAO = new UserDAOImpl();
+        
         try {
-            IUserDAO userDAO = new UserDAOImpl();
-
-            String username = validate.getField(request, "username", true, 3, 20);
-            String password = validate.getField(request, "password", true, 3, 20);
+            String username = validate.getField(request, "username", true, 3, 20);  //require to get field username has length between 3 and 20
+            String password = validate.getField(request, "password", true, 3, 20); //require to get field password has length between 3 and 20
 
             String redirect = request.getParameter("redirect");
 
@@ -90,21 +86,22 @@ public class LoginController extends HttpServlet {
             //Check if user is not null
             if (userFromDB != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("user", userFromDB);
+                session.setAttribute("user", userFromDB); //set user for session
 
+                //check if redirect is not empty and is not null
                 if (!redirect.isEmpty() && redirect != null) {
-                    response.sendRedirect(request.getContextPath() + redirect);
+                    response.sendRedirect(request.getContextPath() + redirect); //redirect page
                 } else {
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath()); //redirect to home
                 }
 
             } else {
-                throw new Exception("Username or password wrong!");
+                throw new Exception("Username or password wrong!"); //throw new exception for wrong username and password
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex.getMessage());
-            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response); //forward to error page
         }
     }
 

@@ -78,21 +78,21 @@ public class AddUserController extends HttpServlet {
         try {
             IUserDAO userDAO = new UserDAOImpl();
 
-            String name = validate.getField(request, "name", true, 3, 20);
-            String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11);
-            String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
-            String address = validate.getField(request, "address", true, 10, 30);
-            String username = validate.getField(request, "username", true, 3, 20);
-            String password = validate.getField(request, "password", true, 3, 20);
+            String name = validate.getField(request, "name", true, 3, 20); //require to get field name has length between 3 and 20
+            String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11); //require to get field phone has length between 9 and 11
+            String email = validate.getFieldByType(request, "email", "email", true, 11, 200); //require to get field email has length between 11 and 200
+            String address = validate.getField(request, "address", true, 10, 30); //require to get field address has length between 10 and 30
+            String username = validate.getField(request, "username", true, 3, 20); //require to get field username has length between 3 and 20
+            String password = validate.getField(request, "password", true, 3, 20); //require to get field password has length between 3 and 20
 
             //check if user with username is existed
             if (userDAO.getUserByUsername(username) != null) {
-                throw new Exception("Username " + username + " is existed!");
+                throw new Exception("Username " + username + " is existed!"); //throw new exception
             }
             
             //check if user with email is existed
             if (userDAO.getUserByEmail(email) != null) {
-                throw new Exception("Email " + email + " is existed!");
+                throw new Exception("Email " + email + " is existed!"); //throw new exception
             }
 
             String message = userDAO.insertUser(name, phone, email, address, username, password);
