@@ -58,6 +58,14 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
         }
     }
 
+    /**
+     *
+     * @param senderId
+     * @param target
+     * @param targetId
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean isReported(int senderId, String target, int targetId) throws Exception {
         String sql = "SELECT * FROM Report WHERE sender_id = ? and target = ? and target_id = ?";
