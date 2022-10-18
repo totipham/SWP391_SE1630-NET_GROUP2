@@ -101,6 +101,14 @@
         <servlet-name>HostDashboardController</servlet-name>
         <servlet-class>controller.dashboard.HostDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyAccountController</servlet-name>
+        <servlet-class>controller.auth.VerifyAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendTokenController</servlet-name>
+        <servlet-class>controller.auth.SendTokenController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -192,6 +200,14 @@
     <servlet-mapping>
         <servlet-name>HostDashboardController</servlet-name>
         <url-pattern>/dashboard/host</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyAccountController</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendTokenController</servlet-name>
+        <url-pattern>/verify/sendtoken</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
