@@ -9,6 +9,7 @@
 
 package controller.user;
 
+import controller.auth.LoginController;
 import dal.IUserDAO;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 
 /**				
@@ -51,6 +54,7 @@ public class ViewSystemUserController extends HttpServlet {
             request.setAttribute("SystemUserList", list);     
             request.getRequestDispatcher("").forward(request, response);   /*Đức nhớ thêm tên trang jsp vào đây nha!*/
         } catch (Exception e) {
+            Logger.getLogger(ViewSystemUserController.class.getName()).log(Level.SEVERE, null, e);
             request.setAttribute("message", e);
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import model.User;
 
 /**
- * The class contains method find update, delete, insert staff information from
+ * The class contains method which delete property list 
  *
  * The method will throw an object of <code>java.lang.Exception</code> class if
  * there is any error occurring when finding, inserting, or updating data
@@ -44,6 +44,7 @@ public class DeletePropertyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //check if user has logged in
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
@@ -51,14 +52,14 @@ public class DeletePropertyController extends HttpServlet {
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
-        }
-
+        }        
+        
         //get id from front end
         String pid = request.getParameter("pid");
         // delete property  
         try {
-            //check if user role equal to 2 or to 3
-            if (user.getRole() == 2 || user.getRole() == 3) {
+            //check if user role is admin or host
+            if (user.getRole() == 2 || user.getRole() == 1) {
                 int id = Integer.parseInt(pid);
                 IPropertyDAO propertyDAO = new PropertyDAOImpl();
                 propertyDAO.deletePropertyByID(id);
@@ -68,6 +69,7 @@ public class DeletePropertyController extends HttpServlet {
                 throw new Exception("Don't have permission to access this page!");
             }
         } catch (Exception e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
             request.setAttribute("message", e);
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
