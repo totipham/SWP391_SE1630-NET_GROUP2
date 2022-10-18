@@ -44,7 +44,7 @@
     <body>
         <jsp:include page="../component/navbar.jsp" />
         <c:set var="p" scope="request" value="${property}" />
-        <div class="container mx-auto mt-4">
+        <div class="container mx-auto mt-4 px-20">
             <div class="grid grid-cols-3 gap-7">
                 <div class="col-span-2">
                     <div class="property-image">
