@@ -17,7 +17,6 @@ import dal.impl.RequestDAOImpl;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +27,8 @@ import model.User;
 import utils.ValidateUtility;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is a Servlet responsible for handling renting function /renting is the
@@ -111,6 +112,7 @@ public class SendRentingController extends HttpServlet {
             request.setAttribute("message", "Request Successfully");
             request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         } catch (Exception ex) {
+            Logger.getLogger(SendRentingController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         }

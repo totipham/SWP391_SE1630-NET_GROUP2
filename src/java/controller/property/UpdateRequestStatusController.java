@@ -10,15 +10,15 @@
 package controller.property;
 
 import dal.IRequestDAO;
-import dal.IUserDAO;
 import dal.impl.RequestDAOImpl;
-import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Property;
 import model.Request;
 import model.User;
@@ -55,9 +55,7 @@ public class UpdateRequestStatusController extends HttpServlet {
             int hostID = host.getId();
             //check current user id is propery's host id or not
             if (hostID == userID) {
-
                 updateRequest(requestID, requestStatusID);
-
                 request.setAttribute("message", "Update successful");
                 request.getRequestDispatcher("*").forward(request, response);
             } else {
@@ -65,6 +63,7 @@ public class UpdateRequestStatusController extends HttpServlet {
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
+            Logger.getLogger(UpdateRequestStatusController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }

@@ -27,6 +27,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Property;
 import model.ReportType;
 import model.User;
@@ -96,6 +98,7 @@ public class SendReportController extends HttpServlet {
             request.setAttribute("reportTypeList", reportTypeList);
             request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
         } catch (Exception ex) {
+            Logger.getLogger(SendReportController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
@@ -160,6 +163,7 @@ public class SendReportController extends HttpServlet {
             request.setAttribute("reportTypeList", reportTypeList);
             request.getRequestDispatcher("/views/report/report.jsp").forward(request, response);
         } catch (Exception ex) {
+            Logger.getLogger(SendReportController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }

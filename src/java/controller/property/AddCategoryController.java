@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 import utils.ValidateUtility;
 
@@ -61,6 +63,7 @@ public class AddCategoryController extends HttpServlet {
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
+            Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
@@ -85,6 +88,7 @@ public class AddCategoryController extends HttpServlet {
             propertyTypeDAO.insertPropertyType(newCategory);
             request.setAttribute("message", "Add new category successful");
         } catch (Exception ex) {
+            Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
