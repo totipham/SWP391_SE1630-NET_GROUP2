@@ -29,6 +29,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Property;
 import model.PropertyImage;
 import model.PropertyType;
@@ -148,6 +150,7 @@ public class AddPropertyController extends HttpServlet {
             uPrice = request.getParameterValues("ufee");
             uPeriod = request.getParameterValues("uperiod");
         } catch (Exception ex) {
+            Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex.getMessage());
             request.setAttribute("page", "Add Property");
             request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
@@ -181,8 +184,9 @@ public class AddPropertyController extends HttpServlet {
             request.setAttribute("page", "Add Property");
             request.getRequestDispatcher("../views/dashboard/property/addproperty.jsp").forward(request, response);
 
-        } catch (Exception e) {
-            request.setAttribute("message", e);
+        } catch (Exception ex) {
+            Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("message", ex);
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
     }

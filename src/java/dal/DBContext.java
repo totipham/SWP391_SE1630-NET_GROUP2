@@ -26,7 +26,6 @@ public class DBContext {
     }
     
     protected void closeConnection (Connection conn, PreparedStatement ps, ResultSet rs) throws SQLException {
-        conn.close();
         
         if (ps != null) {
             ps.close();
@@ -35,5 +34,7 @@ public class DBContext {
         if (rs != null) {
             rs.close();
         }
+        
+        conn.close();
     }
 }

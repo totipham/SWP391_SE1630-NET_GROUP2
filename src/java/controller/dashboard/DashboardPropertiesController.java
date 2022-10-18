@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Property;
 import model.User;
 
@@ -73,6 +75,7 @@ public class DashboardPropertiesController extends HttpServlet {
                 request.getRequestDispatcher("../views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
+            Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
             request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }

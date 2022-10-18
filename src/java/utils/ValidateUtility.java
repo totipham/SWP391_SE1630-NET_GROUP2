@@ -18,7 +18,7 @@ public class ValidateUtility {
         value = request.getParameter(fieldName).trim();
 
         //check if value is null or value is empty
-        if (value == null || value.trim().isEmpty()) {
+        if (value == null || value.isEmpty()) {
             if (required) {
                 String error = "Field " + fieldName + " is required";
                 throw new Exception(error);
