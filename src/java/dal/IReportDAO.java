@@ -29,5 +29,26 @@ import java.sql.SQLException;
  */
 public interface IReportDAO {
 
+    /**
+     *
+     * @param reportTypeId
+     * @param currentUserId
+     * @param targetId
+     * @param target
+     * @param reportDate
+     * @param header
+     * @param content
+     * @throws SQLException
+     */
     public void insertReport(int reportTypeId, int currentUserId,  int targetId, String target, Date reportDate, String header, String content) throws SQLException;
+
+    /**
+     *
+     * @param senderId
+     * @param target
+     * @param targetId
+     * @return
+     * @throws Exception
+     */
+    public boolean isReported (int senderId, String target, int targetId) throws Exception;
 }

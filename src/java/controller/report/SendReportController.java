@@ -55,16 +55,16 @@ public class SendReportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
-        
+
         //check if current user is null
         if (currentUser == null) {
             String redirect = request.getServletPath() + "?" + request.getQueryString();
             response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString()));
             return;
         }
-        
+
         String target = request.getParameter("target");
         int targetId = Integer.parseInt(request.getParameter("targetid"));
 
@@ -124,9 +124,15 @@ public class SendReportController extends HttpServlet {
         try {
             IReportDAO reportDAO = new ReportDAOImpl();
             int currentUserId = currentUser.getId();
-            reportDAO.insertReport(reportTypeId, currentUserId, targetId, target, reportDate, header, content);
-            request.setAttribute("message", "Report successfully!");
-            
+            boolean isReported = reportDAO.isReported(currentUserId, target, targetId);
+            //check current user reported this property/user
+            if (isReported == true) {
+                request.setAttribute("message", "You reported this " + target);
+            } else {
+                reportDAO.insertReport(reportTypeId, currentUserId, targetId, target, reportDate, header, content);
+                request.setAttribute("message", "Report successfully!");
+            }
+
             IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
             List<ReportType> reportTypeList = reportTypeDAO.getAllReportTypes();
             switch (target) {

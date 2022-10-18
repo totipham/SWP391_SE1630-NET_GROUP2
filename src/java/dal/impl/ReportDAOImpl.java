@@ -19,6 +19,7 @@ import dal.IReportDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**				
@@ -57,4 +58,39 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
         }
     }
 
+    @Override
+    public boolean isReported(int senderId, String target, int targetId) throws Exception {
+        String sql = "SELECT * FROM Report WHERE sender_id = ? and target = ? and target_id = ?";
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, senderId);
+            statement.setString(2, target);
+            statement.setInt(3, targetId);
+
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, result);
+        }
+
+        return false;
+    }
+    /*public static void main(String []args) {
+        try{
+            ReportDAOImpl r = new ReportDAOImpl();
+        boolean t = r.isReported(6, "user", 10);
+            System.out.println(t);
+        } catch(Exception ex){
+            System.out.println(ex);
+        }
+        
+  }*/
 }
