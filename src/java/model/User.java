@@ -16,6 +16,7 @@ public class User {
     private String address;
     private int role;
     private String token;
+    private boolean verify;
 
     public User(int id, String username, String password, String name, String email, String phone, String avatar, String address, int role) {
         this.id = id;
@@ -38,6 +39,14 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public boolean isVerify() {
+        return verify;
+    }
+
+    public void setVerify(boolean verify) {
+        this.verify = verify;
     }
 
     public int getRole() {
@@ -111,5 +120,7 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+    
 
 }
