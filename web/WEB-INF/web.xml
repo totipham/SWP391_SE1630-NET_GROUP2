@@ -49,10 +49,6 @@
         <servlet-class>controller.dashboard.DashboardPropertiesController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FeedbackController</servlet-name>
-        <servlet-class>controller.property.FeedbackController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SearchPropertyController</servlet-name>
         <servlet-class>controller.property.SearchPropertyController</servlet-class>
     </servlet>
@@ -96,6 +92,16 @@
     <servlet>
         <servlet-name>ViewUserOfSystem</servlet-name>
         <servlet-class>controller.user.ViewSystemUserController</servlet-class>
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <servlet-class>controller.feedback.DeleteFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditFeedbackController</servlet-name>
+        <servlet-class>controller.feedback.EditFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendFeedbackController</servlet-name>
+        <servlet-class>controller.feedback.SendFeedbackController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HostDashboardController</servlet-name>
@@ -162,10 +168,6 @@
         <url-pattern>/dashboard/properties</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FeedbackController</servlet-name>
-        <url-pattern>/feedback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchPropertyController</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
@@ -216,6 +218,18 @@
     <servlet-mapping>
         <servlet-name>RemoveUserController</servlet-name>
         <url-pattern>/dashboard/removeuser</url-pattern>
+    </servlet-mapping>   
+    <servlet-mapping> 
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <url-pattern>/delfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditFeedbackController</servlet-name>
+        <url-pattern>/editfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendFeedbackController</servlet-name>
+        <url-pattern>/sendfeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
