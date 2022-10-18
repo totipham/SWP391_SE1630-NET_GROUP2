@@ -43,8 +43,16 @@ public interface IUserDAO {
      * @return
      * @throws Exception
      */
-    public boolean isDuplicateUsername(String username) throws Exception;
+    public User getUserByUsername(String username) throws Exception;
 
+    /**
+     *
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    public User getUserByEmail(String email) throws Exception;
+    
     /**
      *
      * @param name

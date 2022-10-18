@@ -85,9 +85,14 @@ public class AddUserController extends HttpServlet {
             String username = validate.getField(request, "username", true, 3, 20);
             String password = validate.getField(request, "password", true, 3, 20);
 
-            //check if user existed
-            if (userDAO.isDuplicateUsername(username)) {
+            //check if user with username is existed
+            if (userDAO.getUserByUsername(username) != null) {
                 throw new Exception("Username " + username + " is existed!");
+            }
+            
+            //check if user with email is existed
+            if (userDAO.getUserByEmail(email) != null) {
+                throw new Exception("Email " + email + " is existed!");
             }
 
             String message = userDAO.insertUser(name, phone, email, address, username, password);

@@ -115,11 +115,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      *
      * @param username
      * @return
-     */
-    /**
-     *
-     * @param username
-     * @return
      * @throws java.sql.SQLException
      */
     public User getUserByUsername(String username) throws SQLException {
@@ -130,6 +125,43 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
+            result = statement.executeQuery();
+            while (result.next()) {
+                User user = new User();
+                user.setId(result.getInt("user_id"));
+                user.setRole(result.getInt("role"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
+                return user;
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, result);
+        }
+        return null;
+    }
+    
+    
+    /**
+     *
+     * @param username
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public User getUserByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM [User] WHERE email=?";
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
             result = statement.executeQuery();
             while (result.next()) {
                 User user = new User();
@@ -178,36 +210,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             closeConnection(connection, statement, null);
         }
     }
-
-    /**
-     *
-     * @param username
-     * @return
-     */
-    @Override
-    public boolean isDuplicateUsername(String username) throws SQLException {
-        String sql = "SELECT user_id FROM [User] WHERE username = ?";
-        Connection connection = getConnection();
-        PreparedStatement statement = null;
-        ResultSet result = null;
-        try {
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
-
-            result = statement.executeQuery();
-
-            if (result.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            closeConnection(connection, statement, result);
-        }
-
-        return false;
-    }
-
+    
     /**
      *
      * @param name
