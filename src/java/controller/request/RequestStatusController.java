@@ -7,7 +7,7 @@
  *      VERSION: 1.0
  *      AUTHOR: LANBTHHE160676          
  */
-package controller.property;
+package controller.request;
 
 import dal.IRequestDAO;
 import dal.impl.RequestDAOImpl;

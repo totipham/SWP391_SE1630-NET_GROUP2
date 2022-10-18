@@ -1,12 +1,13 @@
 /*
  * Copyright(C) 2022, FPT University.
  * Hostalpy
- *
+ * RentingController
  * Record of change:
- * DATE            Version             AUTHOR           DESCRIPTION
- * Oct 5, 2022         1.0           LanBTHHE160676     First Implement
+ *      DATE: Oct 5, 2022            
+ *      VERSION: 1.0
+ *      AUTHOR: LANBTHHE160676          
  */
-package controller.property;
+package controller.request;
 
 import dal.IPropertyDAO;
 import dal.IRequestDAO;
@@ -16,18 +17,15 @@ import dal.impl.RequestDAOImpl;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import model.User;
 import utils.ValidateUtility;
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This is a Servlet responsible for handling renting function /renting is the
@@ -35,7 +33,8 @@ import java.util.logging.Logger;
  *
  * @author LANBTHHE160676
  */
-public class SendRentingController extends HttpServlet {
+@WebServlet(name = "RentingController", urlPatterns = {"/renting"}) //chyen sang web.xml
+public class RentingController extends HttpServlet {
 
     private ValidateUtility validate = new ValidateUtility();
 
@@ -51,7 +50,7 @@ public class SendRentingController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        PropertyDAOImpl propDAO = new PropertyDAOImpl();
         boolean loggedIn = session != null && session.getAttribute("user") != null;
 
         //check if user is logged in or not
@@ -64,7 +63,7 @@ public class SendRentingController extends HttpServlet {
                 try {
                     String pid_raw = request.getParameter("pid");
                     int pid = Integer.parseInt(pid_raw);
-                    request.setAttribute("property", propertyDAO.getPropertyById(pid));
+                    request.setAttribute("property", propDAO.getPropertyById(pid));
                     request.setAttribute("user", (User) session.getAttribute("user"));
                     request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
 
@@ -74,8 +73,7 @@ public class SendRentingController extends HttpServlet {
                 }
             }
         } else {
-            String redirect = request.getServletPath() + "?" + request.getQueryString();
-            response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString()));
+            response.sendRedirect(request.getContextPath());
         }
     }
 
@@ -99,8 +97,8 @@ public class SendRentingController extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("uid"));
             int pid = Integer.parseInt(request.getParameter("pid"));
             Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
-            IRequestDAO requestDAO = new RequestDAOImpl();
-            requestDAO.insertRequest(uid, pid, currentDate);
+            IRequestDAO reqDAO = new RequestDAOImpl();
+            reqDAO.insertRequest(uid, pid, currentDate);
 
             IUserDAO userDAO = new UserDAOImpl();
             userDAO.updateUser(uid, fullname, phone, email, address);
@@ -111,7 +109,6 @@ public class SendRentingController extends HttpServlet {
             request.setAttribute("message", "Request Successfully");
             request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(SendRentingController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("/views/property/renting.jsp").forward(request, response);
         }

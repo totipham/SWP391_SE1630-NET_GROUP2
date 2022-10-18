@@ -38,11 +38,11 @@
     </servlet>
     <servlet>
         <servlet-name>RentingController</servlet-name>
-        <servlet-class>controller.property.SendRentingController</servlet-class>
+        <servlet-class>controller.request.SendRentingController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateRequestStatusController</servlet-name>
-        <servlet-class>controller.property.UpdateRequestStatusController</servlet-class>
+        <servlet-class>controller.request.UpdateRequestStatusController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashboardPropertiesController</servlet-name>
@@ -79,7 +79,7 @@
     </servlet>
     <servlet>
         <servlet-name>SendRentingController</servlet-name>
-        <servlet-class>controller.property.SendRentingController</servlet-class>
+        <servlet-class>controller.request.SendRentingController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProfileController</servlet-name>
@@ -184,7 +184,7 @@
     <servlet-mapping>
         <servlet-name>AddUserController</servlet-name>
         <url-pattern>/dashboard/adduser</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

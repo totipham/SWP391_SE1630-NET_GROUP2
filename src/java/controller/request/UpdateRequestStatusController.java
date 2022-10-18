@@ -6,7 +6,7 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 7, 2022         1.0           LanBTHHE160676     First Implement
  */
-package controller.property;
+package controller.request;
 
 import dal.IRequestDAO;
 import dal.impl.RequestDAOImpl;
