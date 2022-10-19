@@ -49,10 +49,16 @@ public class VerifyAccountController extends HttpServlet {
         //check if user is logged in or not
         if (user != null) {
             request.setAttribute("user", user); //set attribute user
-            request.getRequestDispatcher("*").forward(request, response); //forward to page XXXXXXXXXXXXX
+            request.getRequestDispatcher("views/auth/verifyaccount.jsp").forward(request, response); //forward to page verify account
 
         } else {
-            String redirect = request.getServletPath() + "?" + request.getQueryString();
+            String redirect = request.getServletPath();
+            
+            //check if query string of request is not null
+            if (request.getQueryString() != null) {
+                redirect += "?" + request.getQueryString(); //add query string to redirect
+            }
+            
             response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString())); //send direct page to login page
             return;
         }
