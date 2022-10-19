@@ -25,8 +25,14 @@
 
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="container px-20">
+        <div class="px-20">
             <div class="profile border border-2 border-[#eee] p-10 mt-10 mx-auto shadow-2xl" style="border-radius: 20px">
+                <c:if test="${requestScope.user.verify == true}">
+                    <span class="float-right bg-blue-900 text-white px-5 py-1 rounded-full" title="This account has been verified">Verified Account <i class="fa-solid fa-circle-check"></i></span>
+                    </c:if>
+                    <c:if test="${requestScope.user.verify != true}">
+                    <span class="float-right bg-gray-600 text-white px-5 py-1 rounded-full" title="Click here to verify your account"><a class="hover:text-white" href="${baseURL}/verify">Unverified Account <i class="fa-solid fa-circle-xmark"></i></a></span>
+                        </c:if>
                 <form action="editavatar" method="POST" enctype='multipart/form-data'>
                     <span class="text-base text-[#575757]"><b>Avatar</b></span>
                     <div class="my-3 flex flex-row items-center">
@@ -40,15 +46,15 @@
                     <div class="grid grid-cols-2 gap-5 mt-5">
                         <div class="col-span-1">
                             <span class="text-base text-[#575757]"><b>Fullname</b> <span class="text-red-500">*</span></span><br>
-                            <input type="text" maxlength="255" name="name" class="border px-3" value="${requestScope.user.name}"><br>
+                            <input type="text" minlength="3" maxlength="20" name="name" class="border px-3" value="${requestScope.user.name}" required><br>
                             <span class="text-base text-[#575757]"><b>Phone</b> <span class="text-red-500">*</span></span><br>
-                            <input type="text" maxlength="11" name="phone" class="border px-3" value="${requestScope.user.phone}"><br>
+                            <input type="text" maxlength="10" pattern="0[35789]{1}[0-9]{8}" name="phone" class="border px-3" value="${requestScope.user.phone}" required><br>
                         </div>
                         <div class="col-span-1">
                             <span class="text-base text-[#575757]"><b>Email</b> <span class="text-red-500">*</span></span><br>
-                            <input type="email" maxlength="255" name="email" class="border px-3" value="${requestScope.user.email}"><br>
+                            <input type="email" minlength="11" maxlength="200" name="email" class="border px-3" value="${requestScope.user.email}" required><br>
                             <span class="text-base text-[#575757]"><b>Address</b></span> <span class="text-red-500">*</span><br>
-                            <input type="text" maxlength="255" name="address" class="border px-3" value="${requestScope.user.address}"><br>
+                            <input type="text" minlength="10" maxlength="30" name="address" class="border px-3" value="${requestScope.user.address}" required><br>
                         </div>
                         <c:if test="${requestScope.error != null}">
                             <p style="color: red;">${requestScope.error}</p>

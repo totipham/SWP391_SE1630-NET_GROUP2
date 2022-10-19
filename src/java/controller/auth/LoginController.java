@@ -22,7 +22,7 @@ import model.User;
 import utils.ValidateUtility;
 
 /**
- * This is a Servlet responsible for handling login function /Login is the URL
+ * This is a Servlet responsible for handling login function /login is the URL
  *
  * The method will throw an object of <code>java.lang.Exception</code> class if
  * there is any error occurring when finding, inserting, or updating data
@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loggedIn = session != null && session.getAttribute("user") != null; //check if user login or not
         String redirect = request.getParameter("redirect");
 
         //Check if user is logged in or not
@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet {
         } else {
             //check if redirect is not null and not equals empty string
             if (redirect != null && !redirect.equals("")) {
-                request.setAttribute("redirect", redirect);
+                request.setAttribute("redirect", redirect); //set attribute for redirect
             }
             
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response); //redirect to login page
@@ -79,9 +79,9 @@ public class LoginController extends HttpServlet {
             String username = validate.getField(request, "username", true, 3, 20);  //require to get field username has length between 3 and 20
             String password = validate.getField(request, "password", true, 3, 20); //require to get field password has length between 3 and 20
 
-            String redirect = request.getParameter("redirect");
+            String redirect = request.getParameter("redirect"); //get redirect page
 
-            User userFromDB = userDAO.getUser(username, password);
+            User userFromDB = userDAO.getUser(username, password); //get user by username and password
 
             //Check if user is not null
             if (userFromDB != null) {

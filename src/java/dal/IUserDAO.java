@@ -90,4 +90,11 @@ public interface IUserDAO {
     public List<User> getAllUserSystem() throws Exception;
 
     public void removeUserByID(int id) throws Exception;
+    /**
+     *
+     * @param id
+     * @param verify
+     * @throws Exception
+     */
+    public void updateVerifyByID(int id, boolean verify) throws Exception;
 }

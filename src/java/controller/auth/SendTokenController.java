@@ -41,7 +41,7 @@ public class SendTokenController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -51,8 +51,8 @@ public class SendTokenController extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             
-            //check if user is not null
-            if (user != null) {
+            //check if user is not null and is not verify
+            if (user != null && !user.isVerify()) {
                 MailUtility mailUtils = new MailUtility();
                 String token = mailUtils.generateTokenString(); //generate token string from mailUtils
                 user.setToken(token); // set token from generated token for new user
@@ -64,6 +64,8 @@ public class SendTokenController extends HttpServlet {
                 } else {
                     out.print("Error when sending! Please try again");
                 }
+            } else {
+                out.print("This account has been verified yet!");
             }
 
         } catch (Exception ex) {

@@ -24,12 +24,19 @@
                 color: gray !important;
                 border-color: gray !important;
             }
+            
+            .btn-disable .verify-btn {
+                pointer-events: none;
+                color: gray !important;
+                border-color: gray !important;
+                background: lightgray !important;
+            }
 
         </style>
     </head>
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="bg-white shadow w-fit p-5 mx-auto rounded-2xl shadow-xl mt-5 border border-[#eee] mx-auto" style="">
+        <div class="bg-white shadow w-fit p-5 mx-auto rounded-2xl shadow-xl mt-5 border border-[#eee]" style="">
             <div class="text-center">
                 <h1 class="mb-5 text-xl font-semibold">Verify</h1>
                 <form id="verify-form" action="verify" method="POST">
@@ -40,7 +47,7 @@
                     <p id='send-email-notification' class="my-3"></p>
                     <div class="mt-3"></div>
                     <p style="color: #575757">${requestScope.result}</p>
-                    <button id="verify-btn" class="bg-primary px-5 py-3 rounded-xl text-white hover:text-gray-200">Verify Account</button>
+                    <button id="verify-btn" class="verify-btn bg-primary px-5 py-3 rounded-xl text-white hover:text-gray-200">Verify Account</button>
                 </form>
             </div>
         </div>
@@ -67,7 +74,7 @@
                     $('#send-email-btn-content').html('Sending...');
                     $.ajax({
                         url: 'verify/sendtoken',
-                        type: 'GET',
+                        type: 'POST',
                         success: sendReply
                     });
                 });
@@ -91,6 +98,8 @@
             const finishRes = (data) => {
                 if (data === 'success') {
                     $('#send-email-notification').removeClass('text-red-600').addClass('text-green-600').empty().html('Verify successfully!');
+                    $('#verify-btn').addClass('btn-disable');
+                    $('#send-email-btn').addClass('btn-disable');
                 } else {
                     $('#send-email-notification').removeClass('text-green-600').addClass('text-red-600').html(data);
                 }

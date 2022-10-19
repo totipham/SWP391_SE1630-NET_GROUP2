@@ -231,6 +231,10 @@
         <servlet-name>SendFeedbackController</servlet-name>
         <url-pattern>/sendfeedback</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgetPasswordController</servlet-name>
+        <url-pattern>/forget</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

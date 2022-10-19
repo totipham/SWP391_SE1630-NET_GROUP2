@@ -86,8 +86,21 @@ public class UpdateProfileController extends HttpServlet {
             String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11);
             String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
             String address = validate.getField(request, "address", true, 10, 30);
-
-            userDAO.updateUser(user.getId(), name, phone, email, address);
+            
+            //check if this input email equals old email
+            if (email.equals(user.getEmail())) {
+                userDAO.updateUser(user.getId(), name, phone, email, address); //update with old email
+            } else {
+                
+                //check if user with inputed email existed in the DB
+                if (userDAO.getUserByEmail(email) == null) {
+                    userDAO.updateUser(user.getId(), name, phone, email, address); //update user
+                    userDAO.updateVerifyByID(user.getId(), false); //update this account with new email to not veried yet
+                } else {
+                    throw new Exception ("This email is used by another user!"); //throw new exception
+                }
+            }
+            
             User newUser = userDAO.getUserById(user.getId());
 
             //Check if new user is not null

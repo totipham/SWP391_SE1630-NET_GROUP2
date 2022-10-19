@@ -66,6 +66,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 user.setAvatar(result.getString("avatar"));
                 user.setAddress(result.getString("address"));
                 user.setRole(result.getInt("role"));
+                user.setVerify(result.getBoolean("verify"));
                 return user;
             }
         } catch (Exception ex) {
@@ -101,6 +102,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 user.setPhone(result.getString("phone"));
                 user.setAvatar(result.getString("avatar"));
                 user.setAddress(result.getString("address"));
+                user.setVerify(result.getBoolean("verify"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -137,6 +139,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 user.setPhone(result.getString("phone"));
                 user.setAvatar(result.getString("avatar"));
                 user.setAddress(result.getString("address"));
+                user.setVerify(result.getBoolean("verify"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -146,8 +149,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
         return null;
     }
-    
-    
+
     /**
      *
      * @param username
@@ -174,6 +176,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 user.setPhone(result.getString("phone"));
                 user.setAvatar(result.getString("avatar"));
                 user.setAddress(result.getString("address"));
+                user.setVerify(result.getBoolean("verify"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -210,7 +213,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             closeConnection(connection, statement, null);
         }
     }
-    
+
     /**
      *
      * @param name
@@ -302,45 +305,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
     }
 
-    public List<User> getAllUserSystem() throws SQLException {
-        List<User> list = new ArrayList<>();
-        String sql = "SELECT [user_id]\n"
-                + "      ,[name]\n"
-                + "      ,[role]\n"
-                + "      ,[username]\n"
-                + "      ,[password]\n"
-                + "      ,[email]\n"
-                + "      ,[phone]\n"
-                + "      ,[avatar]\n"
-                + "      ,[address]\n"
-                + "  FROM [dbo].[User]";
-        PreparedStatement statement = null;
-        Connection connection = getConnection();
-        ResultSet result = null;
-        try {
-            statement = connection.prepareStatement(sql);
-            result = statement.executeQuery();
-            while (result.next()) {
-                User user = new User();                
-                user.setId(result.getInt("user_id"));                
-                user.setRole(result.getInt("role"));
-                user.setUsername(result.getString("username"));
-                user.setPassword(result.getString("password"));
-                user.setEmail(result.getString("email"));
-                user.setName(result.getString("name"));
-                user.setPhone(result.getString("phone"));
-                user.setAvatar(result.getString("avatar"));
-                user.setAddress(result.getString("address"));
-                list.add(user);
-            }
-            return list;
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            closeConnection(connection, statement, null);
-        }        
-    }
-
     /**
      *
      * @param id
@@ -356,6 +320,56 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             connection = getConnection();
             statement = connection.prepareStatement(strDelete);
             statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+
+    public List<User> getAllUserSystem() throws SQLException {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM User";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            while (result.next()) {
+                User user = new User();
+                user.setId(result.getInt("user_id"));
+                user.setRole(result.getInt("role"));
+                user.setUsername(result.getString("username"));
+                user.setPassword(result.getString("password"));
+                user.setEmail(result.getString("email"));
+                user.setName(result.getString("name"));
+                user.setPhone(result.getString("phone"));
+                user.setAvatar(result.getString("avatar"));
+                user.setAddress(result.getString("address"));
+                user.setVerify(result.getBoolean("verify"));
+                list.add(user);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+
+    @Override
+    public void updateVerifyByID(int id, boolean verify) throws Exception {
+        String sql = "UPDATE User SET verify = ? WHERE user_id = ?";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, verify);
+            statement.setInt(2, id);
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw e;

@@ -8,6 +8,8 @@
  */
 package controller.auth;
 
+import dal.IUserDAO;
+import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -46,19 +48,25 @@ public class VerifyAccountController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        //check if user is logged in or not
+        //check if user is logged in
         if (user != null) {
-            request.setAttribute("user", user); //set attribute user
-            request.getRequestDispatcher("views/auth/verifyaccount.jsp").forward(request, response); //forward to page verify account
+
+            //check if user is not verify
+            if (!user.isVerify()) {
+                request.setAttribute("user", user); //set attribute user
+                request.getRequestDispatcher("views/auth/verifyaccount.jsp").forward(request, response); //forward to page verify account
+            } else {
+                response.sendRedirect(request.getContextPath() + "/profile");
+            }
 
         } else {
             String redirect = request.getServletPath();
-            
+
             //check if query string of request is not null
             if (request.getQueryString() != null) {
                 redirect += "?" + request.getQueryString(); //add query string to redirect
             }
-            
+
             response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString())); //send direct page to login page
             return;
         }
@@ -78,28 +86,31 @@ public class VerifyAccountController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
 
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             String token = request.getParameter("token"); //get catpcha from request
             HttpSession session = request.getSession(false); //call session from request
             User user = (User) session.getAttribute("user"); //call user from session
-            
+            IUserDAO userDAO = new UserDAOImpl();
+
             //check if user is null
             if (user == null) {
                 String redirect = request.getServletPath() + "?" + request.getQueryString();
                 response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString())); //send direct page to login page
                 return;
             }
-            
+
             boolean checkToken = token.equals(user.getToken()); //create boolean to check equals with input captcha and captcha in session
-            
+
             //check if check token is true
             if (checkToken) {
                 user.setVerify(true); //set this user is verify
+                userDAO.updateVerifyByID(user.getId(), true);
+                session.setAttribute("user", user);
                 out.print("success");
             } else {
-                out.print("Invalid captcha");
+                out.print("Invalid token");
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(VerifyAccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
