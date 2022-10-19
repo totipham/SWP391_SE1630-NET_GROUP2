@@ -1,5 +1,5 @@
 <%-- 
-    Document   : chgpwd
+    Document   : verifyaccount
     Created on : Sep 30, 2022, 11:20:44 PM
     Author     : totipham
 --%>
@@ -25,7 +25,7 @@
                 border-color: gray !important;
             }
             
-            .btn-disable .verify-btn {
+            .btn-disable.verify-btn {
                 pointer-events: none;
                 color: gray !important;
                 border-color: gray !important;

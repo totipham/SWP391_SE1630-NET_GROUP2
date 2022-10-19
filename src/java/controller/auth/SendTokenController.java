@@ -56,7 +56,7 @@ public class SendTokenController extends HttpServlet {
                 MailUtility mailUtils = new MailUtility();
                 String token = mailUtils.generateTokenString(); //generate token string from mailUtils
                 user.setToken(token); // set token from generated token for new user
-                boolean sendMailStatus = mailUtils.sendEmail(user); //send mail to user, if success then do next action
+                boolean sendMailStatus = mailUtils.sendEmail("verify", user); //send verify mail to user
                 
                 //check if send mail status is true
                 if (sendMailStatus) {

@@ -270,13 +270,13 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             statement = connection.prepareStatement(sql);
             statement.setString(1, newpwd);
             statement.setInt(2, id);
+            
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
             closeConnection(connection, statement, null);
         }
-
-        return statement.executeUpdate();
     }
 
     /**

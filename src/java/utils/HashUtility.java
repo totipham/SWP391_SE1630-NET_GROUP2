@@ -49,10 +49,10 @@ public class HashUtility {
     }
 
     // Change this to something else.
-    private String SALT = "08232000";
+    private String SALT = "hostalpy_salt";
 
     // A password hashing method.
-    public String hashPassword(String in) {
+    public String hashString(String in) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(SALT.getBytes());

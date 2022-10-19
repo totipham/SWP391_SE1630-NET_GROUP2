@@ -224,7 +224,7 @@
                     <input type="text" name="username" placeholder="Username" minlength="3" maxlength="20" required />
                     <input type="password" name="password" placeholder="Password" minlength="3" maxlength="20" required/>
                     <p style="color: red">${requestScope.message}</p>
-                    <a href="forgot">Forgot your password?</a>
+                    <a href="forget">Forgot your password?</a>
                     <button class="bg-primary text-white w-[50%] h-[45px] rounded-sm font-semibold">Sign In</button>
                 </form>
             </div>

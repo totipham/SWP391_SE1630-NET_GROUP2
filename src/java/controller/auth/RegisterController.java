@@ -71,7 +71,7 @@ public class RegisterController extends HttpServlet {
             String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
             String address = validate.getField(request, "address", true, 10, 30);
             String username = validate.getField(request, "username", true, 3, 20);
-            String password = validate.getField(request, "username", true, 3, 20);
+            String password = validate.getField(request, "password", true, 3, 20);
 
             //check if user with username is existed
             if (userDAO.getUserByUsername(username) != null) {
