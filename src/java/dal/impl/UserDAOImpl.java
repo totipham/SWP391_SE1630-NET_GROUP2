@@ -340,4 +340,27 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             closeConnection(connection, statement, null);
         }        
     }
+
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
+    @Override
+    public void removeUserByID(int id) throws Exception {
+        String strDelete = "DELETE FROM [dbo].[User]\n"
+                + "      WHERE user_id=?";
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(strDelete);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
+    }
 }

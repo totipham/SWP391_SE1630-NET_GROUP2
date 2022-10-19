@@ -88,4 +88,6 @@ public interface IUserDAO {
      * @throws Exception
      */
     public List<User> getAllUserSystem() throws Exception;
+
+    public void removeUserByID(int id) throws Exception;
 }
