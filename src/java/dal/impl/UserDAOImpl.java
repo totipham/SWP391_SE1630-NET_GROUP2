@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Contract;
 import model.User;
 
 /**
@@ -377,4 +378,33 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             closeConnection(connection, statement, null);
         }
     }
+
+    /**
+     *
+     * @param userid
+     * @param role
+     * @throws Exception
+     */
+    @Override
+    public void updateRoleByID(int userid, int role) throws Exception {
+        String sql = "UPDATE [User] SET role=? WHERE user_id=?";
+        Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        try {
+            statement.setInt(1, role);
+            statement.setInt(2, userid);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+
+    @Override
+    public List<Contract> getAllContract() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
+        

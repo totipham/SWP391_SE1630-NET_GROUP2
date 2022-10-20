@@ -44,65 +44,27 @@ public class ProfileController extends HttpServlet {
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
         User u = (User) session.getAttribute("user");
+        String uid = request.getParameter("uid");
+        int id;
 
         //if user is not login
         if (u == null) {
             request.getRequestDispatcher("login").forward(request, response);
         }
 
-        try {
-            User user = userDAO.getUserById(u.getId());
-
-            //if user in session
-            if (user != null) {
-                session.setAttribute("user", user);
+        //check if uid is null
+        if (uid == null || uid.equals("")) {
+            id = (int) u.getId();
+        } else {
+            id = Integer.parseInt(uid);
+            try {
+                User user = userDAO.getUserById(id);
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
+            } catch (Exception ex) {
+                request.setAttribute("message", ex);
+                request.getRequestDispatcher("views/error.jsp").forward(request, response);
             }
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("message", ex);
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
         }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        try {
-            IUserDAO userDAO = new UserDAOImpl();
-
-            String name = validate.getField(request, "name", true, 3, 20);
-            String phone = validate.getFieldByType(request, "phone", "phone", true, 9, 11);
-            String email = validate.getFieldByType(request, "email", "email", true, 11, 200);
-            String address = validate.getField(request, "address", true, 10, 30);
-
-            userDAO.updateUser(user.getId(), name, phone, email, address);
-            User newUser = userDAO.getUserById(user.getId());
-
-            //Check if new user is not null
-            if (newUser != null) {
-                session.setAttribute("user", newUser);
-            }
-            user = (User) session.getAttribute("user");
-            request.setAttribute("user", user);
-            request.setAttribute("message", "Update successfully!");
-            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("user", user);
-            request.setAttribute("error", ex.getMessage());
-            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
-        }
-
     }
 }

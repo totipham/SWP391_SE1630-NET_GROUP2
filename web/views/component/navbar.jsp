@@ -31,12 +31,11 @@
                 </button>
             </c:if>
             <c:if test="${sessionScope.user != null}">
-                <c:set var="u" scope="session" value="${user}" />
                 <div class="user-wrapper">
                     <div class="flex flex-row items-center gap-3">
-                        <span style="font-weight: 500; color: #575757; margin-right: 5px">${u.name}</span>
+                        <span style="font-weight: 500; color: #575757; margin-right: 5px">${sessionScope.user.name}</span>
                         <a class="navbar--user-menu">
-                            <img src="${baseURL}/assets/images/${u.avatar != null ? u.avatar : "avatar.png"}" alt="Avatar" class="rounded-full border border-[3px] border-primary" width="60" height="60">
+                            <img src="${baseURL}/assets/images/${sessionScope.user.avatar != null ? sessionScope.user.avatar : "avatar.png"}" alt="Avatar" class="rounded-full border border-[3px] border-primary" width="60" height="60">
                         </a>
                     </div>
                     <ul class="user-wrapper--menu shadow">

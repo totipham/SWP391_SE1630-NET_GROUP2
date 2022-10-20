@@ -1,6 +1,7 @@
 package dal;
 
 import java.util.List;
+import model.Contract;
 import model.User;
 
 /**
@@ -11,8 +12,10 @@ public interface IUserDAO {
 
     /**
      *
-     * @param username for username of user. It is <code>java.lang.String</code> object
-     * @param password for password of user. It is <code>java.lang.String</code> object
+     * @param username for username of user. It is <code>java.lang.String</code>
+     * object
+     * @param password for password of user. It is <code>java.lang.String</code>
+     * object
      * @return <code>User</code> object
      * @throws Exception
      */
@@ -52,7 +55,7 @@ public interface IUserDAO {
      * @throws Exception
      */
     public User getUserByEmail(String email) throws Exception;
-    
+
     /**
      *
      * @param name
@@ -81,15 +84,20 @@ public interface IUserDAO {
      * @throws Exception
      */
     public void updateAvatar(User user) throws Exception;
-    
+
     /**
-     *    
-     * @return
-     * @throws Exception
+     *
+     * @return @throws Exception
      */
     public List<User> getAllUserSystem() throws Exception;
 
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
     public void removeUserByID(int id) throws Exception;
+
     /**
      *
      * @param id
@@ -97,4 +105,21 @@ public interface IUserDAO {
      * @throws Exception
      */
     public void updateVerifyByID(int id, boolean verify) throws Exception;
+
+    /**
+     *
+     * @param userid
+     * @param role
+     * @throws Exception
+     */
+    public void updateRoleByID(int userid, int role) throws Exception;
+    
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<Contract> getAllContract() throws Exception;
 }
+
+ 
