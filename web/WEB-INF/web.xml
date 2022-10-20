@@ -90,6 +90,26 @@
         <servlet-class>controller.user.ViewSystemUserController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddNewReportTypeController</servlet-name>
+        <servlet-class>controller.report.AddNewReportTypeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRentingRequestController</servlet-name>
+        <servlet-class>controller.property.ViewRentingRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewReportTypeController</servlet-name>
+        <servlet-class>controller.report.ViewReportTypeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReportTypeController</servlet-name>
+        <servlet-class>controller.report.DeleteReportTypeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <servlet-class>controller.property.AcceptRentingRequest</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteFeedbackController</servlet-name>
         <servlet-class>controller.feedback.DeleteFeedbackController</servlet-class>
     </servlet>
@@ -236,6 +256,26 @@
     <servlet-mapping>
         <servlet-name>ForgetPasswordController</servlet-name>
         <url-pattern>/forget</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewReportTypeController</servlet-name>
+        <url-pattern>/addnewreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRentingRequestController</servlet-name>
+        <url-pattern>/viewrentingrequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReportTypeController</servlet-name>
+        <url-pattern>/viewreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReportTypeController</servlet-name>
+        <url-pattern>/deletereporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <url-pattern>/acceptrentingrequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
