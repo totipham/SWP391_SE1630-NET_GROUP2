@@ -62,4 +62,45 @@ public class ReportTypeDAOImpl extends DBContext implements  IReportTypeDAO{
         return list;
     }
 
+    @Override
+    public void insertReportType(String newReportType) throws Exception {
+        String sql = "INSERT INTO ReportType (report_type) "
+                + "VALUES (?)";
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, newReportType);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+           throw e;
+        }finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+
+    @Override
+    public void deleteReportType(int reportType) throws Exception {
+        String sql = "DELETE FROM ReportType WHERE rtype_id = ? ";
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, reportType);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+           throw e;
+        }finally {
+            closeConnection(connection, statement, null);
+        }
+    }
+    /*public static void main(String[] args) throws Exception {
+        ReportTypeDAOImpl r = new ReportTypeDAOImpl();
+        r.deleteReportType(5);
+
+    }*/
 }

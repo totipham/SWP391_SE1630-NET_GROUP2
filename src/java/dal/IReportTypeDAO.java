@@ -31,4 +31,18 @@ public interface IReportTypeDAO {
      * @throws Exception
      */
     public List<ReportType> getAllReportTypes() throws Exception;
+
+    /**
+     *
+     * @param newReportType
+     * @throws Exception
+     */
+    public void insertReportType(String newReportType) throws Exception;
+
+    /**
+     *
+     * @param reportType
+     * @throws Exception
+     */
+    public void deleteReportType(int reportType) throws Exception;
 }
