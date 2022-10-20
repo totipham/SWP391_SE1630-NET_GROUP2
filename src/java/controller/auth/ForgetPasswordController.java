@@ -83,11 +83,7 @@ public class ForgetPasswordController extends HttpServlet {
             IUserDAO userDAO = new UserDAOImpl();
             HashUtility hash = new HashUtility();
             String hashedInputToken = hash.hashString(request.getParameter("token")); //get token from user input
-            HttpSession session = request.getSession(); //call session in requét
-
-            System.out.println("HASHED: " + session.getAttribute("hashedToken"));
-            System.out.println("INPUT: " + request.getParameter("token"));
-            System.out.println("HASHED INPUT: " + hash.hashString(request.getParameter("token")));
+            HttpSession session = request.getSession(); //call session in request
 
             User resetUser = userDAO.getUserById((int) session.getAttribute("userId"));
             if (resetUser == null) {
@@ -189,9 +185,5 @@ public class ForgetPasswordController extends HttpServlet {
                 changePassword(request, response);
                 break;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Hello");
     }
 }
