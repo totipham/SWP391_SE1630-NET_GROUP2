@@ -39,6 +39,19 @@
                 right: 10px;
                 z-index: 9;
             }
+
+            .btn-disable {
+                pointer-events: none;
+                color: gray !important;
+                border-color: gray !important;
+            }
+
+            .btn-disable.bg-primary {
+                pointer-events: none;
+                color: gray !important;
+                border-color: gray !important;
+                background: lightgray !important;
+            }
         </style>
     </head>
     <body>
@@ -46,29 +59,29 @@
         <c:set var="p" scope="request" value="${property}" />
         <div class="container mx-auto mt-4 px-20">
             <div class="grid grid-cols-3 gap-7">
-                <div class="col-span-2">
+                <div class="col-span-2 mb-5">
                     <div class="property-image">
-                        <div class="report bg-white hover:bg-gray-100 cursor-pointer rounded-full w-fit text-center px-5">
-                            <a class="text-black text-lg" href="sendreport?target=property&targetid=${p.id}" title="Report ${p.name}"><i class="fa-solid fa-flag text-red-700"></i> Report</a>
+                        <div class="report bg-white hover:bg-gray-100 cursor-pointer rounded-full w-fit text-center px-3">
+                            <a class="text-black text-base font-medium flex items-center gap-2" href="sendreport?target=property&targetid=${p.id}" title="Report ${p.name}"><i class="fa-solid fa-flag text-[#b41410]"></i> Report</a>
                         </div>
-                        
+
                         <div class="fotorama" >
                             <c:forEach items="${p.images}" var="i">
                                 <img src="${baseURL}/assets/images/${i.fileName}">
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 my-5">
-                        <div class="col-span-2">
+                    <div class="grid grid-cols-5 my- gap-7">
+                        <div class="col-span-3">
                             <h3 class="text-2xl my-3"><b>🏡${p.name}</b></h3>
                             <p class=" my-3" style="font-weight: 400; font-size: 16px;">${p.address}</p>
                             <p><i>${p.description}</i></p>
                         </div>
-                        <div class="col-span-1">
+                        <div class="col-span-2">
 
                             <h5 class="mb-3 font-semibold">Owner</h5>
                             <div
-                                class="flex flex-row gap-3 items-center justify-between shadow-lg p-3 mb-5 owner-info">
+                                class="flex flex-row gap-3 items-center justify-between shadow-lg p-3 mb-5 owner-info border">
                                 <img 
                                     src="${baseURL}/assets/images/${p.host.avatar != null ? p.host.avatar : "avatar.png"}" 
                                     alt="Host Avatar" 
@@ -76,7 +89,17 @@
                                     width="60"
                                     />
                                 <div>
-                                    <p><b>${p.host.name}</b></p>
+                                    <div class="flex flex-col justify-between">
+                                        <div>
+                                            <a class="no-underline font-semibold" href="${baseURL}/profile?uid=${p.host.id}">${p.host.name}</a>
+                                            <c:if test="${p.host.verify == true}">
+                                                <span class="text-blue-900" title="This account has been verified"><i class="fa-solid fa-circle-check"></i></span>
+                                                </c:if>
+                                                <c:if test="${p.host.verify != true}">
+                                                <span class="bg-gray-600" title="This account is not verified yet"><i class="fa-solid fa-circle-xmark"></i></span>
+                                                </c:if>
+                                        </div>
+                                    </div>
                                     <p>@${p.host.username}</p>
                                 </div>
                                 <div>
@@ -93,7 +116,7 @@
                                 </div>
                             </div>
                             <h5 class="mb-3 font-semibold">Utilities Fee</h5>
-                            <div class="utilities-fee bg-white shadow p-3">
+                            <div class="utilities-fee bg-white shadow-lg border p-3">
                                 <c:forEach items="${p.utilities}" var="u">
                                     <div class="my-2 utilities-fee--row">
                                         <span><b>${u.name}:</b></span><span>${u.price}VND/${u.period}</span>
@@ -108,6 +131,23 @@
                             loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVR2X4a2N4zwtogFLmFXeOjbbIKqW06iw&q=`${p.name}, ${p.address}`">
                     </iframe>
+                    <c:if test="${p.host.id == u.id}">
+                        <div class="bg-white border rounded-xl p-5 shadow-2xl flex flex-col gap-5 items-center mt-5">
+                            <div class="text-center">
+                                <span class="font-semibold">You are owner of this property</span>
+                            </div>
+                            <div class="flex flex-row gap-5">
+                                <button type="button" class="bg-green-900 hover:bg-green-800 px-5 py-3 rounded-xl">
+                                    <a href="#" class="font-semibold text-white hover:text-white">Edit</a>
+                                </button>
+                                <button type="button" class="border border-10 border-red-600 hover:bg-gray-100 px-5 py-3 rounded-xl">
+                                    <a href="#" class="font-semibold text-red-600 hover:text-red-600">Remove</a>
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </c:if>
                     <div class="flex flex-col bg-white rounded-2xl shadow-xl border border-[#eee] p-7 mx-auto mt-5 ">
                         <div class="flex flex-row justify-between mb-7">
                             <div>
@@ -115,12 +155,14 @@
                                 <span>/month</span>
                             </div>
                             <div>
-                                <span>★ 5.0 • <a class="no-underline" href="#"><u>15 reviews</u></a></span>
+                                <span>★ 5.0 • <a class="no-underline" href="${baseURL}/feedback?pid=${p.id}"><u>15 reviews</u></a></span>
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center gap-3">
                             <span>Love this property ?</span>
-                            <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center">RESERVE NOW</a>
+                            <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center ${p.host.id == u.id ? "btn-disable" : ""}">
+                                RESERVE NOW
+                            </a>
                         </div>
                     </div>
                     <%--<c:if test="${requestScope.state != null}">--%>
@@ -146,6 +188,8 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="../base/footer.jsp" />
+
         <script>
             var formatter = new Intl.NumberFormat('en-US', {
                 style: 'currency',

@@ -437,6 +437,7 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Content-->
+                    <jsp:include page="../component/footer.jsp" />
                 </div>
                 <!--end::Wrapper-->
             </div>

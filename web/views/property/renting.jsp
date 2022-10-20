@@ -90,5 +90,6 @@ Author     : DucPTMHE160517
                 </div>
             </div>
         </div>
+        <jsp:include page="../base/footer.jsp" />
     </body>
 </html>

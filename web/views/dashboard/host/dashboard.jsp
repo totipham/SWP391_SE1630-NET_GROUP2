@@ -460,6 +460,7 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Content-->
+                    <jsp:include page="../component/footer.jsp" />
                 </div>
                 <!--end::Wrapper-->
             </div>
@@ -469,7 +470,7 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
-        
+
         <jsp:include page="./datachart.jsp" />
     </body>
     <!--end::Body-->

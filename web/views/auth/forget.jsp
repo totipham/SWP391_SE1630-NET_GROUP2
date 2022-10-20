@@ -263,6 +263,9 @@
                     $('#verifymail-btn').removeClass('btn-disable');
                     next();
                 } else {
+                    $('#load-icon').addClass('hidden');
+                    $('#send-email-btn-content').empty().html('Get Reset Password Token');
+                    $('#verifymail-btn').removeClass('btn-disable');
                     $('#email').addClass('invalid');
                     $('#notiExistMail').empty().html(data);
                 }

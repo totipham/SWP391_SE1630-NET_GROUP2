@@ -73,7 +73,7 @@
 
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="container">
+        <div class="container mt-[50px] mb-[100px]">
             <div class="form-segment shadow w-[30%] p-5 mx-auto rounded-2xl shadow-xl mt-5 border border-[#eee]" style="">
                 <div class="text-center">
                     <h1 class="mb-5">Change Password</h1>
@@ -89,7 +89,8 @@
                 </div>
             </div>
         </div>
-        <script>
+    <jsp:include page="../base/footer.jsp" />
+    <script>
             $('#repassword').on('keyup', function () {
                 if ($('#password').val() == $('#repassword').val()) {
                     $('#confirm-btn').removeClass("disabled");
