@@ -85,7 +85,6 @@
                         <div class="container-fluid" id="kt_content_container">
                             <!--begin::Row-->
                             <div class="row g-xl-8">
-
                                 <c:forEach items="${requestScope.listProperty}" var="property">
                                     <!--begin::Col-->
                                     <div class="col-xxl-4">
@@ -102,13 +101,13 @@
                                                 </div>
                                                 <span class="property-card__information__name">${property.name}</span>
                                                 <span class="property-card__information__address mb-2">${property.address}</span>
-                                                    <span><b class="text-primary">${property.price}đ</b>/month</span>
-                                                    <div class="property-card__information__bottom">
-                                                        <a href="editproperty?pid=${property.id}" class="btn btn-icon btn-primary"><i
-                                                                class="fa-solid fa-pen"></i></a>
-                                                                <a onclick="askToDelete(${property.id})" class="btn btn-icon btn-danger"><i
-                                                                class="fa-solid fa-trash"></i></a>
-                                                    </div>
+                                                <span><b class="text-primary">${property.price}đ</b>/month</span>
+                                                <div class="property-card__information__bottom">
+                                                    <a href="editproperty?pid=${property.id}" class="btn btn-icon btn-primary"><i
+                                                            class="fa-solid fa-pen"></i></a>
+                                                    <a onclick="askToDelete(${property.id})" class="btn btn-icon btn-danger"><i
+                                                            class="fa-solid fa-trash"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                         <!--end::Property-->
@@ -118,6 +117,13 @@
 
                             </div>
                             <!--end::Row-->
+                            <nav class="mt-5">
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
                         </div>
                         <!--end::Container-->
                     </div>
@@ -133,12 +139,14 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
-        
+
         <script>
-            function askToDelete(pid){
-                if (confirm("Are you sure to delete this property ?") == true) {window.location.replace("${baseURL}/dashboard/deleteproperty?pid=" + pid)}
+            function askToDelete(pid) {
+                if (confirm("Are you sure to delete this property ?") == true) {
+                    window.location.replace("${baseURL}/dashboard/deleteproperty?pid=" + pid)
+                }
             }
-            
+
         </script>
     </body>
     <!--end::Body-->
