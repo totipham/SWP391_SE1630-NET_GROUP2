@@ -100,7 +100,7 @@
 
 
                     <div id="captcha-part" class="content" role="tabpanel" aria-labelledby="captcha-part-trigger"> 
-                        <div class="flex justify-center items-center flex-col border border-gray-100 w-fit mx-auto px-5 py-5 rounded-xl shadow-xl">
+                        <div class="flex justify-center items-center flex-col border border-gray-100 w-fit mx-auto px-5 py-5 rounded-2xl shadow-xl">
                             <h1 class="text-center text-3xl font-semibold mb-3">Reset Password</h1>
                             <p class="text-dark">Input token we sent to your mail</p>
                             <form action="forget" method="post" id="checktoken-form" class="mt-3">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div id="password-part" class="content" role="tabpanel" aria-labelledby="password-part-trigger"> 
-                        <div class="flex justify-center items-center flex-col border border-gray-100 w-fit mx-auto px-5 py-5 rounded-xl shadow-xl">
+                        <div class="flex justify-center items-center flex-col border border-gray-100 w-fit mx-auto px-5 py-5 rounded-2xl shadow-xl">
                             <h1 class="text-center text-3xl font-semibold mb-3">Reset Password</h1>
                             <p class="text-dark">Input new password for your account</p>
                             <form id="resetpassword-form" action="forget" method="POST" class="mt-3">
@@ -129,10 +129,12 @@
                                     <input type="password" name="password" id="password" class="px-3" placeholder="Password" minlength="3" maxlength="20" required />
                                     <input type="password" name="confirmPassword" id="confirmPassword" class="px-3" placeholder="Confirm Password" minlength="3" maxlength="20" required/>
                                 </div>
-                                <span id="resetpassword-message" class="text-center text-danger"></span>
+                                <div class="text-center my-3">
+                                    <span id="resetpassword-message" class="text-danger"></span>
+                                </div>
                                 <div class="flex justify-center mt-3">
                                     <button type="button" onclick="previous()" class="bg-gray-100 border rounded px-3 py-1 mx-3">Back</button>
-                                    <button type="submit" class="btn btn-primary px-3 py-1 verify-btn" id="resetpassword-btn">Reset</button>
+                                    <button type="button" class="btn btn-primary px-3 py-1 verify-btn" id="resetpassword-btn">Reset</button>
                                 </div>
                                 <input type="hidden" name="step" value="resetpassword">
                                 <div class="text-danger small" id="resetPw-noti"></div>
@@ -141,10 +143,10 @@
                         </div>
                     </div>
                     <div id="finish-part" class="content" role="tabpanel" aria-labelledby="finish-part-trigger">
-                        <div class="flex justify-center flex-col items-center border border-gray-100 w-fit mx-auto px-5 py-5 rounded-xl shadow-xl">
+                        <div class="flex justify-center flex-col items-center border border-gray-100 w-fit mx-auto px-5 py-5 rounded-2xl shadow-xl">
                             <i class="fa-solid fa-check text-3xl font-bold text-success"></i>
                             <div class="flex flex-col text-center my-3"><span class="text-success" id="resetpass-noti"></span><span>Let login to your account with new password.</span></div>
-                            <a href="/hostalpy/login" class="btn btn-primary btn-lg">Return login screen</a>
+                            <a href="/hostalpy/login" class="text-base bg-green-800 text-white px-4 py-3 rounded">Return Login Screen</a>
                         </div>
                     </div>
                 </div>
@@ -157,110 +159,114 @@
         <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
         <script>
-                                        var stepper = new Stepper(document.querySelector("#stepper"));
+            var stepper = new Stepper(document.querySelector("#stepper"));
+            const next = () => {
+                stepper.next();
+            };
+            const previous = () => {
+                stepper.previous();
+            };
+            
+            $('#password , #confirmPassword').keyup(function () {
+                if ($('#password').val() === $('#confirmPassword').val()) {
+                    console.log("Check jquery: Bang !");
+                    $('#resetpassword-message').empty();
+                    $('#resetpassword-btn').removeClass('btn-disable');
+                }
+            });
+            
+            $(document).ready(function() {
+                $('#verifymail-btn').click(function() {
+                    $('#load-icon').removeClass('hidden');
+                    $('#send-email-btn-content').empty().html('Sending Token')
+                    $('#verifymail-btn').addClass('btn-disable');
+                    $('#checkmail-form').ajaxForm({
+                        // success identifies the function to invoke when the server response 
+                        // has been received 
 
-                                        const next = () => {
-                                            stepper.next();
-                                        };
-
-                                        const previous = () => {
-                                            stepper.previous();
-                                        };
-
-                                        $(document).ready(function () {
-                                            $('#verifymail-btn').click(function () {
-                                                $('#load-icon').removeClass('hidden');
-                                                $('#send-email-btn-content').empty().html('Sending Token')
-                                                $('#verifymail-btn').addClass('btn-disable');
-
-                                                $('#checkmail-form').ajaxForm({
-                                                    // success identifies the function to invoke when the server response 
-                                                    // has been received 
-
-                                                    success: processMailVerify
-                                                });
-                                            })
-
-
-                                        });
-
-                                        $(document).ready(function () {
-                                            $('#checktoken-btn').click(function () {
-                                                $('#notiCaptcha').empty();
-                                                $('#checktoken-load-icon').removeClass('hidden');
-                                                $('#checktoken-btn').addClass('btn-disable');
-                                                setTimeout(function () {
-                                                    $('#checktoken-load-icon').addClass('hidden');
-                                                    $('#checktoken-btn').removeClass('btn-disable');
-
-                                                }, 300);
-
-                                                $('#checktoken-form').ajaxForm({
-                                                    // success identifies the function to invoke when the server response 
-                                                    // has been received 
-                                                    success: processTokenVerify
-                                                });
+                        success: processMailVerify
+                    });
+                })
 
 
-                                            });
+            });
+            $(document).ready(function() {
+                $('#checktoken-btn').click(function() {
+                    $('#notiCaptcha').empty();
+                    $('#checktoken-load-icon').removeClass('hidden');
+                    $('#checktoken-btn').addClass('btn-disable');
+                    setTimeout(function() {
+                        $('#checktoken-load-icon').addClass('hidden');
+                        $('#checktoken-btn').removeClass('btn-disable');
+                    }, 300);
+                    $('#checktoken-form').ajaxForm({
+                        // success identifies the function to invoke when the server response 
+                        // has been received 
+                        success: processTokenVerify
+                    });
+                });
+            });
+            $(document).ready(function() {
+                $('#resetpassword-btn').click(function() {
+                    
+                    if ($('#password').val() === $('#confirmPassword').val()) {
+                        console.log("Check click: Bang !");
+                        $('#resetpassword-message').empty();
+                        $('#resetpassword-btn').removeClass('btn-disable');
 
+                        $.ajax({
+                            url: 'forget',
+                            method: 'POST',
+                            data: $('#resetpassword-form').serialize(),
+                            // success identifies the function to invoke when the server response 
+                            // has been received 
+                            success: processResetPassword
+                        });
+                    } else {
+                        console.log("Check click: Khong bang !");
+                        $('#resetpassword-message').html('Password fields do not match!');
+                        $('#resetpassword-btn').addClass('btn-disable');
+                    }
 
-                                        });
+                });
 
-                                        $(document).ready(function () {
-                                            $('#resetpassword-form').ajaxForm({
-                                                // success identifies the function to invoke when the server response 
-                                                // has been received 
-                                                success: processResetPassword
-                                            });
-                                        });
-
-                                        const resendReply = (data) => {
-                                            $('#notiCaptcha').removeClass('text-success').empty().html(data);
-                                            $('#resend-btn').prop('disabled', true);
-                                            setTimeout(function () {
-                                                $('#resend-btn').prop("disabled", false);
-                                            }, 10000);
-                                        };
-
-                                        const processResetPassword = (data) => {
-                                            if (data === 'success') {
-                                                $('#resetpass-noti').empty().html("Reset password successfully!");
-                                                next();
-                                            } else {
-                                                $('#resetpass-noti').empty().html(data);
-                                            }
-                                        };
-
-                                        const processTokenVerify = (data) => {
-                                            if (data === 'success') {
-                                                next();
-                                            } else {
-                                                $('#captcha').addClass('invalid');
-                                                $('#notiCaptcha').empty().html(data);
-                                            }
-                                        };
-
-                                        const processMailVerify = (data) => {
-                                            if (data === 'success') {
-                                                $('#load-icon').addClass('hidden');
-                                                $('#send-email-btn-content').empty().html('Get Reset Password Token')
-                                                $('#verifymail-btn').removeClass('btn-disable');
-                                                next();
-                                            } else {
-                                                $('#email').addClass('invalid');
-                                                $('#notiExistMail').empty().html(data);
-                                            }
-                                        };
-
-                                        $('#password, #confirmpassword').on('keyup', function () {
-                                            if ($('#password').val() === $('#confirmpassword').val()) {
-                                                $('#resetpassword-message').empty();
-                                                $('#resetpassword-btn').removeClass('btn-disable');
-                                            } else
-                                                $('#resetpassword-message').html('Password fields must same');
-                                                $('#resetpassword-btn').addClass('btn-disable');
-                                        });
+            });
+            const resendReply = (data) => {
+                $('#notiCaptcha').removeClass('text-success').empty().html(data);
+                $('#resend-btn').prop('disabled', true);
+                setTimeout(function() {
+                    $('#resend-btn').prop("disabled", false);
+                }, 10000);
+            };
+            const processResetPassword = (data) => {
+                if (data === 'success') {
+                    console.log("check servlet: match!");
+                    $('#resetpass-noti').empty().html("Reset password successfully!");
+                    next();
+                } else {
+                    console.log("check servlet: not match!");
+                    $('#resetpassword-message').empty().html('Password fields do not match!');
+                }
+            };
+            const processTokenVerify = (data) => {
+                if (data === 'success') {
+                    next();
+                } else {
+                    $('#captcha').addClass('invalid');
+                    $('#notiCaptcha').empty().html(data);
+                }
+            };
+            const processMailVerify = (data) => {
+                if (data === 'success') {
+                    $('#load-icon').addClass('hidden');
+                    $('#send-email-btn-content').empty().html('Get Reset Password Token');
+                    $('#verifymail-btn').removeClass('btn-disable');
+                    next();
+                } else {
+                    $('#email').addClass('invalid');
+                    $('#notiExistMail').empty().html(data);
+                }
+            };
         </script>
     </body>
 

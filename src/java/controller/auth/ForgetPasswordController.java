@@ -43,7 +43,7 @@ public class ForgetPasswordController extends HttpServlet {
         ValidateUtility validate = new ValidateUtility();
         HashUtility hash = new HashUtility();
 
-        try ( PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {            
             String email = validate.getFieldByType(request, "email", "email", true, 5, 30); //get field email length between 5 and 30 characters
             User userFromDB = userDAO.getUserByEmail(email); //get user from DB by email
 
@@ -114,7 +114,7 @@ public class ForgetPasswordController extends HttpServlet {
             IUserDAO userDAO = new UserDAOImpl();
             ValidateUtility validate = new ValidateUtility();
             String newPassword = validate.getField(request, "password", true, 3, 20); //get field password has length between 3 and 20
-            String reNewPassword = validate.getField(request, "password", true, 3, 20); //get field password has length between 3 and 20
+            String reNewPassword = validate.getField(request, "confirmPassword", true, 3, 20); //get field confirm password has length between 3 and 20
             HttpSession session = request.getSession();
             int resetUserId = (int) session.getAttribute("userId"); //call reset User from session
 
@@ -127,7 +127,7 @@ public class ForgetPasswordController extends HttpServlet {
                     out.print("Error while update new password. Please try again!");
                 }
             } else {
-                out.print("Two passwords field must same!");
+                out.print("Two passwords field not match!");
             }
 
         } catch (Exception ex) {
