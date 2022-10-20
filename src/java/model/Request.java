@@ -23,6 +23,7 @@ import java.sql.Date;
  */
 public class Request {
     int id;
+    RequestStatus requestStatus;
     User renter;
     Property property;
     Date requestDate;
@@ -30,12 +31,14 @@ public class Request {
     public Request() {
     }
 
-    public Request(int id, User renter, Property property, Date requestDate) {
+    public Request(int id, RequestStatus requestStatus, User renter, Property property, Date requestDate) {
         this.id = id;
+        this.requestStatus = requestStatus;
         this.renter = renter;
         this.property = property;
         this.requestDate = requestDate;
     }
+    
 
     public int getId() {
         return id;
@@ -69,10 +72,22 @@ public class Request {
         this.requestDate = requestDate;
     }
 
+    public RequestStatus getRequestStatus() {
+        return requestStatus;
+    }
+
+    public void setRequestStatus(RequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
+    }
+
+   
+
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", renter=" + renter + ", property=" + property + ", requestDate=" + requestDate + '}';
+        return "Request{" + "id=" + id + ", requestStatus=" + requestStatus + ", renter=" + renter + ", property=" + property + ", requestDate=" + requestDate + '}';
     }
+
+    
 
     
     
