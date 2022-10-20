@@ -92,7 +92,7 @@ public class AddPropertyController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user"); //get user from session
 
-        //if user is not login
+        //if user is null
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath()); //redirect to login page
             return;
@@ -100,7 +100,7 @@ public class AddPropertyController extends HttpServlet {
 
         //check if role of user is host
         if (user.getRole() != 2) {
-            request.setAttribute("message", "You don't have right to access this page!");
+            request.setAttribute("message", "You don't have right to access this page!"); //set message
             request.getRequestDispatcher("../views/error.jsp").forward(request, response); //redirect error page
         }
 

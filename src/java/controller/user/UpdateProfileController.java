@@ -107,8 +107,8 @@ public class UpdateProfileController extends HttpServlet {
             if (newUser != null) {
                 session.setAttribute("user", newUser);
             }
-            user = (User) session.getAttribute("user");
-            request.setAttribute("user", user);
+            
+            request.setAttribute("user", newUser);
             request.setAttribute("message", "Update successfully!");
             request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
         } catch (Exception ex) {
