@@ -16,23 +16,30 @@ package dal.impl;
 import dal.DBContext;
 import dal.IPropertyDAO;
 import dal.IRequestDAO;
+import dal.IRequestStatusDAO;
 import dal.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.Property;
 import model.Request;
+import model.RequestStatus;
 import model.User;
 
-/**				
- * The class contains method find update, delete, insert staff information from				
- * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
- * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Haven't found yet				
- *				
- * @author LanBTHHE160676				
+/**
+ * The class contains method find update, delete, insert staff information from
+ * Staff table in database. In the update or insert method, all data will be
+ * normalized (trim space) before update/insert into database The method wil
+ * throw an object of <code>java.lang.Exception</code> class if there is any
+ * error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Haven't found yet
+ *
+ * @author LanBTHHE160676
  */
 public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
@@ -58,8 +65,8 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
             statement.executeUpdate();
 
         } catch (Exception e) {
-           throw e;
-        }finally {
+            throw e;
+        } finally {
             closeConnection(connection, statement, null);
         }
     }
@@ -83,8 +90,8 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
         } catch (Exception e) {
             throw e;
-        }finally {
-           closeConnection(connection, statement, null);
+        } finally {
+            closeConnection(connection, statement, null);
         }
     }
 
@@ -108,8 +115,8 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
             statement.executeUpdate();
 
         } catch (Exception e) {
-           throw e;
-        }finally {
+            throw e;
+        } finally {
             closeConnection(connection, statement, null);
         }
     }
@@ -128,6 +135,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         Connection connection = getConnection();
         IUserDAO userDAO = new UserDAOImpl();
         IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IRequestStatusDAO requestStatusDAO = new RequestStatusDAOImpl();
         try {
             statement = connection.prepareStatement(sql);
             statement.setInt(1, requestID);
@@ -140,7 +148,8 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
                 Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
                 request.setProperty(property);
                 request.setRequestDate(result.getDate("request_date"));
-
+                RequestStatus requestStatus = requestStatusDAO.getRequestStatusByStatusId(result.getInt("rstatus_id"));
+                request.setRequestStatus(requestStatus);
                 return request;
             }
         } catch (Exception ex) {
@@ -150,4 +159,49 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         }
         return null;
     }
+
+    @Override
+    public List<Request> getRequestByHostId(int hostId) throws Exception {
+        List<Request> list = new ArrayList<>();
+        String sql = "SELECT * FROM Request r INNER JOIN Property p ON p.property_id = r.property_id WHERE p.host_id=?";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+        IUserDAO userDAO = new UserDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, hostId);
+            result = statement.executeQuery();
+            while (result.next()) {
+                Request request = new Request();
+                request.setId(result.getInt("request_id"));
+                User user = userDAO.getUserById(result.getInt("user_id"));
+                request.setRenter(user);
+                Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
+                request.setProperty(property);
+                request.setRequestDate(result.getDate("request_date"));
+                list.add(request);
+                
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, result);
+        }
+        return list;
+    }
+/*public static void main(String args[]) {
+        try {
+            RequestDAOImpl r = new RequestDAOImpl();
+            List<Request> list = r.getRequestByHostId(1);
+            for(Request q:list)
+            System.out.println(q);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }*/
+    
 }
+

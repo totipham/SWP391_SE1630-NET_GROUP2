@@ -13,6 +13,7 @@
 package dal;
 
 import java.sql.Date;
+import java.util.List;
 import model.Request;
 /**				
  * The class contains method find update, delete, insert staff information from				
@@ -55,4 +56,13 @@ public interface IRequestDAO {
      * @throws Exception
      */
     public Request getRequestByRID(int request_id ) throws Exception;
+    
+        
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
+    public List<Request> getRequestByHostId(int hostId) throws Exception;
 }
