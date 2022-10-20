@@ -82,12 +82,12 @@
                             <h1 class="text-center text-3xl font-semibold mb-3">Reset Password</h1>
                             <p class="text-dark">Enter your email you signed up to our service.</p>
                             <form action="forget" method="post" id="checkmail-form" class="mt-3">
-                                <div class="mb-3">
+                                <div class="mb-4">
                                     <input type="email" id="email" class="px-3 text-center" name="email" placeholder="Email" required />
                                     <input type="hidden" name="step" value="checkmail"/>
                                     <div id="notiExistMail" class="text-danger small text-center mt-3"></div>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center mt-5">
                                     <button class="btn btn-primary px-3 py-1 verify-btn" id="verifymail-btn" type="submit">
                                         <i id="load-icon" class="animate-spin fa-solid fa-spinner mr-3 hidden"></i>
                                         <span id="send-email-btn-content">Get Reset Password Token</span>
@@ -159,117 +159,121 @@
         <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
         <script>
-            var stepper = new Stepper(document.querySelector("#stepper"));
-            const next = () => {
-                stepper.next();
-            };
-            const previous = () => {
-                stepper.previous();
-            };
-            
-            $('#password , #confirmPassword').keyup(function () {
-                if ($('#password').val() === $('#confirmPassword').val()) {
-                    console.log("Check jquery: Bang !");
-                    $('#resetpassword-message').empty();
-                    $('#resetpassword-btn').removeClass('btn-disable');
-                }
-            });
-            
-            $(document).ready(function() {
-                $('#verifymail-btn').click(function() {
-                    $('#load-icon').removeClass('hidden');
-                    $('#send-email-btn-content').empty().html('Sending Token')
-                    $('#verifymail-btn').addClass('btn-disable');
-                    $('#checkmail-form').ajaxForm({
-                        // success identifies the function to invoke when the server response 
-                        // has been received 
+                                        var stepper = new Stepper(document.querySelector("#stepper"));
+                                        const next = () => {
+                                            stepper.next();
+                                        };
+                                        const previous = () => {
+                                            stepper.previous();
+                                        };
 
-                        success: processMailVerify
-                    });
-                })
+                                        $('#password , #confirmPassword').keyup(function () {
+                                            if ($('#password').val() === $('#confirmPassword').val()) {
+                                                console.log("Check jquery: Bang !");
+                                                $('#resetpassword-message').empty();
+                                                $('#resetpassword-btn').removeClass('btn-disable');
+                                            }
+                                        });
+
+                                        $(document).ready(function () {
+                                            $('#verifymail-btn').click(function () {
+
+                                                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                                if (regex.test($('#email').val())) {
+                                                    $('#load-icon').removeClass('hidden');
+                                                    $('#send-email-btn-content').empty().html('Sending Token')
+                                                    $('#verifymail-btn').addClass('btn-disable');
+                                                }
+                                                $('#checkmail-form').ajaxForm({
+                                                    // success identifies the function to invoke when the server response 
+                                                    // has been received 
+
+                                                    success: processMailVerify
+                                                });
+                                            })
 
 
-            });
-            $(document).ready(function() {
-                $('#checktoken-btn').click(function() {
-                    $('#notiCaptcha').empty();
-                    $('#checktoken-load-icon').removeClass('hidden');
-                    $('#checktoken-btn').addClass('btn-disable');
-                    setTimeout(function() {
-                        $('#checktoken-load-icon').addClass('hidden');
-                        $('#checktoken-btn').removeClass('btn-disable');
-                    }, 300);
-                    $('#checktoken-form').ajaxForm({
-                        // success identifies the function to invoke when the server response 
-                        // has been received 
-                        success: processTokenVerify
-                    });
-                });
-            });
-            $(document).ready(function() {
-                $('#resetpassword-btn').click(function() {
-                    
-                    if ($('#password').val() === $('#confirmPassword').val()) {
-                        console.log("Check click: Bang !");
-                        $('#resetpassword-message').empty();
-                        $('#resetpassword-btn').removeClass('btn-disable');
+                                        });
+                                        $(document).ready(function () {
+                                            $('#checktoken-btn').click(function () {
+                                                $('#notiCaptcha').empty();
+                                                $('#checktoken-load-icon').removeClass('hidden');
+                                                $('#checktoken-btn').addClass('btn-disable');
+                                                setTimeout(function () {
+                                                    $('#checktoken-load-icon').addClass('hidden');
+                                                    $('#checktoken-btn').removeClass('btn-disable');
+                                                }, 300);
+                                                $('#checktoken-form').ajaxForm({
+                                                    // success identifies the function to invoke when the server response 
+                                                    // has been received 
+                                                    success: processTokenVerify
+                                                });
+                                            });
+                                        });
+                                        $(document).ready(function () {
+                                            $('#resetpassword-btn').click(function () {
 
-                        $.ajax({
-                            url: 'forget',
-                            method: 'POST',
-                            data: $('#resetpassword-form').serialize(),
-                            // success identifies the function to invoke when the server response 
-                            // has been received 
-                            success: processResetPassword
-                        });
-                    } else {
-                        console.log("Check click: Khong bang !");
-                        $('#resetpassword-message').html('Password fields do not match!');
-                        $('#resetpassword-btn').addClass('btn-disable');
-                    }
+                                                if ($('#password').val() === $('#confirmPassword').val()) {
+                                                    console.log("Check click: Bang !");
+                                                    $('#resetpassword-message').empty();
+                                                    $('#resetpassword-btn').removeClass('btn-disable');
 
-                });
+                                                    $.ajax({
+                                                        url: 'forget',
+                                                        method: 'POST',
+                                                        data: $('#resetpassword-form').serialize(),
+                                                        // success identifies the function to invoke when the server response 
+                                                        // has been received 
+                                                        success: processResetPassword
+                                                    });
+                                                } else {
+                                                    console.log("Check click: Khong bang !");
+                                                    $('#resetpassword-message').html('Password fields do not match!');
+                                                    $('#resetpassword-btn').addClass('btn-disable');
+                                                }
 
-            });
-            const resendReply = (data) => {
-                $('#notiCaptcha').removeClass('text-success').empty().html(data);
-                $('#resend-btn').prop('disabled', true);
-                setTimeout(function() {
-                    $('#resend-btn').prop("disabled", false);
-                }, 10000);
-            };
-            const processResetPassword = (data) => {
-                if (data === 'success') {
-                    console.log("check servlet: match!");
-                    $('#resetpass-noti').empty().html("Reset password successfully!");
-                    next();
-                } else {
-                    console.log("check servlet: not match!");
-                    $('#resetpassword-message').empty().html('Password fields do not match!');
-                }
-            };
-            const processTokenVerify = (data) => {
-                if (data === 'success') {
-                    next();
-                } else {
-                    $('#captcha').addClass('invalid');
-                    $('#notiCaptcha').empty().html(data);
-                }
-            };
-            const processMailVerify = (data) => {
-                if (data === 'success') {
-                    $('#load-icon').addClass('hidden');
-                    $('#send-email-btn-content').empty().html('Get Reset Password Token');
-                    $('#verifymail-btn').removeClass('btn-disable');
-                    next();
-                } else {
-                    $('#load-icon').addClass('hidden');
-                    $('#send-email-btn-content').empty().html('Get Reset Password Token');
-                    $('#verifymail-btn').removeClass('btn-disable');
-                    $('#email').addClass('invalid');
-                    $('#notiExistMail').empty().html(data);
-                }
-            };
+                                            });
+
+                                        });
+                                        const resendReply = (data) => {
+                                            $('#notiCaptcha').removeClass('text-success').empty().html(data);
+                                            $('#resend-btn').prop('disabled', true);
+                                            setTimeout(function () {
+                                                $('#resend-btn').prop("disabled", false);
+                                            }, 10000);
+                                        };
+                                        const processResetPassword = (data) => {
+                                            if (data === 'success') {
+                                                console.log("check servlet: match!");
+                                                $('#resetpass-noti').empty().html("Reset password successfully!");
+                                                next();
+                                            } else {
+                                                console.log("check servlet: not match!");
+                                                $('#resetpassword-message').empty().html('Password fields do not match!');
+                                            }
+                                        };
+                                        const processTokenVerify = (data) => {
+                                            if (data === 'success') {
+                                                next();
+                                            } else {
+                                                $('#captcha').addClass('invalid');
+                                                $('#notiCaptcha').empty().html(data);
+                                            }
+                                        };
+                                        const processMailVerify = (data) => {
+                                            if (data === 'success') {
+                                                $('#load-icon').addClass('hidden');
+                                                $('#send-email-btn-content').empty().html('Get Reset Password Token');
+                                                $('#verifymail-btn').removeClass('btn-disable');
+                                                next();
+                                            } else {
+                                                $('#load-icon').addClass('hidden');
+                                                $('#send-email-btn-content').empty().html('Get Reset Password Token');
+                                                $('#verifymail-btn').removeClass('btn-disable');
+                                                $('#email').addClass('invalid');
+                                                $('#notiExistMail').empty().html(data);
+                                            }
+                                        };
         </script>
     </body>
 
