@@ -51,8 +51,8 @@ public class ViewSystemUserController extends HttpServlet {
             list = userDAO.getAllUserSystem();     
             
             //send list of users to front end
-            request.setAttribute("SystemUserList", list);     
-            request.getRequestDispatcher("").forward(request, response);   /*Đức nhớ thêm tên trang jsp vào đây nha!*/
+            request.setAttribute("userList", list);     
+            request.getRequestDispatcher("../views/dashboard/user/users.jsp").forward(request, response);   /*Đức nhớ thêm tên trang jsp vào đây nha!*/
         } catch (Exception e) {
             Logger.getLogger(ViewSystemUserController.class.getName()).log(Level.SEVERE, null, e);
             request.setAttribute("message", e);

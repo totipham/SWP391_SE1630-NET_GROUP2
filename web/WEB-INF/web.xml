@@ -145,6 +145,10 @@
         <servlet-name>RegisterHostController</servlet-name>
         <servlet-class>controller.request.RegisterHostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.AdminDashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -254,10 +258,6 @@
         <url-pattern>/sendfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewUserOfSystem</servlet-name>
-        <url-pattern>/viewusers</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ForgetPasswordController</servlet-name>
         <url-pattern>/forget</url-pattern>
     </servlet-mapping>
@@ -284,6 +284,14 @@
     <servlet-mapping>
         <servlet-name>RegisterHostController</servlet-name>
         <url-pattern>/registerhost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewUserOfSystem</servlet-name>
+        <url-pattern>/dashboard/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <url-pattern>/dashboard/admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

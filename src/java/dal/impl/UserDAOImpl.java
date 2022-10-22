@@ -331,7 +331,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     public List<User> getAllUserSystem() throws SQLException {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT * FROM User";
+        String sql = "SELECT * FROM [User]";
         PreparedStatement statement = null;
         Connection connection = getConnection();
         ResultSet result = null;
