@@ -46,7 +46,7 @@
         <div class="d-flex flex-column flex-root">
             <!--begin::Page-->
             <div class="page d-flex flex-row flex-column-fluid">
-                <jsp:include page="../component/aside.jsp" />
+                <jsp:include page="../component/aside_admin.jsp" />
                 <!--begin::Wrapper-->
                 <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                     <jsp:include page="../component/header.jsp" />
