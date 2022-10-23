@@ -34,4 +34,14 @@ public interface IContractDAO {
      * @throws Exception
      */
     public void insertContract(int propertyId, int userId, Date beginDate) throws Exception;
+    
+    /**
+     *
+     * @param hostId
+     * @param begin
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    public int getNumberOfContractInRange(int hostId, Date begin, Date end) throws Exception;
 }
