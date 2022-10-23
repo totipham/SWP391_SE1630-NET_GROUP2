@@ -33,27 +33,41 @@
                                 <table class="table">
                                     <thead>
                                         <tr class="fw-bold fs-6 text-gray-800">
+                                            <th>#</th>
+                                            <th>Avatar</th>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Username</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Role</th>
+                                            <th>Is Verify</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td>1</td>
+                                            <td>
+                                                <img 
+                                                    src="${baseURL}/assets/images/avatar.jpg" 
+                                                    class="rounded-circle"
+                                                    height="45rem"/>
+                                            </td>
+                                            <td>Toti Pham</td>
+                                            <td>totipham</td>
+                                            <td>0123456789</td>
+                                            <td>ducptm68@gmail.com</td>
+                                            <td>Thạch Hoà, Thạch Thất, Hà Nội</td>
+                                            <td>Renter</td>
+                                            <td>True</td>
                                         </tr>
                                         <tr>
                                             <td>Garrett Winters</td>
                                             <td>Accountant</td>
                                             <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011/07/25</td>
+                                            <td>$170,750</td>
                                             <td>63</td>
                                             <td>2011/07/25</td>
                                             <td>$170,750</td>
