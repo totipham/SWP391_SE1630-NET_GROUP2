@@ -171,7 +171,7 @@
                                     <!--end::Step 4-->
                                 </div>
                                 <!--end::Nav-->
-
+                                <c:set var="property" scope="request" value="${property}" />
                                 <!--begin::Form-->
                                 <form class="form w-lg-500px mx-auto" id="add-property-stepper" action="addproperty" enctype="multipart/form-data" method="post">
                                     <!--begin::Group-->

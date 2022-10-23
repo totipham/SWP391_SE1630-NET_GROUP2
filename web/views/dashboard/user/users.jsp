@@ -42,36 +42,51 @@
                                             <th>Address</th>
                                             <th>Role</th>
                                             <th>Is Verify</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
+                                    <c:forEach items="${requestScope.userList}" var="user" varStatus="theCount">
+                                        <tr style="width: 30px; vertical-align: middle;">
+                                            <td>${theCount.count}</td>
                                             <td>
                                                 <img 
-                                                    src="${baseURL}/assets/images/avatar.jpg" 
-                                                    class="rounded-circle"
+                                                    src="${baseURL}/assets/images/${user.avatar}" 
+                                                    class="rounded-circle border border-3 border-black"
                                                     height="45rem"/>
                                             </td>
-                                            <td>Toti Pham</td>
-                                            <td>totipham</td>
-                                            <td>0123456789</td>
-                                            <td>ducptm68@gmail.com</td>
-                                            <td>Thạch Hoà, Thạch Thất, Hà Nội</td>
-                                            <td>Renter</td>
-                                            <td>True</td>
+                                            <td>${user.name}</td>
+                                            <td>${user.username}</td>
+                                            <td>${user.phone}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.address}</td>
+                                            <td>
+                                                <c:choose>
+
+                                                    <c:when test = "${user.role == 3}">
+                                                        Admin
+                                                    </c:when>
+
+                                                    <c:when test = "${user.role == 2}">
+                                                        Host
+                                                    </c:when>
+
+                                                    <c:otherwise>
+                                                        Renter
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>${user.verify}</td>
+                                            <td><div class="dropdown">
+                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="${baseURL}/profile?uid=${user.id}">Update</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                    </div>
+                                                </div></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -90,15 +105,8 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
-
-        <script>
-            function askToDelete(pid) {
-                if (confirm("Are you sure to delete this property ?") == true) {
-                    window.location.replace("${baseURL}/dashboard/deleteproperty?pid=" + pid)
-                }
-            }
-
-        </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     </body>
     <!--end::Body-->
 
