@@ -14,11 +14,12 @@ package dal;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import model.Request;
 /**				
  * The class contains method find update, delete, insert staff information from				
  * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
- * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
  * <p>Bugs: Haven't found yet				
  *				
  * @author LanBTHHE160676				
@@ -65,4 +66,14 @@ public interface IRequestDAO {
      * @throws Exception
      */
     public List<Request> getRequestByHostId(int hostId) throws Exception;
+    
+    /**
+     *
+     * @param hostId
+     * @param begin
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    public Map<Date, Integer> getNumberRequestByRange(int hostId, Date begin, Date end) throws Exception;
 }

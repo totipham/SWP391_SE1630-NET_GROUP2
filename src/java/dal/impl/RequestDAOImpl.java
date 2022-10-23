@@ -24,7 +24,10 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import model.Property;
 import model.Request;
 import model.RequestStatus;
@@ -160,6 +163,12 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         return null;
     }
 
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Request> getRequestByHostId(int hostId) throws Exception {
         List<Request> list = new ArrayList<>();
@@ -182,7 +191,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
                 request.setProperty(property);
                 request.setRequestDate(result.getDate("request_date"));
                 list.add(request);
-                
+
             }
         } catch (Exception ex) {
             throw ex;
@@ -191,17 +200,68 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         }
         return list;
     }
-/*public static void main(String args[]) {
+
+    /**
+     *
+     * @param hostId
+     * @param begin
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<Date, Integer> getNumberRequestByRange(int hostId, Date begin, Date end) throws Exception {
+        Map<Date, Integer> map = new HashMap<>();
+        String sql = "SELECT request_date, COUNT(*) as number FROM Request r "
+                + "INNER JOIN Property p "
+                + "ON r.property_id = p.property_id "
+                + "WHERE p.host_id = ? "
+                + "GROUP BY request_date "
+                + "HAVING request_date BETWEEN ? AND ?";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
         try {
-            RequestDAOImpl r = new RequestDAOImpl();
-            List<Request> list = r.getRequestByHostId(1);
-            for(Request q:list)
-            System.out.println(q);
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, hostId);
+            statement.setString(2, begin.toString());
+            statement.setString(3, end.toString());
+
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                
+                map.put(result.getDate("request_date"), result.getInt("number"));
+            }
+
+            return map;
         } catch (Exception ex) {
-            System.out.println(ex);
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, result);
         }
 
-    }*/
-    
-}
+    }
 
+//    public static void main(String args[]) {
+//        try {
+//            RequestDAOImpl r = new RequestDAOImpl();
+//
+//            Date begin = Date.valueOf("2022-10-12");
+//            Date end = Date.valueOf("2022-10-24");
+//
+//            Map<Date, Integer> map = r.getNumberRequestByRange(2, begin, end);
+//            Set<Date> set = map.keySet();
+//            for (Date key : set) {
+//                System.out.println(key + " " + map.get(key));
+//            }
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+//
+//    }
+
+}
