@@ -22,8 +22,7 @@ import model.User;
 /**
  * The class contains method find update, delete, insert user information from
  * DB
- *
- * The method wil throw an object of <code>java.lang.Exception</code> class if
+ * The method will throw an object of <code>java.lang.Exception</code> class if
  * there is any error occurring when finding, inserting, or updating data
  * <p>
  * Bugs: Haven't found yet
@@ -82,6 +81,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      *
      * @param id
      * @return
+     * @throws java.sql.SQLException
      */
     @Override
     public User getUserById(int id) throws SQLException {
@@ -97,7 +97,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                 user.setId(result.getInt("user_id"));
                 user.setRole(result.getInt("role"));
                 user.setUsername(result.getString("username"));
-                user.setPassword(result.getString("password"));
                 user.setEmail(result.getString("email"));
                 user.setName(result.getString("name"));
                 user.setPhone(result.getString("phone"));
@@ -153,7 +152,6 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     /**
      *
-     * @param username
      * @return
      * @throws java.sql.SQLException
      */
@@ -195,6 +193,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      * @param phone
      * @param email
      * @param address
+     * @throws java.sql.SQLException
      */
     @Override
     public void updateUser(int userid, String name, String phone, String email, String address) throws SQLException {
@@ -259,6 +258,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
      * @param id
      * @param newpwd
      * @return
+     * @throws java.sql.SQLException
      */
     @Override
     public int updateNewPassword(int id, String newpwd) throws SQLException {
@@ -329,6 +329,11 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<User> getAllUserSystem() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT * FROM [User]";
@@ -360,6 +365,12 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param verify
+     * @throws Exception
+     */
     @Override
     public void updateVerifyByID(int id, boolean verify) throws Exception {
         String sql = "UPDATE User SET verify = ? WHERE user_id = ?";
@@ -401,6 +412,11 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Contract> getAllContract() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
