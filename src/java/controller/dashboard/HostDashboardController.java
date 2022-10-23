@@ -6,10 +6,11 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 18, 2022       1.0           DucPTMHE160517     First Implement
  */
-
 package controller.dashboard;
 
+import dal.IRequestDAO;
 import dal.IUserDAO;
+import dal.impl.RequestDAOImpl;
 import dal.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -17,21 +18,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.Set;
 import model.User;
 
-/**				
- * The class contains method find update, delete, insert staff information from				
- * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
- * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
- * <p>Bugs: Still have some issues related to search staff by address				
- *				
- * @author DucPTMHE160517				
- */				
-
+/**
+ * The class contains method find update, delete, insert staff information from
+ * Staff table in database. In the update or insert method, all data will be
+ * normalized (trim space) before update/insert into database The method will
+ * throw an object of <code>java.lang.Exception</code> class if there is any
+ * error occurring when finding, inserting, or updating data
+ * <p>
+ * Bugs: Still have some issues related to search staff by address
+ *
+ * @author DucPTMHE160517
+ */
 public class HostDashboardController extends HttpServlet {
-   
-    /** 
+
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -39,20 +48,41 @@ public class HostDashboardController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
         User u = (User) session.getAttribute("user");
 
         //if user is not login
         if (u == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            response.sendRedirect(request.getContextPath() + "/login?redirect=" + request.getServletPath());
             return;
         }
-        
-        
+
         //check if user role is equal to 1
         if (u.getRole() == 2) { //check if role of user equal to 2
+            IRequestDAO requestDAO = new RequestDAOImpl();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar begin = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            begin.add(Calendar.DATE, -14);
+            System.out.println("Date = " + begin.getTime().toString());
+            
+            try {
+                Map<Date, Integer> map = requestDAO.getNumberRequestByRange(2, Date.valueOf(sdf.format(begin.getTime())), Date.valueOf(sdf.format(end.getTime())));
+                Set<Date> setRequestDaily = map.keySet();
+                int numberOfReq = 0;
+                for (Date key : setRequestDaily) {
+                    numberOfReq += map.get(key);
+                }
+                
+                request.setAttribute("numberOfReq", numberOfReq);
+                request.setAttribute("mapRequestDaily", map);
+                request.setAttribute("setRequestDaily", setRequestDaily);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+
             request.setAttribute("user", u);
             request.setAttribute("page", "Dashboard");
             request.getRequestDispatcher("../views/dashboard/host/dashboard.jsp").forward(request, response);
@@ -60,10 +90,11 @@ public class HostDashboardController extends HttpServlet {
             request.setAttribute("message", "You don't have right to access this page!");
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -71,8 +102,8 @@ public class HostDashboardController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
     }
 
 }

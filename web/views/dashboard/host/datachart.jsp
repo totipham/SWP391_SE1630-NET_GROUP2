@@ -70,10 +70,10 @@
 <!--Begin::AverageDailyChart-->
 <script>
     // Class definition
-    var AverageDailyChart = function () {
+    var RequestDailyChart = function () {
         // Private methods
         var initChart = function () {
-            var element = document.getElementById("average_daily_chart");
+            var element = document.getElementById("request_daily_chart");
 
             if (!element) {
                 return;
@@ -84,11 +84,15 @@
             var borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
             var baseColor = KTUtil.getCssVariableValue('--kt-primary');
             var secondaryColor = KTUtil.getCssVariableValue('--kt-gray-300');
-
+            
             var options = {
                 series: [{
-                        name: 'Sales',
-                        data: [30, 60, 53, 45, 60, 75, 53]
+                        name: 'Requests',
+                        data: [
+                            <c:forEach var="requestDaily" items="${requestScope.setRequestDaily}">
+                                ${mapRequestDaily.get(requestDaily)},
+                            </c:forEach>
+                        ]
                     }, ],
                 chart: {
                     fontFamily: 'inherit',
@@ -127,8 +131,14 @@
                         show: false,
                         tickPlacement: 'between'
                     },
+                    categories:[
+                        <c:forEach var="requestDaily" items="${requestScope.setRequestDaily}">
+                            '${requestDaily}',
+                        </c:forEach>
+
+                    ],
                     labels: {
-                        show: false,
+                        show: true,
                         style: {
                             colors: labelColor,
                             fontSize: '12px'
@@ -175,14 +185,9 @@
                     style: {
                         fontSize: '12px'
                     },
-                    x: {
-                        formatter: function (val) {
-                            return 'Feb: ' + val;
-                        }
-                    },
                     y: {
                         formatter: function (val) {
-                            return val + "%"
+                            return val
                         }
                     }
                 },
@@ -220,12 +225,12 @@
 
 // Webpack support
     if (typeof module !== 'undefined') {
-        module.exports = AverageDailyChart;
+        module.exports = RequestDailyChart;
     }
 
 // On document ready
     KTUtil.onDOMContentLoaded(function () {
-        AverageDailyChart.init();
+        RequestDailyChart.init();
     });
 
 </script>

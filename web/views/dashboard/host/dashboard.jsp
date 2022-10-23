@@ -161,17 +161,13 @@
                                             <div class="card-title d-flex flex-column">
                                                 <!--begin::Info-->
                                                 <div class="d-flex align-items-center">
-                                                    <!--begin::Currency-->
-                                                    <span
-                                                        class="fs-4 fw-semibold text-gray-400 me-1 align-self-start">$</span>
-                                                    <!--end::Currency-->
                                                     <!--begin::Amount-->
-                                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">2,420</span>
+                                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">${requestScope.numberOfReq}</span>
                                                     <!--end::Amount-->
                                                 </div>
                                                 <!--end::Info-->
                                                 <!--begin::Subtitle-->
-                                                <span class="text-gray-400 pt-1 fw-semibold fs-6">Average Daily</span>
+                                                <span class="text-gray-400 pt-1 fw-semibold fs-6">Request (last 7 days)</span>
                                                 <!--end::Subtitle-->
                                             </div>
                                             <!--end::Title-->
@@ -180,7 +176,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body d-flex align-items-end px-0 pb-0">
                                             <!--begin::Chart-->
-                                            <div id="average_daily_chart" class="w-100" style="height: 80px"></div>
+                                            <div id="request_daily_chart" class="w-100" style="height: 80px"></div>
                                             <!--end::Chart-->
                                         </div>
                                         <!--end::Card body-->
