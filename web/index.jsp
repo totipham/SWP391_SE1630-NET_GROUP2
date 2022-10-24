@@ -3,8 +3,8 @@
     Created on : Sep 27, 2022, 3:11:50 PM
     Author     : DucPTMHE160517
 --%>
-<%@page import="dal.IPropertyDAO"%>
-<%@page import="dal.impl.PropertyDAOImpl"%>
+<%@page import="dao.IPropertyDAO"%>
+<%@page import="dao.impl.PropertyDAOImpl"%>
 <%@page import="model.Property"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
