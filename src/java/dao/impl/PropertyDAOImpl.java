@@ -15,7 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Property;
 
 /**
@@ -128,16 +130,22 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         return list;
     }
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Property> getPropertiesByOwner(int uid) throws Exception {
-       List<Property> list = new ArrayList<>();
+        List<Property> list = new ArrayList<>();
         String sql = "SELECT * FROM Property WHERE host_id = ?";
         Connection connection = getConnection();
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(sql);
-            statement.setInt(1,uid );
+            statement.setInt(1, uid);
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
@@ -170,16 +178,39 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         return list;
     }
 
+    /**
+     *
+     * @param tid
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Property> getPropertiesByType(int tid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param keyword
+     * @param lastestTime
+     * @param lowestPrice
+     * @param maxPrice
+     * @param minPrice
+     * @param area
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Property> getPropertiesByFiter(String keyword, int lastestTime, int lowestPrice, double maxPrice, double minPrice, double area) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param pid
+     * @return
+     * @throws Exception
+     */
     @Override
     public Property getPropertyById(int pid) throws Exception {
         Property property = new Property();
@@ -222,6 +253,12 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         return null;
     }
 
+    /**
+     *
+     * @param newProperty
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int insertProperty(Property newProperty) throws SQLException {
         String sql = "INSERT INTO Property (name, host_id, address, description, "
@@ -260,31 +297,69 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param pid
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getAvailableByPID(int pid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getAvailableProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getNumberOfProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param uid
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getNumberOfRentedProperty(int uid) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param list
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Property> getPropertyByPage(List<Property> list, int start, int end) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Property> getPropertyByHostId(int id) throws Exception {
         List<Property> list = new ArrayList<>();
@@ -330,6 +405,11 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         return list;
     }
 
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
     public void deletePropertyByID(int id) throws Exception {
         String strDelete = "DELETE FROM [dbo].[Property]\n"
                 + "      WHERE property_id=?";
@@ -347,5 +427,41 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         }
     }
 
-    
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
+    public Map<Property, Integer> getTrendingRentProperty(int hostId) throws Exception {
+        Map<Property, Integer> map = new HashMap<>();
+        String sql = "SELECT p.property_id, COUNT(*) as total FROM Contract c\n"
+                + "INNER JOIN Property p\n"
+                + "ON c.property_id = p.property_id\n"
+                + "WHERE p.host_id = ? \n"
+                + "GROUP BY p.property_id\n"
+                + "ORDER BY total DESC";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, hostId);
+            result = statement.executeQuery();
+            
+            while (result.next()) {
+                map.put(getPropertyById(result.getInt("property_id")), result.getInt("total"));
+            }
+            
+            return map;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            closeConnection(connection, statement, result);
+        }
+    }
+
 }

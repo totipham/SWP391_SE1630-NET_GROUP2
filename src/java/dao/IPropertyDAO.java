@@ -9,6 +9,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 import model.Property;
 
 /**				
@@ -104,4 +105,12 @@ public interface IPropertyDAO {
      * @throws Exception
      */
     public void deletePropertyByID(int id) throws Exception;
+    
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
+    public Map<Property, Integer> getTrendingRentProperty(int hostId) throws Exception;
 }
