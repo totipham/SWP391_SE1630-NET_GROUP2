@@ -151,7 +151,7 @@
                             <!--begin::Row-->
                             <div class="row g-xl-8">
                                 <!--begin:::Col-->
-                                <div class="col-xxl-5">
+                                <div class="">
                                     <!--begin::List Widget 3-->
                                     <div class="card card-flush mb-5 mb-xl-8">
                                         <!--begin::Card header-->
@@ -168,30 +168,33 @@
                                             <div class="mb-7">
                                                 <!--begin::Items-->
                                                 <div class="overflow-auto mb-10">
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex align-items-center mb-7">
-                                                        <!--begin::Thumbnail-->
-                                                        <div class="symbol symbol-60px symbol-2by3 me-4">
-                                                            <img alt="Pic" src="${baseURL}/assets/images/thumbnail.jpg"
-                                                                 style="border-radius: 10px;" />
+                                                    <c:forEach var="property" items="${requestScope.setTrendingProperty}">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex align-items-center mb-7">
+                                                            <!--begin::Thumbnail-->
+                                                            <div class="symbol symbol-60px symbol-2by3 me-4">
+                                                                <img alt="Pic" src="${baseURL}/assets/images/${property.getImages().get(0).getFileName()}"
+                                                                     style="border-radius: 10px;" />
+                                                            </div>
+                                                            <!--end::Thumbnail-->
+                                                            <!--begin::List content-->
+                                                            <div class="d-flex flex-column min-w-150px me-4">
+                                                                <a href="#"
+                                                                   class="fw-bold text-gray-800 text-hover-primary fs-4">${property.name}</a>
+                                                                <div class="fw-semi fs-6 text-gray-400">
+                                                                    ${property.address}</div>
+                                                            </div>
+                                                            <!--end::List content-->
+                                                            <!--begin::Frequency-->
+                                                            <div
+                                                                class="ms-auto rounded-pill bg-light fw-bolder text-gray-600 py-1 px-3">
+                                                                ${mapTrendingProperty.get(property)} contracts</div>
+                                                            <!--Frequency-->
                                                         </div>
-                                                        <!--end::Thumbnail-->
-                                                        <!--begin::List content-->
-                                                        <div class="d-flex flex-column min-w-150px me-4">
-                                                            <a href="#"
-                                                               class="fw-bold text-gray-800 text-hover-primary fs-4">Kí
-                                                                Túc Xá Ông Bà</a>
-                                                            <div class="fw-semi fs-6 text-gray-400">
-                                                                Thạch Hoà, Thạch Thất, Hà Nội</div>
-                                                        </div>
-                                                        <!--end::List content-->
-                                                        <!--begin::Price-->
-                                                        <div
-                                                            class="ms-auto rounded-pill bg-light fw-bolder text-gray-600 py-1 px-3">
-                                                            3,000,000đ</div>
-                                                        <!--end::Price-->
-                                                    </div>
-                                                    <!--end::Item-->
+                                                        <!--end::Item-->
+                                                    </c:forEach>
+
+
                                                 </div>
                                                 <!--end::Items-->
                                             </div>
@@ -202,117 +205,7 @@
                                     <!--end::List Widget 3-->
                                 </div>
                                 <!--end:::Col-->
-                                <!--begin:::Col-->
-                                <div class="col-xxl-7">
-                                    <!--begin::Row-->
-                                    <div class="row g-xl-8">
-                                        <!--begin:::Col-->
-                                        <div class="col">
-                                            <!--begin::Table Widget 1-->
-                                            <div class="card card-xxl-stretch mb-5 mb-xl-3">
-                                                <!--begin::Header-->
-                                                <div class="card-header border-0 pt-5 pb-3">
-                                                    <!--begin::Card title-->
-                                                    <h3 class="card-title align-items-start flex-column">
-                                                        <span class="card-label fw-bold text-dark">Contract
-                                                            List</span>
-                                                        <span class="text-gray-400 fw-bold mt-2 fs-6">890 contracts</span>
-                                                    </h3>
-                                                    <!--end::Card title-->
-                                                </div>
-                                                <!--end::Header-->
-                                                <!--begin::Body-->
-                                                <div class="card-body py-0">
-                                                    <!--begin::Table-->
-                                                    <div class="table-responsive">
-                                                        <table
-                                                            class="table align-middle table-row-bordered table-row-dashed gy-5"
-                                                            id="kt_table_widget_1">
-                                                            <!--begin::Table body-->
-                                                            <tbody>
-                                                                <!--begin::Table row-->
-                                                                <tr
-                                                                    class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-200px px-0">Renter</th>
-                                                                    <th class="min-w-200px">Property</th>
-                                                                    <th class="min-w-70px">Day</th>
-                                                                    <th class="text-end pe-2 min-w-70px">Action</th>
-                                                                </tr>
-                                                                <!--end::Table row-->
-                                                                <!--begin::Table row-->
-                                                                <tr>
-                                                                    <!--begin::Author=-->
-                                                                    <td class="p-0">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <!--begin::Avatar-->
-                                                                            <div
-                                                                                class="symbol symbol-circle symbol-50px me-2">
-                                                                                <div
-                                                                                    class="symbol symbol-50px symbol-circle me-5">
-                                                                                    <img alt="Logo"
-                                                                                         src="../images/avatar.jpg" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <!--end::Avatar-->
-                                                                            <div class="ps-3">
-                                                                                <a href="#"
-                                                                                   class="text-gray-800 fw-bold fs-5 text-hover-primary mb-1">Renter
-                                                                                    Le</a>
-                                                                                <span
-                                                                                    class="text-gray-400 fw-semi d-block">Hà
-                                                                                    Đông, Hà Nội</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <!--end::Author=-->
-                                                                    <!--begin::Company=-->
-                                                                    <td>
-                                                                        <span
-                                                                            class="text-gray-800 fw-bold fs-5 d-block">Kí
-                                                                            Túc Xá Ông Bà</span>
-                                                                        <span class="text-gray-400 fw-semi">Thạch Hoà, Thạch
-                                                                            Thất, Hà
-                                                                            Nội</span>
-                                                                    </td>
-                                                                    <!--end::Company=-->
-                                                                    <!--begin::Progress=-->
-                                                                    <td>
-                                                                        <div class="d-flex flex-column w-100 me-2 mt-2">
-                                                                            <span
-                                                                                class="text-gray-400 me-2 fw-semi mb-2">65
-                                                                                days</span>
-                                                                            <!-- <div
-                                                                                    class="progress bg-light-danger w-100 h-5px">
-                                                                                    <div class="progress-bar bg-danger"
-                                                                                            role="progressbar" style="width: 65%">
-                                                                                    </div>
-                                                                            </div> -->
-                                                                        </div>
-                                                                    </td>
-                                                                    <!--end::Company=-->
-                                                                    <!--begin::Action=-->
-                                                                    <td class="pe-0 text-end">
-                                                                        <a href="#"
-                                                                           class="btn btn-light text-muted fw-bold btn-sm px-5">View</a>
-                                                                    </td>
-                                                                    <!--end::Action=-->
-                                                                </tr>
-                                                                <!--end::Table row-->
-                                                            </tbody>
-                                                            <!--end::Table body-->
-                                                        </table>
-                                                    </div>
-                                                    <!--end::Table-->
-                                                </div>
-                                                <!--end::Body-->
-                                            </div>
-                                            <!--end::Table Widget 1-->
-                                        </div>
-                                        <!--end:::Col-->
-                                    </div>
-                                    <!--end::Row-->
-                                </div>
-                                <!--end:::Col-->
+                                
                             </div>
                             <!--end::Row-->
                         </div>

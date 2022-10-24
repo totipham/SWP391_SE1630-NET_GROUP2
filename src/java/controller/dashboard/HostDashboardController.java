@@ -9,9 +9,11 @@
 package controller.dashboard;
 
 import dao.IContractDAO;
+import dao.IPropertyDAO;
 import dao.IRequestDAO;
 import dao.IUserDAO;
 import dao.impl.ContractDAOImpl;
+import dao.impl.PropertyDAOImpl;
 import dao.impl.RequestDAOImpl;
 import dao.impl.UserDAOImpl;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import model.Property;
 import model.User;
 
 /**
@@ -66,6 +69,7 @@ public class HostDashboardController extends HttpServlet {
             try {
                 IRequestDAO requestDAO = new RequestDAOImpl();
                 IContractDAO contractDAO = new ContractDAOImpl();
+                IPropertyDAO propertyDAO = new PropertyDAOImpl();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar begin = Calendar.getInstance();
                 Calendar today = Calendar.getInstance();
@@ -108,7 +112,13 @@ public class HostDashboardController extends HttpServlet {
                 if (numberOfRents < 0) {
                     numberOfRents = 0;
                 }
+                
+                Map<Property, Integer> mapTrendingProperty = propertyDAO.getTrendingRentProperty(u.getId());
+                
+                Set<Property> setTrendingProperty = mapTrendingProperty.keySet();
 
+                request.setAttribute("mapTrendingProperty", mapTrendingProperty);
+                request.setAttribute("setTrendingProperty", setTrendingProperty);
                 request.setAttribute("mapIncome", mapIncome);
                 request.setAttribute("setIncome", setIncome);
                 request.setAttribute("totalIncome", totalIncome);
