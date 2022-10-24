@@ -6,7 +6,7 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 10, 2022         1.0           ThuongTTHE163555     First Implement
  */
-package dal;
+package dao;
 
 import java.util.List;
 import model.Property;

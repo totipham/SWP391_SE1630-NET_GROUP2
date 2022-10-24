@@ -12,14 +12,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
+import dao.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.RequestStatus;
-import dal.IRequestStatusDAO;
+import dao.IRequestStatusDAO;
 
 /**				
  * The class contains method find update, delete, insert staff information from				

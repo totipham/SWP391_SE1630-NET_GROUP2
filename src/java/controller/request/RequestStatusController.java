@@ -9,8 +9,8 @@
  */
 package controller.request;
 
-import dal.IRequestDAO;
-import dal.impl.RequestDAOImpl;
+import dao.IRequestDAO;
+import dao.impl.RequestDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

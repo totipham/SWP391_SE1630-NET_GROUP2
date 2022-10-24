@@ -8,10 +8,10 @@
  */
 package controller.feedback;
 
-import dal.IFeedbackDAO;
-import dal.IPropertyDAO;
-import dal.impl.FeedbackDAOImpl;
-import dal.impl.PropertyDAOImpl;
+import dao.IFeedbackDAO;
+import dao.IPropertyDAO;
+import dao.impl.FeedbackDAOImpl;
+import dao.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

@@ -6,10 +6,10 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 4, 2022         1.0           DucPTMHE160517     First Implement
  */
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
-import dal.IUserDAO;
+import dao.DBContext;
+import dao.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

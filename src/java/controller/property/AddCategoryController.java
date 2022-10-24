@@ -8,8 +8,8 @@
  */
 package controller.property;
 
-import dal.IPropertyTypeDAO;
-import dal.impl.PropertyTypeDAOImpl;
+import dao.IPropertyTypeDAO;
+import dao.impl.PropertyTypeDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

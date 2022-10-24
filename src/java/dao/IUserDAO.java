@@ -1,4 +1,4 @@
-package dal;
+package dao;
 
 import java.util.List;
 import model.Contract;

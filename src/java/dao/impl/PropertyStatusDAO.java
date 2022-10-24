@@ -1,7 +1,7 @@
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
-import dal.IPropertyStatusDAO;
+import dao.DBContext;
+import dao.IPropertyStatusDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

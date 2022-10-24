@@ -9,8 +9,8 @@
 
 package controller.report;
 
-import dal.IReportTypeDAO;
-import dal.impl.ReportTypeDAOImpl;
+import dao.IReportTypeDAO;
+import dao.impl.ReportTypeDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

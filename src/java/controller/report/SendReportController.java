@@ -8,14 +8,14 @@
  */
 package controller.report;
 
-import dal.IPropertyDAO;
-import dal.IReportDAO;
-import dal.IReportTypeDAO;
-import dal.IUserDAO;
-import dal.impl.PropertyDAOImpl;
-import dal.impl.ReportDAOImpl;
-import dal.impl.ReportTypeDAOImpl;
-import dal.impl.UserDAOImpl;
+import dao.IPropertyDAO;
+import dao.IReportDAO;
+import dao.IReportTypeDAO;
+import dao.IUserDAO;
+import dao.impl.PropertyDAOImpl;
+import dao.impl.ReportDAOImpl;
+import dao.impl.ReportTypeDAOImpl;
+import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

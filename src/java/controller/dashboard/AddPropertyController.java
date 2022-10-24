@@ -8,14 +8,14 @@
  */
 package controller.dashboard;
 
-import dal.IPropertyDAO;
-import dal.IPropertyImageDAO;
-import dal.IPropertyTypeDAO;
-import dal.IPropertyUtilityDAO;
-import dal.impl.PropertyDAOImpl;
-import dal.impl.PropertyTypeDAOImpl;
-import dal.impl.PropertyImageDAOImpl;
-import dal.impl.PropertyUtilityDAOImpl;
+import dao.IPropertyDAO;
+import dao.IPropertyImageDAO;
+import dao.IPropertyTypeDAO;
+import dao.IPropertyUtilityDAO;
+import dao.impl.PropertyDAOImpl;
+import dao.impl.PropertyTypeDAOImpl;
+import dao.impl.PropertyImageDAOImpl;
+import dao.impl.PropertyUtilityDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;

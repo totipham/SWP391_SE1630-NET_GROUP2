@@ -6,7 +6,7 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 13, 2022       1.0           LanBTHHE160676     First Implement
 */
-package dal;
+package dao;
 
 import java.sql.SQLException;
 import model.PropertyType;

@@ -9,7 +9,7 @@
  */
 package controller.auth;
 
-import dal.impl.UserDAOImpl;
+import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

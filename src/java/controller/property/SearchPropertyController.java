@@ -9,8 +9,8 @@
 
 package controller.property;
 
-import dal.IPropertyDAO;
-import dal.impl.PropertyDAOImpl;
+import dao.IPropertyDAO;
+import dao.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

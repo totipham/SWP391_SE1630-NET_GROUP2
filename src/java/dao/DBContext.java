@@ -6,7 +6,7 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Sep 4, 2022         1.0           DucPTMHE160517     First Implement
  */
-package dal;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

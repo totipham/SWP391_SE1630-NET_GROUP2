@@ -6,10 +6,10 @@
  * DATE            Version             AUTHOR           DESCRIPTION
  * Oct 13, 2022         1.0           NgocCMHE161386     First Implement
  */
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
-import dal.IPropertyDAO;
+import dao.DBContext;
+import dao.IPropertyDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

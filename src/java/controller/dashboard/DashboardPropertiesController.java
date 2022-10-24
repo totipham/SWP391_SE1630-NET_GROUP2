@@ -8,10 +8,10 @@
  */
 package controller.dashboard;
 
-import dal.IPropertyDAO;
-import dal.IUserDAO;
-import dal.impl.PropertyDAOImpl;
-import dal.impl.UserDAOImpl;
+import dao.IPropertyDAO;
+import dao.IUserDAO;
+import dao.impl.PropertyDAOImpl;
+import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

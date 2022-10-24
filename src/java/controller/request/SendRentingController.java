@@ -8,12 +8,12 @@
  */
 package controller.request;
 
-import dal.IPropertyDAO;
-import dal.IRequestDAO;
-import dal.IUserDAO;
-import dal.impl.PropertyDAOImpl;
-import dal.impl.RequestDAOImpl;
-import dal.impl.UserDAOImpl;
+import dao.IPropertyDAO;
+import dao.IRequestDAO;
+import dao.IUserDAO;
+import dao.impl.PropertyDAOImpl;
+import dao.impl.RequestDAOImpl;
+import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

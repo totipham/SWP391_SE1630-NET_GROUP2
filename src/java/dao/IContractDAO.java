@@ -12,9 +12,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package dal;
+package dao;
 
-import model.RequestStatus;
+import java.sql.Date;
+import java.util.List;
+import model.User;
 
 /**				
  * The class contains method find update, delete, insert staff information from				
@@ -24,13 +26,33 @@ import model.RequestStatus;
  *				
  * @author LanBTHHE160676				
  */
-public interface IRequestStatusDAO {
+public interface IContractDAO {
 
     /**
      *
-     * @param requestStatusId
+     * @param propertyId
+     * @param userId
+     * @param beginDate
+     * @throws Exception
+     */
+    public void insertContract(int propertyId, int userId, Date beginDate) throws Exception;
+    
+    /**
+     *
+     * @param hostId
+     * @param begin
+     * @param end
      * @return
      * @throws Exception
      */
-    public RequestStatus getRequestStatusByStatusId (int requestStatusId  ) throws Exception;
+    public int getNumberOfContractInRange(int hostId, Date begin, Date end) throws Exception;
+    
+    /**
+     *
+     * @param hostId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    public List<User> getRenterListByDate(int hostId, Date date) throws Exception;
 }

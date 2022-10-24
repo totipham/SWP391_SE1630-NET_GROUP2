@@ -12,10 +12,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
-import dal.IReportDAO;
+import dao.DBContext;
+import dao.IReportDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

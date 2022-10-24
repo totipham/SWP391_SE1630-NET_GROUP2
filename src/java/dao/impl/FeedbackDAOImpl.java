@@ -10,10 +10,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal.impl;
+package dao.impl;
 
-import dal.DBContext;
-import dal.IFeedbackDAO;
+import dao.DBContext;
+import dao.IFeedbackDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -8,7 +8,7 @@
  */
 package controller.user;
 
-import dal.impl.UserDAOImpl;
+import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
