@@ -30,129 +30,6 @@
                             <div class="row g-5 g-xl-10 mb-xl-10">
                                 <!--begin::Col-->
                                 <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-                                    <!--begin::Card widget 4-->
-                                    <div class="card card-flush h-md-50 mb-5 mb-xl-10">
-                                        <!--begin::Header-->
-                                        <div class="card-header pt-5">
-                                            <!--begin::Title-->
-                                            <div class="card-title d-flex flex-column">
-                                                <!--begin::Info-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Currency-->
-                                                    <span
-                                                        class="fs-4 fw-semibold text-gray-400 me-1 align-self-start">$</span>
-                                                    <!--end::Currency-->
-                                                    <!--begin::Amount-->
-                                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">69,700</span>
-                                                    <!--end::Amount-->
-                                                </div>
-                                                <!--end::Info-->
-                                                <!--begin::Subtitle-->
-                                                <span class="text-gray-400 pt-1 fw-semibold fs-6">Expected Earnings</span>
-                                                <!--end::Subtitle-->
-                                            </div>
-                                            <!--end::Title-->
-                                        </div>
-                                        <!--end::Header-->
-                                        <!--begin::Card body-->
-                                        <div class="card-body pt-2 pb-4 d-flex align-items-center">
-                                            <!--begin::Chart-->
-                                            <div class="d-flex flex-center me-5 pt-2">
-                                                <div id="expected_earning_chart" style="min-width: 70px; min-height: 70px"
-                                                     data-kt-size="70" data-kt-line="11"></div>
-                                            </div>
-                                            <!--end::Chart-->
-                                            <!--begin::Labels-->
-                                            <div class="d-flex flex-column content-justify-center w-100">
-                                                <!--begin::Label-->
-                                                <div class="d-flex fs-6 fw-semibold align-items-center">
-                                                    <!--begin::Bullet-->
-                                                    <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
-                                                    <!--end::Bullet-->
-                                                    <!--begin::Label-->
-                                                    <div class="text-gray-500 flex-grow-1 me-4">Motel</div>
-                                                    <!--end::Label-->
-                                                    <!--begin::Stats-->
-                                                    <div class="fw-bolder text-gray-700 text-xxl-end">$7,660</div>
-                                                    <!--end::Stats-->
-                                                </div>
-                                                <!--end::Label-->
-                                                <!--begin::Label-->
-                                                <div class="d-flex fs-6 fw-semibold align-items-center my-3">
-                                                    <!--begin::Bullet-->
-                                                    <div class="bullet w-8px h-6px rounded-2 bg-primary me-3"></div>
-                                                    <!--end::Bullet-->
-                                                    <!--begin::Label-->
-                                                    <div class="text-gray-500 flex-grow-1 me-4">Dorm</div>
-                                                    <!--end::Label-->
-                                                    <!--begin::Stats-->
-                                                    <div class="fw-bolder text-gray-700 text-xxl-end">$2,820</div>
-                                                    <!--end::Stats-->
-                                                </div>
-                                                <!--end::Label-->
-                                                <!--begin::Label-->
-                                                <div class="d-flex fs-6 fw-semibold align-items-center">
-                                                    <!--begin::Bullet-->
-                                                    <div class="bullet w-8px h-6px rounded-2 me-3"
-                                                         style="background-color: #E4E6EF"></div>
-                                                    <!--end::Bullet-->
-                                                    <!--begin::Label-->
-                                                    <div class="text-gray-500 flex-grow-1 me-4">House</div>
-                                                    <!--end::Label-->
-                                                    <!--begin::Stats-->
-                                                    <div class="fw-bolder text-gray-700 text-xxl-end">$45,257</div>
-                                                    <!--end::Stats-->
-                                                </div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Labels-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                    <!--end::Card widget 4-->
-                                    <!--begin::Card widget 5-->
-                                    <div class="card card-flush h-md-50 mb-xl-10">
-                                        <!--begin::Header-->
-                                        <div class="card-header pt-5">
-                                            <!--begin::Title-->
-                                            <div class="card-title d-flex flex-column">
-                                                <!--begin::Info-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Amount-->
-                                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">1,836</span>
-                                                    <!--end::Amount-->
-                                                </div>
-                                                <!--end::Info-->
-                                                <!--begin::Subtitle-->
-                                                <span class="text-gray-400 pt-1 fw-semibold fs-6">Rents This Month</span>
-                                                <!--end::Subtitle-->
-                                            </div>
-                                            <!--end::Title-->
-                                        </div>
-                                        <!--end::Header-->
-                                        <!--begin::Card body-->
-                                        <div class="card-body d-flex align-items-end pt-0">
-                                            <!--begin::Progress-->
-                                            <div class="d-flex align-items-center flex-column mt-3 w-100">
-                                                <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                                    <span class="fw-bolder fs-6 text-dark">1,048 to Goal</span>
-                                                    <span class="fw-bold fs-6 text-gray-400">62%</span>
-                                                </div>
-                                                <div class="h-8px mx-3 w-100 bg-light-success rounded">
-                                                    <div class="bg-success rounded h-8px" role="progressbar"
-                                                         style="width: 62%;" aria-valuenow="50" aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                            <!--end::Progress-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                    <!--end::Card widget 5-->
-                                </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
                                     <!--begin::Card widget 6-->
                                     <div class="card card-flush h-md-50 mb-5 mb-xl-10">
                                         <!--begin::Header-->
@@ -189,7 +66,7 @@
                                             <!--begin::Title-->
                                             <div class="card-title d-flex flex-column">
                                                 <!--begin::Amount-->
-                                                <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">6.3k</span>
+                                                <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">${requestScope.numberOfRents}</span>
                                                 <!--end::Amount-->
                                                 <!--begin::Subtitle-->
                                                 <span class="text-gray-400 pt-1 fw-semibold fs-6">New Renters This
@@ -206,40 +83,26 @@
                                             <!--end::Title-->
                                             <!--begin::Users group-->
                                             <div class="symbol-group symbol-hover flex-nowrap">
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Alan Warden">
-                                                    <span
-                                                        class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Michael Eberon">
-                                                    <img alt="Pic" src="${baseURL}/assets/images/avatar.jpg" />
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Susan Redwood">
-                                                    <span
-                                                        class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Susan Redwood">
-                                                    <span
-                                                        class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Perry Matthew">
-                                                    <span
-                                                        class="symbol-label bg-danger text-inverse-danger fw-bold">P</span>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                                     title="Susan Redwood">
-                                                    <span
-                                                        class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
-                                                </div>
-                                                <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
-                                                   data-bs-target="#kt_modal_view_users">
-                                                    <span
-                                                        class="symbol-label bg-light text-gray-400 fs-8 fw-bold">+42</span>
-                                                </a>
+                                                <c:set var="remain" value="0" />
+                                                <c:forEach var="user" items="${requestScope.todayRenterList}"  varStatus="theCount">
+                                                    <c:if test="${theCount.count >= 8}">
+                                                        <c:set var="remain" value="${remain+1}" />
+                                                    </c:if>
+                                                    <c:if test="${theCount.count < 8}">
+                                                        <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+                                                             title="${user.name}">
+                                                            <img alt="Pic" src="${baseURL}/assets/images/${user.avatar}" />
+                                                        </div>
+                                                    </c:if>
+
+                                                </c:forEach>
+                                                <c:if test="${remain > 0}">
+                                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                                       data-bs-target="#kt_modal_view_users">
+                                                        <span
+                                                            class="symbol-label bg-light text-gray-400 fs-8 fw-bold">+${remain}</span>
+                                                    </a>
+                                                </c:if>
                                             </div>
                                             <!--end::Users group-->
                                         </div>
@@ -249,14 +112,14 @@
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
-                                <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
+                                <div class="col-lg-12 col-xl-12 col-xxl-9 mb-5 mb-xl-0">
                                     <!--begin::Chart widget 3-->
                                     <div class="card card-flush overflow-hidden h-md-100">
                                         <!--begin::Header-->
                                         <div class="card-header py-5">
                                             <!--begin::Title-->
                                             <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold text-dark">Rents This Months</span>
+                                                <span class="card-label fw-bold text-dark">Income This Months</span>
                                             </h3>
                                             <!--end::Title-->
                                         </div>
@@ -267,8 +130,8 @@
                                             <div class="px-9 mb-1">
                                                 <!--begin::Statistics-->
                                                 <div class="d-flex mb-2">
-                                                    <span class="fs-4 fw-semibold text-gray-400 me-1">$</span>
-                                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">14,094</span>
+                                                    <span class="fs-4 fw-semibold text-gray-400 me-1">đ</span>
+                                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">${requestScope.totalIncome}M</span>
                                                 </div>
                                                 <!--end::Statistics-->
                                             </div>

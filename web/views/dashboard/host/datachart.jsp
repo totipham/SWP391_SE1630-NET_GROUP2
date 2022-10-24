@@ -261,8 +261,12 @@
 
             var options = {
                 series: [{
-                        name: 'Sales',
-                        data: [18, 18, 20, 20, 18, 18, 22, 22, 20, 20, 18, 18, 20, 20, 18, 18, 20, 20, 22]
+                        name: 'Income',
+                        data: [0,
+                            <c:forEach var="date" items="${requestScope.setIncome}">
+                                ${(mapIncome.get(date))/1000000},
+                            </c:forEach>
+                        0]
                     }],
                 chart: {
                     fontFamily: 'inherit',
@@ -297,7 +301,12 @@
                     colors: [baseColor]
                 },
                 xaxis: {
-                    categories: ['', 'Apr 02', 'Apr 03', 'Apr 04', 'Apr 05', 'Apr 06', 'Apr 07', 'Apr 08', 'Apr 09', 'Apr 10', 'Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', ''],
+                    categories: ['',
+                        <c:forEach var="incomeDaily" items="${requestScope.setIncome}">
+                            '${incomeDaily}',
+                        </c:forEach>
+                        ''
+                    ],
                     axisBorder: {
                         show: false,
                     },
@@ -332,15 +341,15 @@
                 },
                 yaxis: {
                     tickAmount: 4,
-                    max: 24,
-                    min: 10,
+                    max: 20,
+                    min: 2,
                     labels: {
                         style: {
                             colors: labelColor,
                             fontSize: '12px'
                         },
                         formatter: function (val) {
-                            return '$' + val + "K"
+                            return 'đ' + val + "M"
                         }
                     }
                 },
@@ -371,7 +380,7 @@
                     },
                     y: {
                         formatter: function (val) {
-                            return "$" + val + "K"
+                            return "đ" + val + "M"
                         }
                     }
                 },
