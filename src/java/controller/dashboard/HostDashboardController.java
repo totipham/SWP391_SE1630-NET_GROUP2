@@ -4,18 +4,16 @@
  *
  * Record of change:
  * DATE            Version             AUTHOR           DESCRIPTION
- * Oct 18, 2022       1.0           DucPTMHE160517     First Implement
+ * Oct 18, 2022       1.3           DucPTMHE160517      SEND DATA FOR INCOME CHART
  */
 package controller.dashboard;
 
 import dao.IContractDAO;
 import dao.IPropertyDAO;
 import dao.IRequestDAO;
-import dao.IUserDAO;
 import dao.impl.ContractDAOImpl;
 import dao.impl.PropertyDAOImpl;
 import dao.impl.RequestDAOImpl;
-import dao.impl.UserDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -32,13 +30,11 @@ import model.Property;
 import model.User;
 
 /**
- * The class contains method find update, delete, insert staff information from
- * Staff table in database. In the update or insert method, all data will be
- * normalized (trim space) before update/insert into database The method will
- * throw an object of <code>java.lang.Exception</code> class if there is any
- * error occurring when finding, inserting, or updating data
+ * This Servlet responsible for handling forget password function /forget is the
+ * URL The method will throw an object of <code>java.lang.Exception</code> class
+ * if there is any error occurring when finding, inserting, or updating data
  * <p>
- * Bugs: Still have some issues related to search staff by address
+ * Bugs: Haven't found yet
  *
  * @author DucPTMHE160517
  */
@@ -56,103 +52,91 @@ public class HostDashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user"); //get user from the session
 
         //if user is not login
-        if (u == null) {
+        if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login?redirect=" + request.getServletPath());
             return;
         }
 
-        //check if user role is equal to 1
-        if (u.getRole() == 2) { //check if role of user equal to 2
+        //check if role of user equal to 2
+        if (user.getRole() == 2) { 
+            
             try {
                 IRequestDAO requestDAO = new RequestDAOImpl();
                 IContractDAO contractDAO = new ContractDAOImpl();
                 IPropertyDAO propertyDAO = new PropertyDAOImpl();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar begin = Calendar.getInstance();
-                Calendar today = Calendar.getInstance();
-                begin.add(Calendar.DATE, -14);
-                Calendar firstDayOfMonth = Calendar.getInstance();   // this takes current date
-                firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //give format for date
+                
+                Calendar today = Calendar.getInstance(); //current date
+                
+                Calendar begin = Calendar.getInstance(); //set begin date equals current date
+                begin.add(Calendar.DATE, -7); //set begin date equals 7 days before current date
+                
+                Calendar firstDayOfMonth = Calendar.getInstance(); //set first day of month equals to current date
+                firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1); //set first day of month equals to 1st day of current month
 
-                Map<Date, Integer> mapRequest = requestDAO.getNumberRequestByRange(u.getId(),
+                Map<Date, Integer> mapRequest = requestDAO.getNumberRequestByRange(user.getId(),
                         Date.valueOf(sdf.format(begin.getTime())),
-                        Date.valueOf(sdf.format(today.getTime())));
-                Set<Date> setRequestDaily = mapRequest.keySet();
-                int numberOfReq = 0;
+                        Date.valueOf(sdf.format(today.getTime()))); //get number of request per day (date)
+                Set<Date> setRequestDaily = mapRequest.keySet(); //get set of date
+                
+                int numberOfRequest = 0; //init number of request
 
                 //loop each key of set request daily
-                for (Date key : setRequestDaily) {
-                    numberOfReq += mapRequest.get(key);
+                for (Date keyDate : setRequestDaily) {
+                    numberOfRequest += mapRequest.get(keyDate); //add number of request per day (date)
                 }
 
-                double totalIncome = 0;
+                double totalIncome = 0; //init income
 
-                Map<Date, Double> mapIncome = contractDAO.getIncomeInRange(u.getId(),
+                Map<Date, Double> mapIncome = contractDAO.getIncomeInRange(user.getId(),
                         Date.valueOf(sdf.format(firstDayOfMonth.getTime())),
-                        Date.valueOf(sdf.format(today.getTime())));
-
-                Set<Date> setIncome = mapIncome.keySet();
+                        Date.valueOf(sdf.format(today.getTime()))); //get income per day (date)
+                Set<Date> setIncome = mapIncome.keySet(); //get set of date
 
                 //loop each key of set request daily
                 for (Date key : setIncome) {
-                    totalIncome += (mapIncome.get(key) / 1000000);
+                    totalIncome += (mapIncome.get(key) / 1000000); //add income (divided by 1M) to total income
                 }
 
-                int numberOfRents = contractDAO.getNumberOfContractInRange(u.getId(),
+                int numberOfRents = contractDAO.getNumberOfContractInRange(user.getId(),
                         Date.valueOf(sdf.format(firstDayOfMonth.getTime())),
-                        Date.valueOf(sdf.format(today.getTime())));
-
-                List<User> todayRenterList = contractDAO.getRenterListByDate(u.getId(),
-                        Date.valueOf(sdf.format(today.getTime())));
+                        Date.valueOf(sdf.format(today.getTime()))); //get number of range from first day of month to current
 
                 //check if number of rents equal 0
                 if (numberOfRents < 0) {
-                    numberOfRents = 0;
+                    numberOfRents = 0; //set number of rents to 0
                 }
-                
-                Map<Property, Integer> mapTrendingProperty = propertyDAO.getTrendingRentProperty(u.getId());
-                
-                Set<Property> setTrendingProperty = mapTrendingProperty.keySet();
 
-                request.setAttribute("mapTrendingProperty", mapTrendingProperty);
-                request.setAttribute("setTrendingProperty", setTrendingProperty);
-                request.setAttribute("mapIncome", mapIncome);
-                request.setAttribute("setIncome", setIncome);
-                request.setAttribute("totalIncome", totalIncome);
-                request.setAttribute("todayRenterList", todayRenterList);
-                request.setAttribute("numberOfRents", numberOfRents);
-                request.setAttribute("numberOfReq", numberOfReq);
-                request.setAttribute("mapRequestDaily", mapRequest);
-                request.setAttribute("setRequestDaily", setRequestDaily);
+                List<User> todayRenterList = contractDAO.getRenterListByDate(user.getId(),
+                        Date.valueOf(sdf.format(today.getTime()))); //get list of renter of today
+                Map<Property, Integer> mapTrendingProperty = propertyDAO.getTrendingRentProperty(user.getId()); //get number of rent per property
+                Set<Property> setTrendingProperty = mapTrendingProperty.keySet(); //get set of property in map trending property
+
+                request.setAttribute("mapTrendingProperty", mapTrendingProperty); //set attribute map trending property 
+                request.setAttribute("setTrendingProperty", setTrendingProperty); //set attribute for set of trending property
+                request.setAttribute("mapIncome", mapIncome); //set attribute for map of income
+                request.setAttribute("setIncome", setIncome); //set attribute for set of income
+                request.setAttribute("totalIncome", totalIncome); //set attribute for total of income
+                request.setAttribute("todayRenterList", todayRenterList); //set attribute for today renter list
+                request.setAttribute("numberOfRents", numberOfRents); //set attribute for number of rent
+                request.setAttribute("numberOfReq", numberOfRequest); //set attribute for number of request
+                request.setAttribute("mapRequestDaily", mapRequest); //set attribute for map of request 
+                request.setAttribute("setRequestDaily", setRequestDaily); //set attribute for set of daily request
             } catch (Exception ex) {
-                request.setAttribute("message", ex);
-                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+                request.setAttribute("message", ex); //set attribute for exception
+                request.getRequestDispatcher("../views/error.jsp").forward(request, response); //forward to error page
             }
 
-            request.setAttribute("user", u);
-            request.setAttribute("page", "Dashboard");
-            request.getRequestDispatcher("../views/dashboard/host/dashboard.jsp").forward(request, response);
+            request.setAttribute("user", user); //set attribute for session user
+            request.setAttribute("page", "Dashboard"); //set attribute page name
+            request.getRequestDispatcher("../views/dashboard/host/dashboard.jsp").forward(request, response); //forward to host dashboard page
         } else {
-            request.setAttribute("message", "You don't have right to access this page!");
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.setAttribute("message", "You don't have right to access this page!"); //set attribute for message
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response); //forward to error page
         }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
 }
