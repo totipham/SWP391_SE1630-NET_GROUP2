@@ -106,10 +106,6 @@
         <servlet-class>controller.report.DeleteReportTypeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AcceptRentingRequest</servlet-name>
-        <servlet-class>controller.property.AcceptRentingRequest</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteFeedbackController</servlet-name>
         <servlet-class>controller.feedback.DeleteFeedbackController</servlet-class>
     </servlet>
@@ -282,10 +278,6 @@
         <url-pattern>/deletereporttype</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AcceptRentingRequest</servlet-name>
-        <url-pattern>/acceptrentingrequest</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RegisterHostController</servlet-name>
         <url-pattern>/registerhost</url-pattern>
     </servlet-mapping>
@@ -304,6 +296,10 @@
     <servlet-mapping>
         <servlet-name>DeleteRentingRequest</servlet-name>
         <url-pattern>/deleterentingrequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <url-pattern>/acceptrentingrequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
