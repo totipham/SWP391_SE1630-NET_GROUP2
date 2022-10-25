@@ -1,7 +1,7 @@
 <%-- 
     Document   : host/properties
     Created on : Oct 9, 2022, 10:39:52 PM
-    Author     : DucPTMHE160517
+    Author     : ThuongTTHE163555
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
