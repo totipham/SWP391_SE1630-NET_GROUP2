@@ -301,6 +301,10 @@
         <servlet-name>UpdatePropertyController</servlet-name>
         <url-pattern>/editproperty</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRentingRequest</servlet-name>
+        <url-pattern>/deleterentingrequest</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
