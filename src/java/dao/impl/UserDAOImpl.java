@@ -72,7 +72,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }
@@ -108,7 +108,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return null;
     }
@@ -145,7 +145,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }
@@ -181,7 +181,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }
@@ -210,7 +210,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -247,7 +247,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return message;
@@ -276,7 +276,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -302,7 +302,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -325,7 +325,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -361,7 +361,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -386,7 +386,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -408,7 +408,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 

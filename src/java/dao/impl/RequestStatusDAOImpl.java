@@ -51,7 +51,7 @@ public class RequestStatusDAOImpl extends DBContext implements IRequestStatusDAO
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }

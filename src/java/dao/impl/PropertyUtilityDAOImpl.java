@@ -55,7 +55,7 @@ public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilit
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
             
         return list;
@@ -79,7 +79,7 @@ public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilit
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 

@@ -66,7 +66,7 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return list;
     }
@@ -99,7 +99,7 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return null;
     }
@@ -121,7 +121,7 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -145,7 +145,7 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 }

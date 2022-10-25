@@ -51,7 +51,7 @@ public class ContractStatusDAOImpl extends DBContext implements IContractStatusD
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }

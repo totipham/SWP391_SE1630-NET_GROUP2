@@ -51,7 +51,7 @@ public class PropertyImageDAOImpl extends DBContext implements IPropertyImageDAO
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return list;
@@ -72,7 +72,7 @@ public class PropertyImageDAOImpl extends DBContext implements IPropertyImageDAO
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 

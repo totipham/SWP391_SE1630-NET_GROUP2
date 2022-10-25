@@ -54,7 +54,7 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
         } catch (SQLException e) {
            throw e;
         }finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -86,7 +86,7 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
         } catch (SQLException e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
 
         return false;

@@ -51,7 +51,7 @@ public class PropertyTypeDAOImpl extends DBContext implements IPropertyTypeDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
 
         return null;
@@ -71,7 +71,7 @@ public class PropertyTypeDAOImpl extends DBContext implements IPropertyTypeDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 }

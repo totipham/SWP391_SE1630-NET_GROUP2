@@ -75,7 +75,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return list;
@@ -125,7 +125,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return list;
     }
@@ -173,7 +173,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return list;
     }
@@ -248,7 +248,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
         return null;
     }
@@ -291,7 +291,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return -1;
@@ -399,7 +399,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return list;
@@ -423,7 +423,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -460,7 +460,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
     }
 

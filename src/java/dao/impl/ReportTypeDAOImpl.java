@@ -56,7 +56,7 @@ public class ReportTypeDAOImpl extends DBContext implements  IReportTypeDAO{
         } catch (SQLException ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
 
         return list;
@@ -77,7 +77,7 @@ public class ReportTypeDAOImpl extends DBContext implements  IReportTypeDAO{
         } catch (SQLException e) {
            throw e;
         }finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -95,7 +95,7 @@ public class ReportTypeDAOImpl extends DBContext implements  IReportTypeDAO{
         } catch (SQLException e) {
            throw e;
         }finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
     /*public static void main(String[] args) throws Exception {

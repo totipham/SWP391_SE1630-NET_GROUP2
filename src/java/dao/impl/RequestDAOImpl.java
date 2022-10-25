@@ -69,7 +69,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -93,7 +93,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -119,7 +119,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -157,7 +157,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return null;
     }
@@ -195,7 +195,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
         return list;
     }
@@ -240,7 +240,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
 
     }
