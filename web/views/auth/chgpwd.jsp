@@ -1,7 +1,7 @@
 <%-- 
     Document   : chgpwd
     Created on : Sep 30, 2022, 11:20:44 PM
-    Author     : totipham
+    Author     : ThuongTTHE163555
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
