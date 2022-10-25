@@ -58,7 +58,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } catch (Exception e) {
             throw e;
         } finally {
-            closeConnection(connection, statement, null);
+            close(connection, statement, null);
         }
     }
 
@@ -100,7 +100,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
     }
 
@@ -141,7 +141,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
     }
 
@@ -183,7 +183,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } catch (Exception ex) {
             throw ex;
         } finally {
-            closeConnection(connection, statement, result);
+            close(connection, statement, result);
         }
     }
 }

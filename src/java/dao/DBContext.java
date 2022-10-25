@@ -42,16 +42,16 @@ public class DBContext {
         return conn;
     }
     
-    protected void closeConnection (Connection conn, PreparedStatement ps, ResultSet rs) throws SQLException {
+    protected void close (Connection connection, PreparedStatement statement, ResultSet result) throws SQLException {
         
-        if (ps != null) {
-            ps.close();
+        if (statement != null) {
+            statement.close();
         }
         
-        if (rs != null) {
-            rs.close();
+        if (result != null) {
+            result.close();
         }
         
-        conn.close();
+        connection.close();
     }
 }
