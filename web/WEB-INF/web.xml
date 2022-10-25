@@ -149,6 +149,10 @@
         <servlet-name>AdminDashboardController</servlet-name>
         <servlet-class>controller.dashboard.AdminDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePropertyController</servlet-name>
+        <servlet-class>controller.dashboard.UpdatePropertyController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -292,6 +296,10 @@
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/dashboard/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePropertyController</servlet-name>
+        <url-pattern>/editproperty</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
