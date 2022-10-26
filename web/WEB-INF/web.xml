@@ -37,8 +37,8 @@
         <servlet-class>controller.request.SendRentingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateRequestStatusController</servlet-name>
-        <servlet-class>controller.request.UpdateRequestStatusController</servlet-class>
+        <servlet-name>DeclineRentingRequestController</servlet-name>
+        <servlet-class>controller.request.DeclineRentingRequestController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashboardPropertiesController</servlet-name>
@@ -106,10 +106,6 @@
         <servlet-class>controller.report.DeleteReportTypeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AcceptRentingRequest</servlet-name>
-        <servlet-class>controller.property.AcceptRentingRequest</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteFeedbackController</servlet-name>
         <servlet-class>controller.feedback.DeleteFeedbackController</servlet-class>
     </servlet>
@@ -149,6 +145,22 @@
         <servlet-name>AdminDashboardController</servlet-name>
         <servlet-class>controller.dashboard.AdminDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePropertyController</servlet-name>
+        <servlet-class>controller.dashboard.UpdatePropertyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <servlet-class>controller.property.AcceptRentingRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRentingRequest</servlet-name>
+        <servlet-class>controller.request.DeleteRentingRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCategoryController</servlet-name>
+        <servlet-class>controller.property.AddCategoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -186,8 +198,8 @@
         <url-pattern>/renting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateRequestStatusController</servlet-name>
-        <url-pattern>/updaterstatus</url-pattern>
+        <servlet-name>DeclineRentingRequestController</servlet-name>
+        <url-pattern>/requests/decline</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DashboardPropertiesController</servlet-name>
@@ -262,26 +274,6 @@
         <url-pattern>/forget</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddNewReportTypeController</servlet-name>
-        <url-pattern>/addnewreporttype</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewRentingRequestController</servlet-name>
-        <url-pattern>/viewrentingrequest</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewReportTypeController</servlet-name>
-        <url-pattern>/viewreporttype</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteReportTypeController</servlet-name>
-        <url-pattern>/deletereporttype</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AcceptRentingRequest</servlet-name>
-        <url-pattern>/acceptrentingrequest</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RegisterHostController</servlet-name>
         <url-pattern>/registerhost</url-pattern>
     </servlet-mapping>
@@ -292,6 +284,38 @@
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/dashboard/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePropertyController</servlet-name>
+        <url-pattern>/editproperty</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRentingRequestController</servlet-name>
+        <url-pattern>/requests</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <url-pattern>/requests/accept</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRentingRequest</servlet-name>
+        <url-pattern>/deleterentingrequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryController</servlet-name>
+        <url-pattern>/dashboard/addcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewReportTypeController</servlet-name>
+        <url-pattern>/dashboard/addreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReportTypeController</servlet-name>
+        <url-pattern>/dashboard/deletereporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReportTypeController</servlet-name>
+        <url-pattern>/dashboard/viewreporttype</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

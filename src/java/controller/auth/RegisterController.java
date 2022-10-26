@@ -20,7 +20,8 @@ import utils.ValidateUtility;
 
 /**				
  * The class contains method insert user to DB			
- * The method will throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * The method will throw an object  of <code>java.lang.Exception</code> class 
+ * if there is any error occurring when finding, inserting, or updating data				
  * <p>Bugs: Still have some issues related to search staff by address				
  *				
  * @author LanBTHHE160676				

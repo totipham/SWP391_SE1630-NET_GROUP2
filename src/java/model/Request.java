@@ -17,7 +17,11 @@ package model;
 import java.sql.Date;
 
 /**
- * Desciption:
+ * The class contains attribute of Request			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if 
+ * there is any error occurring when finding, inserting, or updating data				
+ * <p>Bugs: Haven't found yet	
  *
  * @author LANBTHHE160676 
  */

@@ -24,12 +24,8 @@ import model.ReportType;
 import model.User;
 
 /**
- * The class contains method find update, delete, insert staff information from
- * Staff table in database. In the update or insert method, all data will be
- * normalized (trim space) before update/insert into database The method will
- * throw an object of <code>java.lang.Exception</code> class if there is any
- * error occurring when finding, inserting, or updating data
- * <p>
+ * This is a Servlet responsible for handling view report type function 
+ * /dashboard/viewreporttype is the URL
  * Bugs: Haven't found yet
  *
  * @author LanBTHHE160676

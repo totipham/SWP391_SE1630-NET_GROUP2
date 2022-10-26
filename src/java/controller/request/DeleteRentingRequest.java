@@ -1,10 +1,10 @@
-/*        
-* Copyright(C) 2022, FPT University.
+/*
+ * Copyright(C) 2022, FPT University.
  * Hostalpy
  *
  * Record of change:
  * DATE            Version             AUTHOR           DESCRIPTION
- * Oct 7, 2022         1.0           LanBTHHE160676     First Implement
+ * Oct 21, 2022         1.0           LanBTHHE160676     First Implement
  */
 package controller.request;
 
@@ -18,16 +18,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Property;
 import model.Request;
 import model.User;
 
 /**
- * [FILE DESCRIPTION HERE]
+ * This is a Servlet responsible for handling delete renting request function for renter 
+ * /deleterentingrequest is the URL
+ * Bugs: Haven't found yet
  *
- * @author LANBTHHE160676
+ * @author LanBTHHE160676
  */
-public class UpdateRequestStatusController extends HttpServlet {
+public class DeleteRentingRequest extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -40,8 +41,8 @@ public class UpdateRequestStatusController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //processRequest(request, response);
         int requestID = Integer.parseInt(request.getParameter("rid"));
-        int requestStatusID = Integer.parseInt(request.getParameter("rstatusID"));
         IRequestDAO requestDAO = new RequestDAOImpl();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -49,24 +50,21 @@ public class UpdateRequestStatusController extends HttpServlet {
         try {
             int userID = user.getId();
             Request Request = requestDAO.getRequestByRID(requestID);
-            Property property = Request.getProperty();
-            User host = property.getHost();
-            int hostID = host.getId();
-            //check current user id is propery's host id or not
-            if (hostID == userID) {
-                updateRequest(requestID, requestStatusID);
-                request.setAttribute("message", "Update successful");
+            //check current user id is the renter'd id of request and check request status is accept/finish or not
+            if (Request.getRenter().getId() == userID && Request.getRequestStatus().getId()==1) {
+                requestDAO.deleteRequestByRID(requestID);
+                request.setAttribute("message", "Delete successful");
                 request.getRequestDispatcher("*").forward(request, response);
             } else {
-                request.setAttribute("error", "You don't hove permission to update");
+                request.setAttribute("error", "You don't have permission to delete this request");
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
             }
+
         } catch (Exception ex) {
-            Logger.getLogger(UpdateRequestStatusController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeleteRentingRequest.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", ex);
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
-
     }
 
     /**
@@ -80,10 +78,7 @@ public class UpdateRequestStatusController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //processRequest(request, response);
     }
 
-    private void updateRequest(int rid, int newStatus) throws Exception {
-        IRequestDAO requestDAO = new RequestDAOImpl();
-        requestDAO.updateStatusByRID(rid, newStatus);
-    }
 }
