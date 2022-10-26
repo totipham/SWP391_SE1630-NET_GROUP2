@@ -64,6 +64,7 @@ public class ViewSystemUserController extends HttpServlet {
 
             //send list of users to front end
             request.setAttribute("userList", list);
+            request.setAttribute("page", "Users");
             request.getRequestDispatcher("../views/dashboard/user/users.jsp").forward(request, response);
         } catch (Exception e) {
             Logger.getLogger(ViewSystemUserController.class.getName()).log(Level.SEVERE, null, e);

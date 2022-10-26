@@ -24,9 +24,9 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import model.Property;
 import model.Request;
 import model.RequestStatus;
@@ -210,13 +210,13 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
      */
     @Override
     public Map<Date, Integer> getNumberRequestByRange(int hostId, Date begin, Date end) throws Exception {
-        Map<Date, Integer> map = new HashMap<>();
+        Map<Date, Integer> map = new TreeMap<>();
         String sql = "SELECT request_date, COUNT(*) as number FROM Request r "
                 + "INNER JOIN Property p "
                 + "ON r.property_id = p.property_id "
                 + "WHERE p.host_id = ? "
                 + "GROUP BY request_date "
-                + "HAVING request_date BETWEEN ? AND ?";
+                + "HAVING request_date BETWEEN ? AND ? ";
 
         Connection connection = null;
         PreparedStatement statement = null;

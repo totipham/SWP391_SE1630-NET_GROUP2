@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import model.User;
 
 /**
@@ -154,7 +155,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
      * @throws Exception
      */
     public Map<Date, Double> getIncomeInRange(int hostId, Date begin, Date end) throws Exception {
-        Map<Date, Double> map = new HashMap<>();
+        Map<Date, Double> map = new TreeMap<>();
         String sql = "SELECT begin_date as [date], SUM(price) as [income]\n"
                 + "FROM [Contract] c\n"
                 + "INNER JOIN Property p\n"

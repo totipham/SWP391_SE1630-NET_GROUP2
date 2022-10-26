@@ -29,7 +29,7 @@
 
 <body>
     <jsp:include page="views/component/navbar.jsp" />
-    <div id="main">
+    <div id="main" class="mb-10">
         <div class="container-fluid">
             <span class="text-2xl font-semibold">Rental Spaces</span>
             <div class="grid grid-cols-4 gap-4 my-3">
@@ -60,7 +60,7 @@
                 </c:forEach>
                 
             </div>
-            <nav aria-label="Page navigation example">
+            <nav class="mb-10">
                     <ul class="inline-flex -space-x-px">
                         <li>
                             <a href="#" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">Previous</a>

@@ -83,7 +83,7 @@
                             <p class="text-dark">Enter your email you signed up to our service.</p>
                             <form action="forget" method="post" id="checkmail-form" class="mt-3">
                                 <div class="mb-4">
-                                    <input type="email" id="email" class="px-3 text-center" name="email" placeholder="Email" required />
+                                    <input type="email" id="email" class="px-3 text-center" name="email" placeholder="Email" minlength="11" maxlength="30" required />
                                     <input type="hidden" name="step" value="checkmail"/>
                                     <div id="notiExistMail" class="text-danger small text-center mt-3"></div>
                                 </div>
@@ -105,7 +105,7 @@
                             <p class="text-dark">Input token we sent to your mail</p>
                             <form action="forget" method="post" id="checktoken-form" class="mt-3">
                                 <div class="mb-3">
-                                    <input type="text" id="captcha" class="px-3 text-center" maxlength="6" name="token" placeholder="Token" />
+                                    <input type="text" id="captcha" class="px-3 text-center" maxlength="6" name="token" placeholder="Token" required />
                                     <input type="hidden" name="step" value="checktoken"/>
                                 </div>
                                 <div id="notiCaptcha" class="small text-danger text-center"></div>
