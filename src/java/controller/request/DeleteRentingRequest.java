@@ -22,9 +22,8 @@ import model.Request;
 import model.User;
 
 /**
- * The class contains method delete renting request for renter
- * URL:/deleterentingrequest
- * <p>
+ * This is a Servlet responsible for handling delete renting request function for renter 
+ * /deleterentingrequest is the URL
  * Bugs: Haven't found yet
  *
  * @author LanBTHHE160676
