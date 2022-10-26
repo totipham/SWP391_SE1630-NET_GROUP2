@@ -15,9 +15,10 @@
 package model;
 
 /**				
- * The class contains method find update, delete, insert staff information from				
- * Staff table in database. In the update or insert method, all data will be normalized (trim space) before update/insert into database				
- * The method wil throw an object  of <code>java.lang.Exception</code> class if there is any error occurring when finding, inserting, or updating data				
+ * The class contains attribute of Contract Status			
+ * 				
+ * The method will throw an object  of <code>java.lang.Exception</code> class if 
+ * there is any error occurring when finding, inserting, or updating data				
  * <p>Bugs: Haven't found yet				
  *				
  * @author LanBTHHE160676				

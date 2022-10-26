@@ -22,10 +22,8 @@ import model.User;
 import utils.ValidateUtility;
 
 /**
- * The class contains method insert new property type to DB The method will
- * throw an object of <code>java.lang.Exception</code> class if there is any
- * error occurring when finding, inserting, or updating data
- * <p>
+ * This is a Servlet responsible for handling add new category function 
+ * /dashboard/addcategory is the URL
  * Bugs: Haven't found yet
  *
  * @author LanBTHHE160676
@@ -60,12 +58,12 @@ public class AddCategoryController extends HttpServlet {
                 request.getRequestDispatcher("*").forward(request, response);
             } else {
                 request.setAttribute("message", "You don't have permission to access this function");
-                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
     }
 
@@ -90,7 +88,7 @@ public class AddCategoryController extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
 
     }

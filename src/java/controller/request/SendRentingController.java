@@ -30,8 +30,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This is a Servlet responsible for handling renting function /renting is the
- * URL of the web site Extend HttpServlet class
+ * This is a Servlet responsible for handling send renting request function 
+ * /sendrenting is the URL
+ * Bugs: Haven't found yet
  *
  * @author LANBTHHE160676
  */
