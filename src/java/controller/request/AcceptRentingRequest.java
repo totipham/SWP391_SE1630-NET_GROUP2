@@ -8,11 +8,10 @@
  */
 package controller.request;
 
-import controller.property.*;
-import dal.IContractDAO;
-import dal.IRequestDAO;
-import dal.impl.ContractDAOImpl;
-import dal.impl.RequestDAOImpl;
+import dao.IContractDAO;
+import dao.IRequestDAO;
+import dao.impl.ContractDAOImpl;
+import dao.impl.RequestDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -22,16 +21,11 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Property;
 import model.Request;
 
 /**
- * The class contains method find update, delete, insert staff information from
- * Staff table in database. In the update or insert method, all data will be
- * normalized (trim space) before update/insert into database The method wil
- * throw an object of <code>java.lang.Exception</code> class if there is any
- * error occurring when finding, inserting, or updating data
- * <p>
+ *This is a Servlet responsible for handling accept renting request and make new contract function 
+ * /requests/accept is the URL
  * Bugs: Haven't found yet
  *
  * @author LanBTHHE160676
@@ -51,15 +45,16 @@ public class AcceptRentingRequest extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String requestIdRaw = request.getParameter("requestid");
+        IRequestDAO requestDAO = new RequestDAOImpl();
         try {
             int requestId = Integer.parseInt(requestIdRaw);
-            IRequestDAO requestDAO = new RequestDAOImpl();
             Request requestRenting = requestDAO.getRequestByRID(requestId);
-            if (requestRenting.getRequestStatus().getId() == 3) {
+            if (requestRenting.getRequestStatus().getId() ==1) {
+               requestDAO.updateStatusByRID(requestId, 3);
                request.getRequestDispatcher("*").forward(request, response);
             } else {
                 request.setAttribute("message", "You can't make new contract");
-                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(AcceptRentingRequest.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,9 +76,9 @@ public class AcceptRentingRequest extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String requestIdRaw = request.getParameter("requestid");
+        IRequestDAO requestDAO = new RequestDAOImpl();
         try {
             int requestId = Integer.parseInt(requestIdRaw);
-            IRequestDAO requestDAO = new RequestDAOImpl();
             Request requestRenting = requestDAO.getRequestByRID(requestId);
             Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
             IContractDAO contractDAO = new ContractDAOImpl();
@@ -93,7 +88,7 @@ public class AcceptRentingRequest extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(AcceptRentingRequest.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
     }
 
