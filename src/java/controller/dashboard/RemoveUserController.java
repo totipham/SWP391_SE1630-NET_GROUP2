@@ -75,7 +75,7 @@ public class RemoveUserController extends HttpServlet {
                 } else {
                     IUserDAO userDAO = new UserDAOImpl();
                     userDAO.removeUserByID(id);
-                    response.sendRedirect("../dashboard");
+                    response.sendRedirect("../users");
                 }
             } else {
                 request.setAttribute("message", "You don't have right to access this page!");

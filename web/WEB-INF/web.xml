@@ -161,6 +161,10 @@
         <servlet-name>AddCategoryController</servlet-name>
         <servlet-class>controller.property.AddCategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewContractController</servlet-name>
+        <servlet-class>controller.dashboard.ViewContractController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -254,10 +258,6 @@
         <url-pattern>/verify/sendtoken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RemoveUserController</servlet-name>
-        <url-pattern>/dashboard/removeuser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DeleteFeedbackController</servlet-name>
         <url-pattern>/delfeedback</url-pattern>
     </servlet-mapping>
@@ -316,6 +316,14 @@
     <servlet-mapping>
         <servlet-name>ViewReportTypeController</servlet-name>
         <url-pattern>/dashboard/viewreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewContractController</servlet-name>
+        <url-pattern>/dashboard/viewcontract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUserController</servlet-name>
+        <url-pattern>/dashboard/users/removeuser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
