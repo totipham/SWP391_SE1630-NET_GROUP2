@@ -162,6 +162,10 @@
         <servlet-class>controller.property.AddCategoryController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditPropertyController</servlet-name>
+        <servlet-class>controller.dashboard.UpdatePropertyController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ViewContractController</servlet-name>
         <servlet-class>controller.dashboard.ViewContractController</servlet-class>
     </servlet>
@@ -316,6 +320,10 @@
     <servlet-mapping>
         <servlet-name>ViewReportTypeController</servlet-name>
         <url-pattern>/dashboard/viewreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditPropertyController</servlet-name>
+        <url-pattern>/dashboard/editproperty</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewContractController</servlet-name>

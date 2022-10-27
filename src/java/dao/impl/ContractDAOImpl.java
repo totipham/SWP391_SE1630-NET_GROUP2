@@ -15,18 +15,18 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import model.Contract;
 import model.User;
 
 /**
  * The class contains method find update, delete, insert user information from
- * DB
- * The method will throw an object of <code>java.lang.Exception</code> class if
- * there is any error occurring when finding, inserting, or updating data
+ * DB The method will throw an object of <code>java.lang.Exception</code> class
+ * if there is any error occurring when finding, inserting, or updating data
  * <p>
  * Bugs: Haven't found yet
  *
@@ -185,5 +185,41 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } finally {
             close(connection, statement, result);
         }
+    }
+
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Contract> getContractById(int hostId) throws Exception {
+        String sql = "SELECT * FROM [Contract] WHERE user_id=?";
+        List<Contract> list = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, hostId);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Contract contract = new Contract();
+                PropertyDAOImpl pDao = new PropertyDAOImpl();
+                UserDAOImpl uDao = new UserDAOImpl();
+                ContractStatusDAOImpl cDao = new ContractStatusDAOImpl();
+                contract.setId(result.getInt("contract_id"));
+                contract.setDate(result.getDate("begin_date"));
+                contract.setProperty(pDao.getPropertyById(result.getInt("property_id")));
+                contract.setUser(uDao.getUserById(result.getInt("user_id")));
+                contract.setStatus(cDao.getContractStatusById(result.getInt("cstatus_id")));
+                return list;
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, null);
+        }
+        return null;
     }
 }

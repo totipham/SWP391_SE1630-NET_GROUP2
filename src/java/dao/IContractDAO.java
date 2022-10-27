@@ -17,6 +17,7 @@ package dao;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import model.Contract;
 import model.User;
 
 /**				
@@ -66,4 +67,12 @@ public interface IContractDAO {
      * @throws Exception
      */
     public Map<Date, Double> getIncomeInRange(int hostId, Date begin, Date end) throws Exception;
+
+    /**
+     *
+     * @param hostId
+     * @return
+     * @throws Exception
+     */
+    public List<Contract> getContractById(int hostId) throws Exception;
 }
