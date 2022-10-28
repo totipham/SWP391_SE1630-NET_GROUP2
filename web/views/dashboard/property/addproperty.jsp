@@ -189,7 +189,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid bg-white border" name="name"
-                                                       placeholder="" value=""/>
+                                                       placeholder="" value="" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -206,7 +206,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid bg-white border" name="address"
-                                                       placeholder="" value=""/>
+                                                       placeholder="" value="" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -222,8 +222,7 @@
                                                 <!--end::Label-->
 
                                                 <!--begin::Combo Box-->
-                                                <select class="form-select bg-white border" aria-label="Select property type" name="typeid">
-                                                    <option>Select Type</option>
+                                                <select class="form-select bg-white border" aria-label="Select property type" name="typeid" required>
                                                     <option value="1">Dorm</option>
                                                     <option value="2">Motel</option>
                                                     <option value="3">Private House</option>
@@ -249,7 +248,7 @@
 
                                                 <!--begin::Input-->
                                                 <textarea class="form-control form-control-solid bg-white border" rows="3"
-                                                          name="description" placeholder=""></textarea>
+                                                          name="description" placeholder="" required></textarea>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -266,7 +265,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="number" class="form-control form-control-solid bg-white border" name="total"
-                                                       placeholder="" value=""/>
+                                                       placeholder="" value="" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -283,7 +282,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="number" class="form-control form-control-solid bg-white border" name="area"
-                                                       placeholder="" value=""/>
+                                                       placeholder="" value="" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -304,7 +303,7 @@
 
                                                 <!--begin::Input-->
                                                 <input type="number" class="form-control form-control-solid bg-white border" name="price"
-                                                       placeholder="" value=""/>
+                                                       placeholder="" value="" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -330,21 +329,21 @@
                                                                         <input type="text"
                                                                                name="uname"
                                                                                class="form-control mb-2 mb-md-0 bg-white border"
-                                                                               placeholder="Name" />
+                                                                               placeholder="Name"  required/>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="form-label required">Fee:</label>
                                                                         <input type="number"
                                                                                name="ufee"
                                                                                class="form-control mb-2 mb-md-0 bg-white border"
-                                                                               placeholder="Fee" />
+                                                                               placeholder="Fee" required />
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="form-label required">Period:</label>
                                                                         <input type="text"
                                                                                name="uperiod"
                                                                                class="form-control mb-2 mb-md-0 bg-white border lowercase"
-                                                                               placeholder="Period" />
+                                                                               placeholder="Period" required/>
                                                                     </div>
                                                                     <div class="col-md-2">
                                                                         <a href="javascript:;" data-repeater-delete
@@ -484,8 +483,8 @@
 
             actualBtn.addEventListener('change', function () {
                 var files = $(this)[0].files;
-                fileChosen.textContent = "You have selected " + files.length + " images for this property"
-            })
+                fileChosen.textContent = "You have selected " + files.length + " images for this property";
+            });
 
 
             // Define form element
@@ -505,7 +504,7 @@
                                         min: 5,
                                         max: 30,
                                         message: 'Property name has to be between 5 and 30',
-                                    }
+                                    },
                                 }
                             },
                             'address': {
