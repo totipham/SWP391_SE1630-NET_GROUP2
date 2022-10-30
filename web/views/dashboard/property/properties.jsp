@@ -119,9 +119,9 @@
                             <!--end::Row-->
                             <nav class="mt-5">
                             <ul class="pagination">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                <c:forEach var="i" begin="1" end="${requestScope.numberOfPage}">
+                                    <li class="page-item ${requestScope.currentPage == i ? "active" : null}"><a class="page-link" href="${baseURL}/dashboard/properties?page=${i}">${i}</a></li>
+                                </c:forEach>
                             </ul>
                         </nav>
                         </div>

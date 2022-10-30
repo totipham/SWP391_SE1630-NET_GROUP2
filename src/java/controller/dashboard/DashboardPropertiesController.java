@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,19 +55,47 @@ public class DashboardPropertiesController extends HttpServlet {
 
         //if user is not login
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login?redirect="+ request.getServletPath());
+            response.sendRedirect(request.getContextPath() + "/login?redirect=" + request.getServletPath());
             return;
         }
 
         try {
-            //check if user role is equal to 1
-            if (user.getRole() == 1) {
-
-            } else if (user.getRole() == 2) { //check if role of user equal to 2
+            if (user.getRole() == 2) { //check if role of user equal to 2
                 IPropertyDAO propertyDAO = new PropertyDAOImpl();
-                List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId());
+                List<Property> listProperty = propertyDAO.getPropertyByHostId(user.getId()); //get property list of current login host
 
-                request.setAttribute("listProperty", listProperty);
+                List<Property> finalList = new ArrayList<>(); //init final list
+                int numberItemPerPage = 3; //set number of property per page
+                int sizeOfList = listProperty.size(); //get number of property own by current host
+
+                int numberOfPage = sizeOfList / numberItemPerPage + (sizeOfList % numberItemPerPage == 0 ? 0 : 1); //calculate number of page
+                int start, end;
+
+                String page_raw = null;
+                int currentPage = 1;
+
+                //check if url has parameter of page
+                if (request.getParameter("page") != null && !request.getParameter("page").equals("")) {
+                    page_raw = request.getParameter("page");
+                    currentPage = Integer.parseInt(page_raw);
+                }
+
+                start = (currentPage - 1) * numberItemPerPage;
+                
+                //check if number of item is out of list size
+                if ((currentPage * numberItemPerPage) > sizeOfList) {
+                    end = sizeOfList;
+                } else {
+                    end = currentPage * numberItemPerPage;
+                }
+
+                //loop from start index  to end index
+                for (int i = start; i < end; i++) {
+                    finalList.add(listProperty.get(i)); //add related property to final list
+                }
+                request.setAttribute("listProperty", finalList);
+                request.setAttribute("currentPage", currentPage);
+                request.setAttribute("numberOfPage", numberOfPage);
                 request.setAttribute("user", user);
                 request.setAttribute("page", "Properties");
                 request.getRequestDispatcher("../views/dashboard/property/properties.jsp").forward(request, response);
@@ -77,7 +106,7 @@ public class DashboardPropertiesController extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(AddPropertyController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
 
     }
