@@ -14,7 +14,7 @@
             input, select, textarea {
                 border-radius: 16px !important;
             }
-            
+
             .upload-group label {
                 background-color: #306844;
                 color: white;
@@ -409,7 +409,7 @@
 
                                         <!--begin::Wrapper-->
                                         <div>
-                                            
+
                                             <p id="error"></p>
                                             <button id="submit-btn" type="submit" class="btn btn-primary" data-kt-stepper-action="submit">
                                                 <span class="indicator-label">
@@ -549,11 +549,11 @@
                                         message: 'Price of property is required'
                                     }
                                 },
-                                    between: {
-                                        min: 100000,
-                                        max: 10000000,
-                                        message: 'Price of property must between 100000 VND and 10000000 VND',
-                                    }
+                                between: {
+                                    min: 100000,
+                                    max: 10000000,
+                                    message: 'Price of property must between 100000 VND and 10000000 VND',
+                                }
                             },
                             'uname': {
                                 validators: {
@@ -615,6 +615,13 @@
                         }
                     }
             );
+
+            //trim input when input or textarea focus out
+            $('input[type="text"], textarea').on('focusout', function (e) {
+                $(this).val($.trim($(this).val()));
+            });
+            
+
 
             // Submit button handler
             const submitButton = document.getElementById('submit-btn');
