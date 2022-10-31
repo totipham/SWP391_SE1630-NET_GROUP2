@@ -246,10 +246,6 @@
         <url-pattern>/dashboard/deleteproperty</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddUserController</servlet-name>
-        <url-pattern>/dashboard/adduser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>HostDashboardController</servlet-name>
         <url-pattern>/dashboard/host</url-pattern>
     </servlet-mapping>
@@ -332,6 +328,10 @@
     <servlet-mapping>
         <servlet-name>RemoveUserController</servlet-name>
         <url-pattern>/dashboard/users/removeuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/dashboard/adduser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

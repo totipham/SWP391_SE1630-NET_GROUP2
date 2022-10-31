@@ -54,7 +54,8 @@ public class ProfileController extends HttpServlet {
 
         //check if uid is null
         if (uid == null || uid.equals("")) {
-            id = (int) u.getId();
+            response.sendRedirect("../hostalpy/profile?uid=" +u.getId());
+
         } else {
             id = Integer.parseInt(uid);
             try {

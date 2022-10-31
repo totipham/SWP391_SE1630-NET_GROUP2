@@ -45,15 +45,16 @@ public class UpdateProfileController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         IUserDAO userDAO = new UserDAOImpl();
+        String uid_raw = request.getParameter("uid");
         User u = (User) session.getAttribute("user");
-
+        int id = Integer.parseInt(uid_raw);
         //if user is not login
         if (u == null) {
             request.getRequestDispatcher("login").forward(request, response);
         }
 
         try {
-            User user = userDAO.getUserById(u.getId());
+            User user = userDAO.getUserById(id);
 
             //if user in session
             if (user != null) {
@@ -91,30 +92,27 @@ public class UpdateProfileController extends HttpServlet {
             String address = validate.getField(request, "address", true, 10, 30);
 
             //check if this input email equals old email
-            if (email.equals(user.getEmail())) {
+            if (email.equals(user.getEmail()) || userDAO.getUserByEmail(email) == null) {
                 userDAO.updateUser(user.getId(), name, phone, email, address); //update with old email
             } else {
+                throw new Exception("This email is used by another user!"); //throw new exception
 
-                //check if user with inputed email existed in the DB
-                if (userDAO.getUserByEmail(email) == null) {
-                    userDAO.updateUser(user.getId(), name, phone, email, address); //update user
-                    userDAO.updateVerifyByID(user.getId(), false); //update this account with new email to not veried yet
-                } else {
-                    throw new Exception("This email is used by another user!"); //throw new exception
-
-                }
             }
 
             User newUser = userDAO.getUserById(user.getId());
 
             //Check if new user is not null
-            if (newUser != null) {
+            if (newUser
+                    != null) {
                 session.setAttribute("user", newUser);
             }
 
-            request.setAttribute("user", newUser);
-            request.setAttribute("message", "Update successfully!");
-            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
+            request.setAttribute(
+                    "user", newUser);
+            request.setAttribute(
+                    "message", "Update successfully!");
+            request.getRequestDispatcher(
+                    "views/user/profile.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("user", user);
             request.setAttribute("error", ex.getMessage());

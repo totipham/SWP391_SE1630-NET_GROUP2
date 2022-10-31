@@ -55,7 +55,7 @@ public class AddUserController extends HttpServlet {
         }
         //check if user role is equal to 1
         if (user.getRole() == 1) {
-            request.getRequestDispatcher("/views/dashboard/add.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/dashboard/user/adduser.jsp").forward(request, response);
 
         } else {
             request.setAttribute("message", "You don't have right to access this page!");
@@ -97,7 +97,7 @@ public class AddUserController extends HttpServlet {
 
             String message = userDAO.insertUser(name, phone, email, address, username, password);
             request.setAttribute("success", message);
-            request.getRequestDispatcher("*").forward(request, response);
+            response.sendRedirect("users");
         } catch (Exception ex) {
 
             request.setAttribute("message", ex.getMessage());
