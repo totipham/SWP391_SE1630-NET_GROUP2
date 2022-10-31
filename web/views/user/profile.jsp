@@ -25,7 +25,7 @@
 
     <body>
         <jsp:include page="../component/navbar.jsp" />
-        <div class="px-20">
+        <div class="px-20 pb-5">
             <div class="profile border border-2 border-[#eee] p-10 mt-10 mx-auto shadow-2xl" style="border-radius: 20px">
                 <c:if test="${requestScope.user.verify == true}">
                     <span class="float-right bg-blue-900 text-white px-5 py-1 rounded-full" title="This account has been verified">Verified Account <i class="fa-solid fa-circle-check"></i></span>
@@ -43,6 +43,7 @@
                     </div>
                 </form>
                 <form action="updateprofile" method="POST" style="border-radius: 20px">
+                    <input type="hidden" minlength="3" maxlength="20" name="id" value="${requestScope.user.id}"><br>
                     <div class="grid grid-cols-2 gap-5 mt-5">
                         <div class="col-span-1">
                             <span class="text-base text-[#575757]"><b>Fullname</b> <span class="text-red-500">*</span></span><br>
