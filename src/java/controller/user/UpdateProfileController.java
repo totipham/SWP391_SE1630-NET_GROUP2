@@ -81,8 +81,9 @@ public class UpdateProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String uid_raw = request.getParameter("id");
         User user = (User) session.getAttribute("user");
-
+        int uid = Integer.parseInt(uid_raw);
         try {
             IUserDAO userDAO = new UserDAOImpl();
 
@@ -92,14 +93,14 @@ public class UpdateProfileController extends HttpServlet {
             String address = validate.getField(request, "address", true, 10, 30);
 
             //check if this input email equals old email
-            if (email.equals(user.getEmail()) || userDAO.getUserByEmail(email) == null) {
-                userDAO.updateUser(user.getId(), name, phone, email, address); //update with old email
+            if (email.equals(userDAO.getUserById(uid).getEmail()) || userDAO.getUserByEmail(email) == null) {
+                userDAO.updateUser(uid, name, phone, email, address); //update with old email
             } else {
                 throw new Exception("This email is used by another user!"); //throw new exception
 
             }
 
-            User newUser = userDAO.getUserById(user.getId());
+            User newUser = userDAO.getUserById(uid);
 
             //Check if new user is not null
             if (newUser
