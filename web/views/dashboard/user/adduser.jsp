@@ -1,7 +1,7 @@
 <%-- 
-    Document   : host/properties
+    Document   : adduser.jsp
     Created on : Oct 9, 2022, 10:39:52 PM
-    Author     : ThuongTTHE163555
+    Author     : AnhVHHE160580
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

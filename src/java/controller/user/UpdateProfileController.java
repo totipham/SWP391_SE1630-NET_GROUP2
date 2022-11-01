@@ -103,9 +103,8 @@ public class UpdateProfileController extends HttpServlet {
             User newUser = userDAO.getUserById(uid);
 
             //Check if new user is not null
-            if (newUser
-                    != null) {
-                session.setAttribute("user", newUser);
+            if (newUser != null) {
+                request.setAttribute("user", newUser);
             }
 
             request.setAttribute(
