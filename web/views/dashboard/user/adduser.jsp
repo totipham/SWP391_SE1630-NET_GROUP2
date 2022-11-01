@@ -90,7 +90,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" href="${baseURL}/dashboard/users/adduser>Add</button>
+                                        <button type="submit" class="btn btn-primary" href="${baseURL}/dashboard/users/adduser">Add</button>
                                     </div>
                                 </div>
                             </form>

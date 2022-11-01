@@ -85,7 +85,7 @@
                                                     </button>
                                                     <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item" href="${baseURL}/profile?uid=${user.id}">Update</a>
-                                                        <a class="dropdown-item" href="${baseURL}/dashboard/users/removeuser?uid=${user.id}">Delete</a>
+                                                            <a class="dropdown-item" onclick="askToRemove(${user.id})">Delete</a>
                                                     </div>
                                                 </div></td>
                                         </tr>
@@ -108,7 +108,14 @@
         <!--end::Drawers-->
         <jsp:include page="../component/scrolltop.jsp" />
         <jsp:include page="../base/footImport.jsp" />
+        <script>
+            function askToRemove(id) {
+                if (confirm("Are you sure to delete this user ?") == true) {
+                    window.location.replace("${baseURL}/dashboard/users/removeuser?uid=" + id);
+                }
+            }
 
+        </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     </body>

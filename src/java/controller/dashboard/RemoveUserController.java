@@ -70,7 +70,7 @@ public class RemoveUserController extends HttpServlet {
 
                 //check if user want to remove themselves
                 if (id == user.getId()) {
-                    request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../views/error.jsp").forward(request, response);
                     return;
                 } else {
                     IUserDAO userDAO = new UserDAOImpl();
@@ -79,13 +79,13 @@ public class RemoveUserController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("message", "You don't have right to access this page!");
-                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+                request.getRequestDispatcher("../../views/error.jsp").forward(request, response);
             }
 
         } catch (Exception ex) {
             Logger.getLogger(RemoveUserController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../../views/error.jsp").forward(request, response);
         }
 
     }
