@@ -62,5 +62,11 @@ public interface IFeedbackDAO {
      * @throws Exception
      */
     public void editFeedback(int feedbackId) throws Exception;
-    
+    /**
+     *     
+     * @throws Exception
+     * @return list
+     */
+    public List<Feedback> getAllFeedback() throws Exception;
+
 }

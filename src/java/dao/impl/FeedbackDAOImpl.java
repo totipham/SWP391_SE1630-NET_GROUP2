@@ -14,6 +14,8 @@ package dao.impl;
 
 import dao.DBContext;
 import dao.IFeedbackDAO;
+import dao.IPropertyDAO;
+import dao.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +23,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Feedback;
+import model.Property;
+import model.User;
 
 /**
  * The class contains method find update, delete, insert staff information from
@@ -78,7 +82,6 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
      * @return 
      * @throws Exception
      */
-    @Override
     public Feedback sendFeedback(int pid, int uid) throws Exception {
         String sql = "INSERT INTO [Feedback](property_id, user_id, header, comment, star) "
                 + "VALUES (?, ?, ?, ?, ?)";   
@@ -131,7 +134,6 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
      * @param feedback
      * @throws Exception
      */
-    @Override
     public void editFedback(Feedback feedback) throws Exception {
         String sql = "UPDATE [Feedback] SET header = ? ,comment =? ,star = ? WHERE feedback_id = ?";
         Connection connection = getConnection();
@@ -148,4 +150,64 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
             close(connection, statement, null);
         }
     }
+
+    @Override
+    public Feedback getFeedbackByFeedbackID(int feedbackId) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void sendFeedback(int propertyId, int userId, String header, String comment, int star) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void editFeedback(int feedbackId) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    public List<Feedback> getAllFeedback() throws SQLException, Exception {
+        List<Feedback> list = new ArrayList<>();  
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IUserDAO userDAO = new UserDAOImpl();
+        //set sql string
+        String sql = "SELECT * FROM Feedback";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            // get feedback list from 
+            while (result.next()){  
+                // set properties of feedback
+                Feedback feedback = new Feedback();
+                feedback.setId(result.getInt("id"));
+                
+                Property property = new Property();
+                property.setId(result.getInt("property_id"));
+                int propertyId = property.getId();
+                property = propertyDAO.getPropertyById(propertyId);
+                feedback.setPropertyId(property);
+                
+                User user = new User();
+                user.setId(result.getInt("user_id"));
+                user = userDAO.getUserById(user.getId());
+                feedback.setUserId(user);
+                
+                feedback.setHeader(result.getString("header"));
+                feedback.setComment(result.getString("comment"));
+                feedback.setStar(result.getInt("star"));              
+                
+                list.add(feedback);
+            }
+            return list;
+        } catch(SQLException e) {
+            throw e;
+        } finally {
+            close(connection, statement, null);
+        }        
+    }
+    
+    
+    
 }
