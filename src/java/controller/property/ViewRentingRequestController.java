@@ -8,9 +8,7 @@
  */
 package controller.property;
 
-import dao.IPropertyDAO;
 import dao.IRequestDAO;
-import dao.impl.PropertyDAOImpl;
 import dao.impl.RequestDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -18,11 +16,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Property;
 import model.Request;
 import model.User;
 
@@ -47,6 +43,25 @@ public class ViewRentingRequestController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+        try {
+            if (currentUser.getRole() != 2) {
+                request.setAttribute("message", "You don't have permission to access thí function");
+                request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            }
+            else{
+                IRequestDAO requestDAO = new RequestDAOImpl();
+                List<Request> listRequest = requestDAO.getRequestByHostId(currentUser.getId());
+                request.setAttribute("requestlist", listRequest);
+                request.getRequestDispatcher("../views/dashboard/request/requests.jsp").forward(request, response);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(ViewRentingRequestController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("message", ex);
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -61,25 +76,7 @@ public class ViewRentingRequestController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("user");
-        try {
-            if (currentUser.getRole() != 2) {
-                request.setAttribute("message", "You don't have permission to access thí function");
-                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
-            }
-            else{
-                IRequestDAO requestDAO = new RequestDAOImpl();
-                List<Request> listRequest = requestDAO.getRequestByHostId(currentUser.getId());
-                request.setAttribute("listview", listRequest);
-                request.getRequestDispatcher("*").forward(request, response);
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(ViewRentingRequestController.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("message", ex);
-            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
-        }
+        
     }
 
 }
