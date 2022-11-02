@@ -151,7 +151,7 @@
     </servlet>
     <servlet>
         <servlet-name>AcceptRentingRequest</servlet-name>
-        <servlet-class>controller.property.AcceptRentingRequest</servlet-class>
+        <servlet-class>controller.request.AcceptRentingRequest</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteRentingRequest</servlet-name>
@@ -290,14 +290,6 @@
         <url-pattern>/editproperty</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewRentingRequestController</servlet-name>
-        <url-pattern>/requests</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AcceptRentingRequest</servlet-name>
-        <url-pattern>/requests/accept</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DeleteRentingRequest</servlet-name>
         <url-pattern>/deleterentingrequest</url-pattern>
     </servlet-mapping>
@@ -328,6 +320,14 @@
     <servlet-mapping>
         <servlet-name>RemoveUserController</servlet-name>
         <url-pattern>/dashboard/users/removeuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRentingRequestController</servlet-name>
+        <url-pattern>/dashboard/requests</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptRentingRequest</servlet-name>
+        <url-pattern>/dashboard/requests/accept</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddUserController</servlet-name>
