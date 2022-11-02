@@ -244,23 +244,6 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
     }
 
-//    public static void main(String args[]) {
-//        try {
-//            RequestDAOImpl r = new RequestDAOImpl();
-//
-//            Date begin = Date.valueOf("2022-10-12");
-//            Date end = Date.valueOf("2022-10-24");
-//
-//            Map<Date, Integer> map = r.getNumberRequestByRange(2, begin, end);
-//            Set<Date> set = map.keySet();
-//            for (Date key : set) {
-//                System.out.println(key + " " + map.get(key));
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex);
-//        }
-//
-//    }
 
     @Override
     public Request getRequestByPropertyIdandUserId(int propertyId, int userId) throws Exception {
@@ -296,4 +279,49 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         return null;
     }
 
+    public Request getRequestByUserIdAndPropertyId(int userId, int propertyId) throws Exception {
+        String sql = "SELECT * FROM Request WHERE property_id=? and user_id=?";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+        IUserDAO userDAO = new UserDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IRequestStatusDAO requestStatusDAO = new RequestStatusDAOImpl();
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, propertyId);
+            statement.setInt(2, userId);
+            result = statement.executeQuery();
+            while (result.next()) {
+                Request request = new Request();
+                request.setId(result.getInt("request_id"));
+                User user = userDAO.getUserById(result.getInt("user_id"));
+                request.setRenter(user);
+                Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
+                request.setProperty(property);
+                request.setRequestDate(result.getDate("request_date"));
+                RequestStatus requestStatus = requestStatusDAO.getRequestStatusByStatusId(result.getInt("rstatus_id"));
+                request.setRequestStatus(requestStatus);
+                return request;
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        return null;
+    }
+    
+    /*public static void main(String args[]) {
+        try {
+            RequestDAOImpl r = new RequestDAOImpl();
+
+            Request re = r.getRequestByUserIdAndPropertyId(6, 2);
+            
+            System.out.println(re.toString());
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }*/
 }
