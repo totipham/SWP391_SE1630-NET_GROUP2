@@ -262,4 +262,38 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
 //
 //    }
 
+    @Override
+    public Request getRequestByPropertyIdandUserId(int propertyId, int userId) throws Exception {
+        String sql = "SELECT * FROM Request WHERE property_id=? and user_id=?";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+        IUserDAO userDAO = new UserDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IRequestStatusDAO requestStatusDAO = new RequestStatusDAOImpl();
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, propertyId);
+            statement.setInt(1, userId);
+            result = statement.executeQuery();
+            while (result.next()) {
+                Request request = new Request();
+                request.setId(result.getInt("request_id"));
+                User user = userDAO.getUserById(result.getInt("user_id"));
+                request.setRenter(user);
+                Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
+                request.setProperty(property);
+                request.setRequestDate(result.getDate("request_date"));
+                RequestStatus requestStatus = requestStatusDAO.getRequestStatusByStatusId(result.getInt("rstatus_id"));
+                request.setRequestStatus(requestStatus);
+                return request;
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        return null;
+    }
+
 }

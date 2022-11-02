@@ -76,4 +76,13 @@ public interface IRequestDAO {
      * @throws Exception
      */
     public Map<Date, Integer> getNumberRequestByRange(int hostId, Date begin, Date end) throws Exception;
+
+    /**
+     *
+     * @param propertyId
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    public Request getRequestByPropertyIdandUserId (int propertyId, int userId) throws Exception;
 }
