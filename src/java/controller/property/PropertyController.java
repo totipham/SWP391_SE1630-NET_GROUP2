@@ -73,7 +73,7 @@ public class PropertyController extends HttpServlet {
                     }
                 }
                 else{
-                    Request requestFromDB = requestDAO.getRequestByUserIdAndPropertyId(user.getId(), id);
+                    Request requestFromDB = requestDAO.getRequestByPropertyIdandUserId(id,user.getId());
                     if (requestFromDB != null){
                         request.setAttribute("hasRequest", true);
                     }
