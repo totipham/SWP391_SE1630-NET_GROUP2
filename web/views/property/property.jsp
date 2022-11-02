@@ -96,7 +96,7 @@
                                                 <span class="text-blue-900" title="This account has been verified"><i class="fa-solid fa-circle-check"></i></span>
                                                 </c:if>
                                                 <c:if test="${p.host.verify != true}">
-                                                <span class="bg-gray-600" title="This account is not verified yet"><i class="fa-solid fa-circle-xmark"></i></span>
+                                                <span class="text-gray-600" title="This account is not verified yet"><i class="fa-solid fa-circle-xmark"></i></span>
                                                 </c:if>
                                         </div>
                                     </div>
