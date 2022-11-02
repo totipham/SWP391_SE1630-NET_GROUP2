@@ -84,49 +84,51 @@
                         <!--begin::Container-->
                         <div class="container-fluid" id="kt_content_container">
                             <div class="row g-xl-8">
-                                <div class="col-md-4">
-                                    <div class="property-card shadow my-2">
-                                        <div class="property-card__thumbnail">
-                                            <img src="${baseURL}/assets/images/thumbnail.jpg" alt="Thumbnail">
-                                        </div>
-                                        <div class="property-card__information" style="height: fit-content; padding: 20px;">
-                                            <div style="display: flex; align-items: center; gap: 10px">
-                                                <span class="property-card__information__name">KTX Ông Bà</span>
-                                                <span class="text-white bg-primary rounded px-5 py-1"
-                                                      style="width: fit-content">Thạch Thất, Hà Nội</span>
+                                <c:forEach items="${requestScope.requestlist}" var="request">
+                                    <div class="col-md-4">
+                                        <div class="property-card shadow my-2">
+                                            <div class="property-card__thumbnail">
+                                                <img src="${baseURL}/assets/images/${request.getProperty().getImages().get(0).getFileName()}" alt="Thumbnail">
                                             </div>
-                                            <div>
-                                                <span>Renter Name: </span>
-                                                <span class=""><b>Toti Pham</b></span>
-                                            </div>
-                                            <div>
-                                                <span>Renter Address: </span>
-                                                <span class=""><b>Thạch Thất, Hà Nội</b></span>
-                                            </div>
-                                            <div>
-                                                <span>Renter Phone: </span>
-                                                <span class=""><b>0123456789</b></span>
-                                            </div>
-                                            <div>
-                                                <span>Renter Email: </span>
-                                                <span class=""><b>totipham@hostalpy.com</b></span>
-                                            </div>
-                                            <div>
-                                                <span>Renter Time: </span>
-                                                <span class=""><b>18/10/2022</b></span>
-                                            </div>
-                                            <div class="property-card__information__bottom mt-10">
-                                                <a href="#" class="btn btn-outline btn-outline-primary btn-icon"><i
-                                                        class="fa-solid fa-phone"></i></a>
-                                                <a href="#" class="btn btn-outline btn-outline-primary btn-icon btn-primary"><i
-                                                        class="fa-solid fa-envelope"></i></a>
-                                                <a href="#" class="btn btn-primary"><i class="fa-solid fa-eye"></i></i>
-                                                    Detail</a>
-                                                <a href="#" class="btn btn-danger" style="background: #ce0000"><i class="fa-solid fa-x"></i> End</a>
+                                            <div class="property-card__information" style="height: fit-content; padding: 20px;">
+                                                <div style="display: flex; align-items: center; gap: 10px">
+                                                    <span class="property-card__information__name">${request.getProperty().getName()}</span>
+                                                    <span class="text-white bg-primary rounded px-5 py-1"
+                                                          style="width: fit-content">${request.getProperty().getAddress()}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Renter Name: </span>
+                                                    <span class=""><b>${request.getRenter().getName()}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span>Renter Address: </span>
+                                                    <span class=""><b>${request.getRenter().getAddress()}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span>Renter Phone: </span>
+                                                    <span class=""><b>${request.getRenter().getPhone()}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span>Renter Email: </span>
+                                                    <span class=""><b>${request.getRenter().getEmail()}</b></span>
+                                                </div>
+                                                <div>
+                                                    <span>Renter Time: </span>
+                                                    <span class=""><b>${request.getRequestDate()}</b></span>
+                                                </div>
+                                                <div class="property-card__information__bottom mt-10">
+                                                    <a href="tel:${request.getRenter().getPhone()}" class="btn btn-outline btn-outline-primary btn-icon"><i
+                                                            class="fa-solid fa-phone"></i></a>
+                                                    <a href="mailto:${request.getRenter().getEmail()}" class="btn btn-outline btn-outline-primary btn-icon btn-primary"><i
+                                                            class="fa-solid fa-envelope"></i></a>
+                                                    <a href="${baseURL}/dashboard/requests/accept?requestid=${request.getId()}" class="btn btn-primary"><i class="fa-solid fa-check"></i>
+                                                        Accept</a>
+                                                    <a href="#" class="btn btn-danger" style="background: #ce0000"><i class="fa-solid fa-x"></i> End</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </c:forEach>
 
                             </div>
                         </div>
