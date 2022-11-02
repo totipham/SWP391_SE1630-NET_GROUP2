@@ -9,7 +9,9 @@
 package controller.property;
 
 import dao.IPropertyDAO;
+import dao.IRequestDAO;
 import dao.impl.PropertyDAOImpl;
+import dao.impl.RequestDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Property;
+import model.Request;
 import model.User;
 
 /**				
@@ -41,6 +44,7 @@ public class PropertyController extends HttpServlet {
             throws ServletException, IOException {
         int id = 0;
         IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IRequestDAO requestDAO = new RequestDAOImpl();
         String id_raw = request.getParameter("id");
 
         //Check if id raw is null or id raw equals to empty string
@@ -68,10 +72,20 @@ public class PropertyController extends HttpServlet {
                         request.setAttribute("is_owner", true);
                     }
                 }
+                else{
+                    Request requestFromDB = requestDAO.getRequestByUserIdAndPropertyId(user.getId(), id);
+                    if (requestFromDB != null){
+                        request.setAttribute("hasRequest", true);
+                    }
+                    else{
+                        request.setAttribute("hasRequest", false);
+                    }
+                }
 
                 request.setAttribute("property", property);
                 request.getRequestDispatcher("views/property/property.jsp").forward(request, response);
             } else {
+                
                 response.sendRedirect("properties");
             }
         } catch (Exception ex) {
