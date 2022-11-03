@@ -42,23 +42,24 @@ public class DeleteRentingRequest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        int requestID = Integer.parseInt(request.getParameter("rid"));
+        //int requestID = Integer.parseInt(request.getParameter("rid"));
+        int propertyId = Integer.parseInt(request.getParameter("pid"));
         IRequestDAO requestDAO = new RequestDAOImpl();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         try {
             int userID = user.getId();
-            Request Request = requestDAO.getRequestByRID(requestID);
+            //Request Request = requestDAO.getRequestByRID(requestID);
             //check current user id is the renter'd id of request and check request status is accept/finish or not
-            if (Request.getRenter().getId() == userID && Request.getRequestStatus().getId()==1) {
-                requestDAO.deleteRequestByRID(requestID);
-                request.setAttribute("message", "Delete successful");
-                request.getRequestDispatcher("*").forward(request, response);
-            } else {
-                request.setAttribute("error", "You don't have permission to delete this request");
-                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
-            }
+            
+                requestDAO.deleteRequestByPropertyIdAndUserId(propertyId, userID);
+                //request.setAttribute("message", "Delete successful");
+                response.sendRedirect(request.getContextPath()+"/property?id="+propertyId);
+//            else {
+//                request.setAttribute("error", "You don't have permission to delete this request");
+//                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+//            }
 
         } catch (Exception ex) {
             Logger.getLogger(DeleteRentingRequest.class.getName()).log(Level.SEVERE, null, ex);

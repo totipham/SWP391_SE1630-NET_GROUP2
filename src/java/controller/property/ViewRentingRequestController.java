@@ -52,7 +52,7 @@ public class ViewRentingRequestController extends HttpServlet {
             }
             else{
                 IRequestDAO requestDAO = new RequestDAOImpl();
-                List<Request> listRequest = requestDAO.getRequestByHostId(currentUser.getId());
+                List<Request> listRequest = requestDAO.getRequestHasStatusEqual1();
                 request.setAttribute("requestlist", listRequest);
                 request.getRequestDispatcher("../views/dashboard/request/requests.jsp").forward(request, response);
             }
