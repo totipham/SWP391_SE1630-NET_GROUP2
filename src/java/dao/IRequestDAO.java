@@ -81,8 +81,24 @@ public interface IRequestDAO {
      *
      * @param propertyId
      * @param userId
+     * @param status_id
      * @return
      * @throws Exception
      */
-    public Request getRequestByPropertyIdandUserId (int propertyId, int userId) throws Exception;
+    public Request getRequestByUser (int propertyId, int userId, int status_id) throws Exception;
+    
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<Request> getRequestHasStatusEqual1() throws Exception;
+    
+    /**
+     *
+     * @param propertyId
+     * @param userId
+     * @throws Exception
+     */
+    public void deleteRequestByPropertyIdAndUserId(int propertyId, int userId) throws Exception;
 }

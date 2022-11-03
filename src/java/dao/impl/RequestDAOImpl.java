@@ -246,41 +246,8 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
 
 
     @Override
-    public Request getRequestByPropertyIdandUserId(int propertyId, int userId) throws Exception {
-        String sql = "SELECT * FROM Request WHERE property_id=? and user_id=?";
-        PreparedStatement statement = null;
-        ResultSet result = null;
-        Connection connection = getConnection();
-        IUserDAO userDAO = new UserDAOImpl();
-        IPropertyDAO propertyDAO = new PropertyDAOImpl();
-        IRequestStatusDAO requestStatusDAO = new RequestStatusDAOImpl();
-        try {
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, propertyId);
-            statement.setInt(1, userId);
-            result = statement.executeQuery();
-            while (result.next()) {
-                Request request = new Request();
-                request.setId(result.getInt("request_id"));
-                User user = userDAO.getUserById(result.getInt("user_id"));
-                request.setRenter(user);
-                Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
-                request.setProperty(property);
-                request.setRequestDate(result.getDate("request_date"));
-                RequestStatus requestStatus = requestStatusDAO.getRequestStatusByStatusId(result.getInt("rstatus_id"));
-                request.setRequestStatus(requestStatus);
-                return request;
-            }
-        } catch (Exception ex) {
-            throw ex;
-        } finally {
-            close(connection, statement, result);
-        }
-        return null;
-    }
-
-    public Request getRequestByUserIdAndPropertyId(int userId, int propertyId) throws Exception {
-        String sql = "SELECT * FROM Request WHERE property_id=? and user_id=?";
+    public Request getRequestByUser(int propertyId, int userId, int status_id) throws Exception {
+        String sql = "SELECT * FROM Request WHERE property_id=? and user_id=? and rstatus_id=?";
         PreparedStatement statement = null;
         ResultSet result = null;
         Connection connection = getConnection();
@@ -291,6 +258,7 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
             statement = connection.prepareStatement(sql);
             statement.setInt(1, propertyId);
             statement.setInt(2, userId);
+            statement.setInt(3, 1);
             result = statement.executeQuery();
             while (result.next()) {
                 Request request = new Request();
@@ -324,4 +292,55 @@ public class RequestDAOImpl extends DBContext implements IRequestDAO {
         }
 
     }*/
+
+    @Override
+    public List<Request> getRequestHasStatusEqual1() throws Exception {
+        List<Request> list = new ArrayList<>();
+        String sql = "SELECT * FROM Request WHERE rstatus_id=1";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+        IUserDAO userDAO = new UserDAOImpl();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            while (result.next()) {
+                Request request = new Request();
+                request.setId(result.getInt("request_id"));
+                User user = userDAO.getUserById(result.getInt("user_id"));
+                request.setRenter(user);
+                Property property = propertyDAO.getPropertyById(result.getInt("property_id"));
+                request.setProperty(property);
+                request.setRequestDate(result.getDate("request_date"));
+                list.add(request);
+
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        return list;
+    }
+
+    @Override
+    public void deleteRequestByPropertyIdAndUserId(int propertyId, int userId) throws Exception {
+        String sql = "DELETE FROM Request where property_id=? and user_id=?";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        try {
+            statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, propertyId);
+            statement.setInt(2,userId);
+
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close(connection, statement, null);
+        }
+    }
 }
