@@ -9,12 +9,19 @@
 package dao.impl;
 
 import dao.DBContext;
+import dao.IPropertyDAO;
 import dao.IPropertyTypeDAO;
+import dao.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Property;
 import model.PropertyType;
+import model.Request;
+import model.User;
 
 /**
  * The class contains method find update, delete, insert property type to/from
@@ -74,4 +81,42 @@ public class PropertyTypeDAOImpl extends DBContext implements IPropertyTypeDAO {
             close(connection, statement, null);
         }
     }
+
+    @Override
+    public List<PropertyType> getAllPropertyType() throws Exception {
+        List<PropertyType> list = new ArrayList<>();
+        String sql = "SELECT * FROM PropertyType";
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        Connection connection = getConnection();
+        try {
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            while (result.next()) {
+                PropertyType propertyType = new PropertyType();
+                propertyType.setId(result.getInt("type_id"));
+                propertyType.setType(result.getString("ptype"));
+                list.add(propertyType);
+
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        return list;
+    }
+    
+    /*public static void main(String args[]) {
+        try {
+             PropertyTypeDAOImpl r = new PropertyTypeDAOImpl();
+             List<PropertyType> list = r.getAllPropertyType();
+            
+            System.out.println(list);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+    }*/
 }
+

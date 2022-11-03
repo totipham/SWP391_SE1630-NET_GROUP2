@@ -123,7 +123,7 @@
                                                             class="fa-solid fa-envelope"></i></a>
                                                     <a href="${baseURL}/dashboard/requests/accept?requestid=${request.getId()}" class="btn btn-primary"><i class="fa-solid fa-check"></i>
                                                         Accept</a>
-                                                    <a href="#" class="btn btn-danger" style="background: #ce0000"><i class="fa-solid fa-x"></i> End</a>
+                                                    <a href="${baseURL}/dashboard/requests/decline?requestid=${request.getId()}" class="btn btn-danger" style="background: #ce0000"><i class="fa-solid fa-x"></i> End</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -9,6 +9,7 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import model.PropertyType;
 
 
@@ -35,4 +36,11 @@ public interface IPropertyTypeDAO {
      * @throws SQLException
      */
     public void insertPropertyType(String newPropertyType) throws SQLException;
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<PropertyType> getAllPropertyType() throws Exception;
 }
