@@ -325,7 +325,7 @@
                                                     <!--begin::Form group-->
                                                     <div class="repeater" data-limit="5">
                                                         <div data-repeater-list="utility-form-repeater">
-                                                            <c:forEach items="${property.utilities}" var="u">
+                                                            <c:forEach items="${requestScope.listUtility}" var="u">
                                                                 <div id="form-repeater" class="utility-row my-3" data-repeater-item>
                                                                     <div class="form-group row">
                                                                         <div class="col-md-4">
