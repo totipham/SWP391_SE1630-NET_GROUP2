@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Property;
@@ -42,7 +43,7 @@ public class DeclineRentingRequestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int requestID = Integer.parseInt(request.getParameter("rid"));
+        int requestID = Integer.parseInt(request.getParameter("requestid"));
         IRequestDAO requestDAO = new RequestDAOImpl();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -54,9 +55,14 @@ public class DeclineRentingRequestController extends HttpServlet {
             int hostID = host.getId();
             //check current user id is propery's host id or not
             if (hostID == userID) {
-                requestDAO.updateStatusByRID(requestID, 4);
+                //requestDAO.updateStatusByRID(requestID, 4);
+                requestDAO.deleteRequestByRID(requestID);
+                List<Request> listRequest = requestDAO.getRequestByHostId(user.getId());
+                request.setAttribute("requestlist", listRequest);
                 request.setAttribute("message", "Decline successful");
-                request.getRequestDispatcher("../views/dashboard/request").forward(request, response);
+                request.setAttribute("page", "Requests");
+                response.sendRedirect(request.getContextPath()+"/dashboard/requests");
+                //request.getRequestDispatcher("/views/dashboard/request/requests.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "You don't hove permission to update");
                 request.getRequestDispatcher("../views/error.jsp").forward(request, response);

@@ -63,7 +63,8 @@ public class AcceptRentingRequest extends HttpServlet {
                 request.setAttribute("requestlist", listRequest);
                 request.setAttribute("page", "Requests");
                 request.setAttribute("message", "You made new contract");
-                request.getRequestDispatcher("/views/dashboard/request/requests.jsp").forward(request, response);
+                //request.getRequestDispatcher("/views/dashboard/request/requests.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath()+"/dashboard/requests");
             } else {
                 request.setAttribute("message", "You can't make new contract");
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
