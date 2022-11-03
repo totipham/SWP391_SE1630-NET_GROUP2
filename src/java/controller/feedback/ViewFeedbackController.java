@@ -10,7 +10,9 @@
 package controller.feedback;
 
 import dao.IFeedbackDAO;
+import dao.IPropertyDAO;
 import dao.impl.FeedbackDAOImpl;
+import dao.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Feedback;
+import model.Property;
 import model.User;
 
 /**				
@@ -34,7 +37,7 @@ import model.User;
  * @author ThuongTTHE163555		
  */
 
-@WebServlet(name="ViewFeedbackController", urlPatterns={"/viewfeedback"})
+@WebServlet(name="ViewFeedbackController", urlPatterns={"/feedback"})
 public class ViewFeedbackController extends HttpServlet {
    
     /** 
@@ -55,19 +58,28 @@ public class ViewFeedbackController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
+            //get property id
+            int pid = Integer.parseInt(request.getParameter("pid"));        
+            
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            Property property = propertyDAO.getPropertyById(pid);
+            
             // get list of feedback from database
             List<Feedback> list = new ArrayList<>();
-            IFeedbackDAO feedbackDAO = new FeedbackDAOImpl();
-            list = feedbackDAO.getAllFeedback();
+            IFeedbackDAO feedbackDAO = new FeedbackDAOImpl();        
+            
+            list = feedbackDAO.getFeedbackByPid(pid);
             //send list of users to front end
             request.setAttribute("feedbackList", list);
+            request.setAttribute("property", property);
             request.setAttribute("page", "Feedbacks");
-            request.getRequestDispatcher("*.jsp").forward(request, response); //Thêm url vào đây nha!!!
+            request.getRequestDispatcher("/views/property/feedbacklist.jsp").forward(request, response); //Thêm url vào đây nha!!!
 
         } catch (Exception e) {
             Logger.getLogger(ViewFeedbackController.class.getName()).log(Level.SEVERE, null, e);
-            request.setAttribute("message", e);
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            request.setAttribute("message", e.getMessage());
+//            System.out.println(e.getMessage());
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     } 
 

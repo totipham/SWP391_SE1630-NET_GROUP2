@@ -1,7 +1,7 @@
 <%-- 
 Document   : property
 Created on : Sep 30, 2022, 1:02:59 PM
-Author     : DucPTMHE160517
+Author     : ThuongTTHE163555
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

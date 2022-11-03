@@ -79,12 +79,12 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
      *
      * @param pid
      * @param uid
-     * @return 
+     * @return
      * @throws Exception
      */
     public Feedback sendFeedback(int pid, int uid) throws Exception {
         String sql = "INSERT INTO [Feedback](property_id, user_id, header, comment, star) "
-                + "VALUES (?, ?, ?, ?, ?)";   
+                + "VALUES (?, ?, ?, ?, ?)";
         Feedback newFeedback = new Feedback();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -97,7 +97,7 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
             statement.setString(3, newFeedback.getHeader());
             statement.setString(4, newFeedback.getComment());
             statement.setInt(5, newFeedback.getStar());
-            
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -119,8 +119,8 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
         Connection connection = getConnection();
         PreparedStatement statement = null;
         try {
-           statement.setInt(1, feedbackId);
-           statement.executeUpdate();
+            statement.setInt(1, feedbackId);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -165,8 +165,9 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
     public void editFeedback(int feedbackId) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     public List<Feedback> getAllFeedback() throws SQLException, Exception {
-        List<Feedback> list = new ArrayList<>();  
+        List<Feedback> list = new ArrayList<>();
         IPropertyDAO propertyDAO = new PropertyDAOImpl();
         IUserDAO userDAO = new UserDAOImpl();
         //set sql string
@@ -178,36 +179,79 @@ public class FeedbackDAOImpl extends DBContext implements IFeedbackDAO {
             statement = connection.prepareStatement(sql);
             result = statement.executeQuery();
             // get feedback list from 
-            while (result.next()){  
+            while (result.next()) {
                 // set properties of feedback
                 Feedback feedback = new Feedback();
                 feedback.setId(result.getInt("id"));
-                
+
                 Property property = new Property();
                 property.setId(result.getInt("property_id"));
                 int propertyId = property.getId();
                 property = propertyDAO.getPropertyById(propertyId);
                 feedback.setPropertyId(property);
-                
+
                 User user = new User();
                 user.setId(result.getInt("user_id"));
                 user = userDAO.getUserById(user.getId());
                 feedback.setUserId(user);
-                
+
                 feedback.setHeader(result.getString("header"));
                 feedback.setComment(result.getString("comment"));
-                feedback.setStar(result.getInt("star"));              
-                
+                feedback.setStar(result.getInt("star"));
+
                 list.add(feedback);
             }
             return list;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw e;
         } finally {
             close(connection, statement, null);
-        }        
+        }
     }
-    
-    
-    
+
+    @Override
+    public List<Feedback> getFeedbackByPid(int pid) throws Exception {
+        List<Feedback> list = new ArrayList<>();
+        IPropertyDAO propertyDAO = new PropertyDAOImpl();
+        IUserDAO userDAO = new UserDAOImpl();
+        //set sql string
+        String sql = "SELECT * FROM Feedback where property_id=?";
+        PreparedStatement statement = null;
+        Connection connection = getConnection();
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, pid);
+            result = statement.executeQuery();
+            // get feedback list from 
+            while (result.next()) {
+                // set properties of feedback
+                Feedback feedback = new Feedback();
+                feedback.setId(result.getInt("id"));
+
+                Property property = new Property();
+                property.setId(result.getInt("property_id"));
+                int propertyId = property.getId();
+                property = propertyDAO.getPropertyById(propertyId);
+                feedback.setPropertyId(property);
+
+                User user = new User();
+                user.setId(result.getInt("user_id"));
+                user = userDAO.getUserById(user.getId());
+                feedback.setUserId(user);
+
+                feedback.setHeader(result.getString("header"));
+                feedback.setComment(result.getString("comment"));
+                feedback.setStar(result.getInt("star"));
+
+                list.add(feedback);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            close(connection, statement, null);
+        }
+    }
+
 }

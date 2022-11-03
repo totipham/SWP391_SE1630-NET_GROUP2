@@ -10,6 +10,7 @@ package dao;
 
 import java.util.List;
 import model.Feedback;
+
 /**
  * The class contains method to get, send, edit, delete feedback from DB
  *
@@ -21,7 +22,7 @@ import model.Feedback;
  * @author NgocCMHE161386
  */
 public interface IFeedbackDAO {
-    
+
     /**
      *
      * @param propertyId
@@ -29,7 +30,7 @@ public interface IFeedbackDAO {
      * @throws Exception
      */
     public List<Feedback> getFeedbackByPropertyId(int propertyId) throws Exception;
-    
+
     /**
      *
      * @param feedbackId
@@ -37,7 +38,7 @@ public interface IFeedbackDAO {
      * @throws Exception
      */
     public Feedback getFeedbackByFeedbackID(int feedbackId) throws Exception;
-    
+
     /**
      *
      * @param propertyId
@@ -48,25 +49,33 @@ public interface IFeedbackDAO {
      * @throws Exception
      */
     public void sendFeedback(int propertyId, int userId, String header, String comment, int star) throws Exception;
-    
+
     /**
      *
      * @param feedbackId
      * @throws Exception
      */
     public void deleteFeedback(int feedbackId) throws Exception;
-    
+
     /**
      *
      * @param feedbackId
      * @throws Exception
      */
     public void editFeedback(int feedbackId) throws Exception;
+
     /**
-     *     
+     *
      * @throws Exception
      * @return list
      */
     public List<Feedback> getAllFeedback() throws Exception;
+
+    /**
+     * @param propertyId
+     * @throws Exception
+     * @return list
+     */
+    public List<Feedback> getFeedbackByPid(int pid) throws Exception;
 
 }
