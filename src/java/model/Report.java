@@ -33,6 +33,11 @@ public class Report {
     private Date reportedDate;
     private String header;
     private String time;
+    private int reportType;
+    private int senderId;
+    private int targetId;
+    private String target;
+    private String content;
 
     public Report() {
     }
@@ -65,6 +70,48 @@ public class Report {
         this.time = time;
     }
 
+    public int getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(int reportType) {
+        this.reportType = reportType;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+    public int getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(int targetId) {
+        this.targetId = targetId;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    
+    
     public int getId() {
         return id;
     }

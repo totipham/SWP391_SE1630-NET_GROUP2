@@ -10,6 +10,7 @@ package dao.impl;
 
 import dao.DBContext;
 import dao.IContractDAO;
+import dao.IPropertyDAO;
 import dao.IUserDAO;
 import java.sql.Connection;
 import java.sql.Date;
@@ -221,5 +222,67 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
             close(connection, statement, null);
         }
         return null;
+    }
+
+    @Override
+    public List<Contract> getAllContract() throws Exception {
+        List<Contract> list = new ArrayList<>();
+        String sql = "SELECT * FROM Contract";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            IContractDAO contractDAO = new ContractDAOImpl();
+            while (result.next()) {
+                Contract contract = new Contract();
+                contract.setId(result.getInt("contract_id"));
+                contract.setProperty(propertyDAO.getPropertyById(result.getInt("property_id")));
+                list.add(contract);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        
+        return list;
+    }
+
+    @Override
+    public Map<Date, Double> getIncomeInRangeAdmin(Date begin, Date end) throws Exception {
+        Map<Date, Double> map = new TreeMap<>();
+        String sql = "SELECT begin_date as [date], SUM(price) as [income]\n"
+                + "FROM [Contract] c\n"
+                + "INNER JOIN Property p\n"
+                + "ON c.property_id = p.property_id\n"
+                + "WHERE begin_date BETWEEN ? AND ? \n"
+                + "GROUP BY begin_date";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, begin.toString());
+            statement.setString(2, end.toString());
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                map.put(result.getDate("date"), result.getDouble("income"));
+            }
+
+            return map;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
     }
 }

@@ -49,7 +49,7 @@
                                             <!--begin::Section-->
                                             <div class="d-flex flex-column my-7">
                                                 <!--begin::Number-->
-                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">327</span>
+                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">${requestScope.numberOfUser}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Follower-->
                                                 <div class="m-0">
@@ -58,17 +58,6 @@
                                                 <!--end::Follower-->
                                             </div>
                                             <!--end::Section-->
-                                            <!--begin::Badge-->
-                                            <span class="badge badge-light-success fs-base">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                <span class="svg-icon svg-icon-5 svg-icon-success ms-n1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor" />
-                                                    <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->2.1%</span>
-                                            <!--end::Badge-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
@@ -96,7 +85,7 @@
                                             <!--begin::Section-->
                                             <div class="d-flex flex-column my-7">
                                                 <!--begin::Number-->
-                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">27,5M</span>
+                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">${requestScope.numberOfProperty}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Follower-->
                                                 <div class="m-0">
@@ -105,17 +94,6 @@
                                                 <!--end::Follower-->
                                             </div>
                                             <!--end::Section-->
-                                            <!--begin::Badge-->
-                                            <span class="badge badge-light-success fs-base">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                <span class="svg-icon svg-icon-5 svg-icon-success ms-n1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor" />
-                                                    <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->2.1%</span>
-                                            <!--end::Badge-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
@@ -143,7 +121,7 @@
                                             <!--begin::Section-->
                                             <div class="d-flex flex-column my-7">
                                                 <!--begin::Number-->
-                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">149M</span>
+                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">${requestScope.numberOfReport}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Follower-->
                                                 <div class="m-0">
@@ -152,17 +130,6 @@
                                                 <!--end::Follower-->
                                             </div>
                                             <!--end::Section-->
-                                            <!--begin::Badge-->
-                                            <span class="badge badge-light-danger fs-base">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr065.svg-->
-                                                <span class="svg-icon svg-icon-5 svg-icon-danger ms-n1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="11" y="18" width="13" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor" />
-                                                    <path d="M11.4343 15.4343L7.25 11.25C6.83579 10.8358 6.16421 10.8358 5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75L11.2929 18.2929C11.6834 18.6834 12.3166 18.6834 12.7071 18.2929L18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25C17.8358 10.8358 17.1642 10.8358 16.75 11.25L12.5657 15.4343C12.2533 15.7467 11.7467 15.7467 11.4343 15.4343Z" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->0.47%</span>
-                                            <!--end::Badge-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
@@ -193,7 +160,7 @@
                                             <!--begin::Section-->
                                             <div class="d-flex flex-column my-7">
                                                 <!--begin::Number-->
-                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">89M</span>
+                                                <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">${requestScope.numberOfContract}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Follower-->
                                                 <div class="m-0">
@@ -202,17 +169,6 @@
                                                 <!--end::Follower-->
                                             </div>
                                             <!--end::Section-->
-                                            <!--begin::Badge-->
-                                            <span class="badge badge-light-success fs-base">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                <span class="svg-icon svg-icon-5 svg-icon-success ms-n1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor" />
-                                                    <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->2.1%</span>
-                                            <!--end::Badge-->
                                         </div>
                                         <!--end::Body-->
                                     </div>
@@ -231,7 +187,7 @@
                                         <div class="card-header py-5">
                                             <!--begin::Title-->
                                             <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold text-dark">Rents This Months</span>
+                                                <span class="card-label fw-bold text-dark">Incomes</span>
                                             </h3>
                                             <!--end::Title-->
                                         </div>
@@ -243,13 +199,13 @@
                                                 <!--begin::Statistics-->
                                                 <div class="d-flex mb-2">
                                                     <span class="fs-4 fw-semibold text-gray-400 me-1">$</span>
-                                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">14,094</span>
+                                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">${requestScope.totalIncome}M</span>
                                                 </div>
                                                 <!--end::Statistics-->
                                             </div>
                                             <!--end::Statistics-->
                                             <!--begin::Chart-->
-                                            <div id="rents_this_month_chart" class="min-h-auto ps-4 pe-6" style="height: 300px">
+                                            <div id="admin_income_chart" class="min-h-auto ps-4 pe-6" style="height: 300px">
                                             </div>
                                             <!--end::Chart-->
                                         </div>
@@ -272,36 +228,23 @@
                                             <!--begin::Actions-->
                                             <div class="card-toolbar">
                                                 <!--begin::Filters-->
-                                                <div class="d-flex flex-stack flex-wrap gap-4">
-                                                    <!--begin::Destination-->
+<!--                                                <div class="d-flex flex-stack flex-wrap gap-4">
+                                                    begin::Destination
                                                     <div class="d-flex align-items-center fw-bold">
-                                                        <!--begin::Label-->
+                                                        begin::Label
                                                         <div class="text-gray-400 fs-7 me-2">Status</div>
-                                                        <!--end::Label-->
-                                                        <!--begin::Select-->
-                                                        <select class="form-select form-select-transparent text-graY-800 fs-base lh-1 fw-bold py-0 ps-3 w-auto" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option">
+                                                        end::Label
+                                                        begin::Select
+                                                        <select class="form-select form-select-transparent text-gray-800 fs-base lh-1 fw-bold py-0 ps-3 w-auto" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option">
                                                             <option></option>
                                                             <option value="Show All" selected="selected">Show All</option>
                                                             <option value="a">Unseen</option>
                                                             <option value="b">Seen</option>
                                                         </select>
-                                                        <!--end::Select-->
+                                                        end::Select
                                                     </div>
-                                                    <!--end::Destination-->
-                                                    <!--begin::Search-->
-                                                    <div class="position-relative my-1">
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                        <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-                                                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                        <input type="text" data-kt-table-widget-4="search" class="form-control w-150px fs-7 ps-12" placeholder="Search" />
-                                                    </div>
-                                                    <!--end::Search-->
-                                                </div>
+                                                    end::Destination
+                                                </div>-->
                                                 <!--begin::Filters-->
                                             </div>
                                             <!--end::Actions-->
@@ -326,22 +269,25 @@
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="fw-bold text-gray-600">
-                                                    <tr>
-                                                        <td>
-                                                            <span class="text-gray-800 text-hover-primary">1</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <img src="" class="w-[30px] rounded-full">
-                                                            Albert Flores
-                                                        </td>
-                                                        <td class="text-center">
-                                                            Property
-                                                        </td>
-                                                        <td class="text-center">Seen</td>
-                                                        <td class="text-center">
-                                                            <a href="">View</a>
-                                                        </td>
-                                                    </tr>
+                                                    <c:forEach items="${requestScope.reportList}" var="report">
+                                                        <tr>
+                                                            <td>
+                                                                <span class="text-gray-800 text-hover-primary">${report.id}</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <img src="" class="w-[30px] rounded-full">
+                                                                ${report.sender.name}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                Property
+                                                            </td>
+                                                            <td class="text-center">Seen</td>
+                                                            <td class="text-center">
+                                                                <a href="">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
