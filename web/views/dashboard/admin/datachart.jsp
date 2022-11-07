@@ -251,8 +251,8 @@
             var height = parseInt(KTUtil.css(element, 'height'));
             var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
             var borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
-            var baseColor = KTUtil.getCssVariableValue('--kt-success');
-            var lightColor = KTUtil.getCssVariableValue('--kt-success');
+            var baseColor = KTUtil.getCssVariableValue('--bs-cyan');
+            var lightColor = KTUtil.getCssVariableValue('--bs-cyan');
 
             var options = {
                 series: [{
