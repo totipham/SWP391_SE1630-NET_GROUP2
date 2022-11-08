@@ -1,4 +1,4 @@
-<!--Begin::RentsThisMonthChart-->
+<!--begin::Income Chart-->
 <script>
     // Class definition
     var IncomeChart = function () {
@@ -198,4 +198,4 @@
         IncomeChart.init();
     });
 </script>
-<!--End::RentsThisMonthChart-->
+<!--end::IncomeChart-->
