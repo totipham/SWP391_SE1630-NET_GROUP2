@@ -51,13 +51,7 @@ public class ViewFeedbackController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         try {
-            //check if user has logged in
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
-            if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/login");
-                return;
-            }
+            
             //get property id
             int pid = Integer.parseInt(request.getParameter("pid"));        
             
@@ -73,7 +67,7 @@ public class ViewFeedbackController extends HttpServlet {
             request.setAttribute("feedbackList", list);
             request.setAttribute("property", property);
             request.setAttribute("page", "Feedbacks");
-            request.getRequestDispatcher("/views/property/feedbacklist.jsp").forward(request, response); //Thêm url vào đây nha!!!
+            request.getRequestDispatcher("/views/property/feedbacklist.jsp").forward(request, response); 
 
         } catch (Exception e) {
             Logger.getLogger(ViewFeedbackController.class.getName()).log(Level.SEVERE, null, e);
