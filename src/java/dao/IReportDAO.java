@@ -15,6 +15,8 @@ package dao;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
+import model.Report;
 
 /**
  * The class contains method find update, delete, insert staff information from
@@ -51,4 +53,6 @@ public interface IReportDAO {
      * @throws Exception
      */
     public boolean isReported (int senderId, String target, int targetId) throws Exception;
+
+    public List<Report> getAllReports() throws Exception;
 }

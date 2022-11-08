@@ -55,12 +55,13 @@ public class ViewReportTypeController extends HttpServlet {
 
         try {
             //check role of current user is admin or not
-            if (user.getRole() == 3 || user.getRole()==2) {
+            if (user.getRole() == 1 || user.getRole()==2) {
                 List<ReportType> listReportType = new ArrayList<ReportType>();
                 IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
                 listReportType = reportTypeDAO.getAllReportTypes();
-                request.setAttribute("allreporttype", listReportType);
-                request.getRequestDispatcher("*").forward(request, response);
+                request.setAttribute("listreporttype", listReportType);
+                request.setAttribute("page", "Report");
+                request.getRequestDispatcher("../views/dashboard/report/reporttype.jsp").forward(request, response);
             } else {
                 request.setAttribute("message", "You don't have permission to access this function");
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);

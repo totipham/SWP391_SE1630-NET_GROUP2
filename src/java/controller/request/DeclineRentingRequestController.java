@@ -55,9 +55,9 @@ public class DeclineRentingRequestController extends HttpServlet {
             int hostID = host.getId();
             //check current user id is propery's host id or not
             if (hostID == userID) {
-                //requestDAO.updateStatusByRID(requestID, 4);
-                requestDAO.deleteRequestByRID(requestID);
-                List<Request> listRequest = requestDAO.getRequestByHostId(user.getId());
+                requestDAO.updateStatusByRID(requestID, 4);
+                //requestDAO.deleteRequestByRID(requestID);
+                List<Request> listRequest = requestDAO.getRequestHasStatusEqual1();
                 request.setAttribute("requestlist", listRequest);
                 request.setAttribute("message", "Decline successful");
                 request.setAttribute("page", "Requests");

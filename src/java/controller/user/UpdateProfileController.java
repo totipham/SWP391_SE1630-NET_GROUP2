@@ -64,7 +64,7 @@ public class UpdateProfileController extends HttpServlet {
             request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
+            request.getRequestDispatcher("views/user/profile.jsp").forward(request, response);
 
         }
     }
@@ -97,7 +97,6 @@ public class UpdateProfileController extends HttpServlet {
                 userDAO.updateUser(uid, name, phone, email, address); //update with old email
             } else {
                 throw new Exception("This email is used by another user!"); //throw new exception
-
             }
 
             User newUser = userDAO.getUserById(uid);
@@ -112,7 +111,7 @@ public class UpdateProfileController extends HttpServlet {
             request.setAttribute(
                     "message", "Update successfully!");
             request.getRequestDispatcher(
-                    "views/user/profile.jsp").forward(request, response);
+                    "views/user/profile.jsp").forward(request, response);            
         } catch (Exception ex) {
             request.setAttribute("user", user);
             request.setAttribute("error", ex.getMessage());

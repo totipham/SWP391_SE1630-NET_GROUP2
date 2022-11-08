@@ -58,8 +58,8 @@ public class AcceptRentingRequest extends HttpServlet {
                 Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
                 IContractDAO contractDAO = new ContractDAOImpl();
                 contractDAO.insertContract(requestRenting.getProperty().getId(), requestRenting.getRenter().getId(), currentDate);
-                requestDAO.deleteRequestByRID(requestId);
-                List<Request> listRequest = requestDAO.getRequestByHostId(currentUser.getId());
+                requestDAO.updateStatusByRID(requestId, 3);
+                List<Request> listRequest = requestDAO.getRequestHasStatusEqual1();
                 request.setAttribute("requestlist", listRequest);
                 request.setAttribute("page", "Requests");
                 request.setAttribute("message", "You made new contract");

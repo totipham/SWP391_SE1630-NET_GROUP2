@@ -99,6 +99,14 @@
                                 <span class="menu-title">Report Replies</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="${baseURL}/dashboard/viewreporttype">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Report Type</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -54,8 +54,8 @@ public class AddNewReportTypeController extends HttpServlet {
 
         try {
             //check role of current user is admin or not
-            if (user.getRole() == 3) {
-                request.getRequestDispatcher("*").forward(request, response);
+            if (user.getRole() == 1) {
+                request.getRequestDispatcher("/views/dashboard/report/addreporttype.jsp").forward(request, response);
             } else {
                 request.setAttribute("message", "You don't have permission to access this function");
                 request.getRequestDispatcher("/views/error.jsp").forward(request, response);
@@ -82,7 +82,8 @@ public class AddNewReportTypeController extends HttpServlet {
             String newReportType = validate.getField(request, "reporttype", true, 3, 10);
             IReportTypeDAO reportTypeDAO = new ReportTypeDAOImpl();
             reportTypeDAO.insertReportType(newReportType);
-            request.setAttribute("message", "Add new report type successful");
+            request.setAttribute("messagesuccess", "Add new report type successful");
+            request.getRequestDispatcher("/views/dashboard/report/addreporttype.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(AddNewReportTypeController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", ex);

@@ -160,9 +160,17 @@
                         </div>
                         <div class="flex flex-col items-center justify-center gap-3">
                             <span>Love this property ?</span>
-                            <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center ${p.host.id == u.id ? "btn-disable" : ""}">
+                            <c:if test ="${requestScope.hasRequest==true}">
+                                <a href="deleterentingrequest?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center ${p.host.id == u.id ? "btn-disable" : ""}">
+                                DELETE REQUEST
+                            </a>
+                            </c:if>
+                            <c:if test ="${requestScope.hasRequest==false}">
+                                <a href="sendrenting?pid=${p.id}" class="bg-primary px-5 py-3 text-white hover:text-gray-200 rounded-2xl font-semibold w-[50%] text-center ${p.host.id == u.id ? "btn-disable" : ""}">
                                 RESERVE NOW
                             </a>
+                            </c:if>
+                            
                         </div>
                     </div>
                     <%--<c:if test="${requestScope.state != null}">--%>

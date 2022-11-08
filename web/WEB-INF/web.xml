@@ -318,10 +318,6 @@
         <url-pattern>/dashboard/editproperty</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewContractController</servlet-name>
-        <url-pattern>/dashboard/viewcontract</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RemoveUserController</servlet-name>
         <url-pattern>/dashboard/users/removeuser</url-pattern>
     </servlet-mapping>
@@ -340,6 +336,10 @@
     <servlet-mapping>
         <servlet-name>ViewCategoryController</servlet-name>
         <url-pattern>/dashboard/propertycategories</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewContractController</servlet-name>
+        <url-pattern>/viewcontract</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

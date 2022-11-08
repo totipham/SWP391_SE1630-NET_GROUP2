@@ -49,6 +49,8 @@ public interface IContractDAO {
      */
     public int getNumberOfContractInRange(int hostId, Date begin, Date end) throws Exception;
     
+    
+    
     /**
      *
      * @param hostId
@@ -67,6 +69,17 @@ public interface IContractDAO {
      * @throws Exception
      */
     public Map<Date, Double> getIncomeInRange(int hostId, Date begin, Date end) throws Exception;
+    
+    
+    /**
+     *
+     * @param hostId
+     * @param begin
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    public Map<Date, Double> getIncomeInRangeAdmin(Date begin, Date end) throws Exception;
 
     /**
      *
@@ -75,4 +88,6 @@ public interface IContractDAO {
      * @throws Exception
      */
     public List<Contract> getContractById(int hostId) throws Exception;
+
+    public List<Contract> getAllContract() throws Exception;
 }

@@ -60,7 +60,6 @@ public class PropertyController extends HttpServlet {
             
             //Check if property is not null
             if (property != null) {
-
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("user");
 
@@ -71,9 +70,8 @@ public class PropertyController extends HttpServlet {
                     if (property.getHost().getId() == user.getId()) {
                         request.setAttribute("is_owner", true);
                     }
-                }
-                else{
-                    Request requestFromDB = requestDAO.getRequestByPropertyIdandUserId(id,user.getId());
+                    
+                    Request requestFromDB = requestDAO.getRequestByUser(id, user.getId(),1);
                     if (requestFromDB != null){
                         request.setAttribute("hasRequest", true);
                     }
@@ -81,16 +79,15 @@ public class PropertyController extends HttpServlet {
                         request.setAttribute("hasRequest", false);
                     }
                 }
-
                 request.setAttribute("property", property);
-                request.getRequestDispatcher("views/property/property.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/property/property.jsp").forward(request, response);
             } else {
                 
                 response.sendRedirect("properties");
             }
         } catch (Exception ex) {
             request.setAttribute("message", ex);
-            request.getRequestDispatcher("view/error.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/error.jsp").forward(request, response);
         }
     }
 

@@ -16,11 +16,15 @@ package dao.impl;
 
 import dao.DBContext;
 import dao.IReportDAO;
+import dao.IUserDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Report;
 
 /**				
  * The class contains method find update, delete, insert user information from
@@ -103,4 +107,38 @@ public class ReportDAOImpl extends DBContext implements IReportDAO{
         }
         
   }*/
+
+    @Override
+    public List<Report> getAllReports() throws Exception{
+        List<Report> list = new ArrayList<>();
+        String sql = "SELECT * FROM Report";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            result = statement.executeQuery();
+            IUserDAO userDAO = new UserDAOImpl();
+            while (result.next()) {
+                Report report = new Report();
+                report.setId(result.getInt("report_id"));
+                System.out.println(report.getId());
+                report.setReportType(result.getInt("rtype_id"));
+                report.setSender(userDAO.getUserById(result.getInt("sender_id")));
+                report.setTargetId(result.getInt("target_id"));
+                report.setTarget(result.getString("target"));
+                report.setTime(result.getDate("time").toString());
+                report.setHeader(result.getString("header"));
+                report.setContent(result.getString("content"));
+                list.add(report);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+        
+        return list;
+    }
 }
