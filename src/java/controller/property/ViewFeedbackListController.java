@@ -9,14 +9,24 @@
 
 package controller.property;
 
+import controller.feedback.ViewFeedbackController;
+import dao.IFeedbackDAO;
+import dao.IPropertyDAO;
+import dao.impl.FeedbackDAOImpl;
+import dao.impl.PropertyDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Feedback;
 import model.Property;
+import model.User;
 
 /**				
  * The class contains method which get list of feedback about property in database then send to front end to display into interface screen		
@@ -40,16 +50,35 @@ public class ViewFeedbackListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         try {
-            //get list of feedback from database
-            List<Property> list = new ArrayList<>();
-                 
+            //check if user has logged in
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+            if (user == null) {
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+            //get property id
+            int pid = Integer.parseInt(request.getParameter("pid"));        
             
-            //send list of feedback to front end
-            request.setAttribute("SystemUserList", list);     
-            request.getRequestDispatcher("*.jsp").forward(request, response);   /*Đức nhớ thêm tên trang jsp vào đây nha!*/
+            IPropertyDAO propertyDAO = new PropertyDAOImpl();
+            Property property = propertyDAO.getPropertyById(pid);
+            
+            // get list of feedback from database
+            List<Feedback> list = new ArrayList<>();
+            IFeedbackDAO feedbackDAO = new FeedbackDAOImpl();        
+            
+            list = feedbackDAO.getFeedbackByPid(pid);
+            //send list of users to front end
+            request.setAttribute("feedbackList", list);
+            request.setAttribute("property", property);
+            request.setAttribute("page", "Feedbacks");
+            request.getRequestDispatcher("/views/property/feedbacklist.jsp").forward(request, response);
+
         } catch (Exception e) {
-            request.setAttribute("message", e);
-            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+            Logger.getLogger(ViewFeedbackController.class.getName()).log(Level.SEVERE, null, e);
+            request.setAttribute("message", e.getMessage());
+//            System.out.println(e.getMessage());
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     } 
 
