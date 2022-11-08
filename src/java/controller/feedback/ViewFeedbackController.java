@@ -21,6 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,10 +61,26 @@ public class ViewFeedbackController extends HttpServlet {
             Property property = propertyDAO.getPropertyById(pid);
             
             // get list of feedback from database
-            List<Feedback> list = new ArrayList<>();
-            IFeedbackDAO feedbackDAO = new FeedbackDAOImpl();        
-            
-            list = feedbackDAO.getFeedbackByPid(pid);
+            IFeedbackDAO feedbackDAO = new FeedbackDAOImpl(); 
+            List<Feedback> list = feedbackDAO.getFeedbackByPid(pid);
+           
+            //check best/word order
+            int checkValue = Integer.parseInt(request.getParameter("sortby")); 
+            if(checkValue==1){                
+                list.sort(new Comparator<Feedback>(){
+                    @Override
+                    public int compare(Feedback o1, Feedback o2) {
+                        return o1.getStar().compareTo(o2.getStar());
+                    }
+                });
+            }else{
+                list.sort(new Comparator<Feedback>(){
+                    @Override
+                    public int compare(Feedback o1, Feedback o2) {
+                        return o2.getStar().compareTo(o1.getStar());
+                    }
+                });
+            }            
             //send list of users to front end
             request.setAttribute("feedbackList", list);
             request.setAttribute("property", property);

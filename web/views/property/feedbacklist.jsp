@@ -119,9 +119,9 @@ Author     : ThuongTTHE163555
                         <div class="flex flex-row items-center gap-4">
                             <span class="text-black font-semibold">Sort by:</span>
                             <div class="relative">
-                                <select class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-primary text-base">
-                                    <option value="1">Newest</option>
-                                    <option value="2">Oldest</option>
+                                <select name="sortby" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-primary text-base">
+                                    <option value="1">Best Star</option>
+                                    <option value="2">Worst Star</option>
                                 </select>
                                 <div class="absolute right-2 top-2 pointer-events-none">
                                     <svg class="w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +138,7 @@ Author     : ThuongTTHE163555
                     <!-- begin::Comment Section -->
                     <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-xl mb-3">
                         <div>
-                            <span class="font-semibold text-xl text-black">Toti Pham</span>
+                            <span class="font-semibold text-xl text-black">Alexander</span>
                             <span class="text-base">26/10/2022</span>
                         </div>
                         <div class="text-yellow-500">
