@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,66 +73,67 @@
                 </div>
             </div>
             <div>
-                <table class="w-[100%] my-3 border-collapse">
-                    <thead class="bg-primary text-white">
-                        <tr class="h-fit">
-                            <th>#</th>
-                            <th>Property</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-black text-center py-3">
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <span class="text-lg font-medium text-black">KTX Ông Bà</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-black">24/09/2021</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-black">24/09/2022</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-primary">Accepted</span>
-                            </td>
-                            <td>
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <span class="text-lg font-medium text-black">KTX Ông Bà</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-black">24/09/2021</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-black">24/09/2022</span>
-                            </td>
-                            <td>
-                                <span class="text-lg font-medium text-primary">Accepted</span>
-                            </td>
-                            <td>
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <%--<jsp:include page="../base/footer.jsp" />--%>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-                integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-                integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-    </body>
+                
+                    <table class="w-[100%] my-3 border-collapse">
+                        <thead class="bg-primary text-white">
+                            <tr class="h-fit">
+                                <th>#</th>
+                                <th>Property</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-black text-center py-3">
+                            <c:forEach items="${requestScope.listContract}" var="c">
+                            <tr>
+                                <td>${c.id}</td>
+                                <td>
+                                    <span class="text-lg font-medium text-black">${c.property}</span>
+                                </td>
+                                <td>
+                                    <span class="text-lg font-medium text-black">${c.date}</span>
+                                </td>
+                                <td>
+                                    <span class="text-lg font-medium text-primary">${c.status}</span>
+                                </td>
+                                <td>
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </td>
+                            </tr>
+                            </c:forEach>
+<!--                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <span class="text-lg font-medium text-black">KTX Ông Bà</span>
+                                </td>
+                                <td>
+                                    <span class="text-lg font-medium text-black">24/09/2021</span>
+                                </td>
+                                <td>
+                                    <span class="text-lg font-medium text-black">24/09/2022</span>
+                                </td>
+                                <td>
+                                    <span class="text-lg font-medium text-primary">Accepted</span>
+                                </td>
+                                <td>
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>-->
+                    
+                    </div>
+                </div>
+                <%--<jsp:include page="../base/footer.jsp" />--%>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+                        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+                crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+                        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+                crossorigin="anonymous"></script>
+            </body>
 
 
-</html>
+        </html>
