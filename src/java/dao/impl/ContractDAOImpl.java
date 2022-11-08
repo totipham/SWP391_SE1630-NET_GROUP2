@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import model.Contract;
+import model.ContractStatus;
 import model.User;
 
 /**
@@ -56,7 +57,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
             statement.setInt(4, 1);
             statement.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         } finally {
             close(connection, statement, null);
@@ -71,6 +72,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
      * @return
      * @throws Exception
      */
+    @Override
     public int getNumberOfContractInRange(int hostId, Date begin, Date end) throws Exception {
         String sql = "SELECT COUNT(*) as number \n"
                 + "FROM [Contract] c\n"
@@ -112,6 +114,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
      * @return
      * @throws Exception
      */
+    @Override
     public List<User> getRenterListByDate(int hostId, Date date) throws Exception {
         List<User> renterList = new ArrayList<>();
         String sql = "SELECT * \n"
@@ -154,6 +157,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
      * @return
      * @throws Exception
      */
+    @Override
     public Map<Date, Double> getIncomeInRange(int hostId, Date begin, Date end) throws Exception {
         Map<Date, Double> map = new TreeMap<>();
         String sql = "SELECT begin_date as [date], SUM(price) as [income]\n"
@@ -181,7 +185,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
             }
 
             return map;
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         } finally {
             close(connection, statement, result);
@@ -195,7 +199,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
      * @throws Exception
      */
     @Override
-    public List<Contract> getContractById(int hostId) throws Exception {
+    public List<Contract> getContractByHost(int hostId) throws Exception {
         String sql = "SELECT * FROM [Contract] WHERE user_id=?";
         List<Contract> list = new ArrayList<>();
         Connection connection = getConnection();
@@ -231,7 +235,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet result = null;
-        
+
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
@@ -249,7 +253,7 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
         } finally {
             close(connection, statement, result);
         }
-        
+
         return list;
     }
 
@@ -279,10 +283,55 @@ public class ContractDAOImpl extends DBContext implements IContractDAO {
             }
 
             return map;
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, result);
+        }
+    }
+
+    @Override
+    public List<Contract> getContractByRenter(int renterId) throws Exception {
+        String sql = "SELECT * "
+                + "FROM [Contract] c INNER JOIN Property  p ON c.property_id=p.property_id "
+                + "INNER JOIN ContractStatus cs ON c.cstatus_id = cs.cstatus_id "
+                + "WHERE user_id=?";
+        List<Contract> list = new ArrayList<>();
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, renterId);
+            result = statement.executeQuery();
+            while (result.next()) {
+                Contract contract = new Contract();
+                PropertyDAOImpl pDao = new PropertyDAOImpl();
+                UserDAOImpl uDao = new UserDAOImpl();
+                ContractStatusDAOImpl cDao = new ContractStatusDAOImpl();
+                contract.setId(result.getInt("contract_id"));
+                contract.setDate(result.getDate("begin_date"));
+                contract.setProperty(pDao.getPropertyById(result.getInt("property_id")));
+                contract.setUser(uDao.getUserById(result.getInt("user_id")));
+                contract.setStatus(cDao.getContractStatusById(result.getInt("cstatus_id")));
+                list.add(contract);
+            }
+
+            return list;
         } catch (Exception ex) {
             throw ex;
         } finally {
             close(connection, statement, result);
+        }
+        
+        
+    }
+    public static void main(String[] args) {
+        IContractDAO contractDAO = new ContractDAOImpl();
+        try {
+            System.out.println(contractDAO.getContractByRenter(1));
+        } catch (Exception e) {
+            
         }
     }
 }

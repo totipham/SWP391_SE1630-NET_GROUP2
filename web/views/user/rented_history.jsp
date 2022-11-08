@@ -90,39 +90,31 @@
                             <tr>
                                 <td>${c.id}</td>
                                 <td>
-                                    <span class="text-lg font-medium text-black">${c.property}</span>
+                                    <span class="text-lg font-medium text-black">${c.property.name}</span>
                                 </td>
                                 <td>
-                                    <span class="text-lg font-medium text-black">${c.date}</span>
+                                    <span class="text-lg font-medium text-black">
+                                        <c:if test="${c.date != null}">
+                                            ${c.date}
+                                        </c:if>
+                                    </span>
                                 </td>
                                 <td>
-                                    <span class="text-lg font-medium text-primary">${c.status}</span>
+                                    <span class="text-lg font-medium text-black">
+                                        <c:if test="${c.date != null}">
+                                            ${c.date}
+                                        </c:if>
+                                    </span>
                                 </td>
                                 <td>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </td>
-                            </tr>
-                            </c:forEach>
-<!--                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-lg font-medium text-black">KTX Ông Bà</span>
-                                </td>
-                                <td>
-                                    <span class="text-lg font-medium text-black">24/09/2021</span>
-                                </td>
-                                <td>
-                                    <span class="text-lg font-medium text-black">24/09/2022</span>
-                                </td>
-                                <td>
-                                    <span class="text-lg font-medium text-primary">Accepted</span>
+                                    <span class="text-lg font-medium text-primary">${c.status.status}</span>
                                 </td>
                                 <td>
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>-->
+                            </c:forEach>                            
+                    </table>
                     
                     </div>
                 </div>

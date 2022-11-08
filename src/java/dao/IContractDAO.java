@@ -87,7 +87,20 @@ public interface IContractDAO {
      * @return
      * @throws Exception
      */
-    public List<Contract> getContractById(int hostId) throws Exception;
-
+    public List<Contract> getContractByHost(int hostId) throws Exception;
+    
+    /**
+     *
+     * @param renterId
+     * @return
+     * @throws Exception
+     */
+    public List<Contract> getContractByRenter(int renterId) throws Exception;
+    
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public List<Contract> getAllContract() throws Exception;
 }

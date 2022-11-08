@@ -8,6 +8,7 @@
  */
 package controller.dashboard;
 
+import controller.auth.SendTokenController;
 import dao.IContractDAO;
 import dao.IPropertyDAO;
 import dao.impl.ContractDAOImpl;
@@ -21,6 +22,8 @@ import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Contract;
 import model.Property;
 import model.User;
@@ -52,22 +55,24 @@ public class ViewContractController extends HttpServlet {
         HttpSession session = request.getSession();
         IContractDAO cDao = new ContractDAOImpl();
         User user = (User) session.getAttribute("user");
-        
+
         //if user is not login
         if (user == null) {
             String redirect = request.getServletPath() + "?" + request.getQueryString();
             response.sendRedirect(request.getContextPath() + "/login?redirect=" + URLEncoder.encode(redirect, StandardCharsets.UTF_8.toString()));
             return;
         }
-        
+
         try {
-            List<Contract> listContract = cDao.getContractById(user.getId());
+            List<Contract> listContract = cDao.getContractByRenter(user.getId());
             request.setAttribute("listContract", listContract);
             request.getRequestDispatcher("views/user/rented_history.jsp").forward(request, response);
 
-        } catch (Exception e) {
-            request.setAttribute("message", e);
-            request.getRequestDispatcher("views/error.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ViewContractController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("message", ex.getMessage());
+            request.getRequestDispatcher("../views/error.jsp").forward(request, response);
+
         }
 
     }

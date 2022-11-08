@@ -344,7 +344,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewContractController</servlet-name>
-        <url-pattern>/viewcontract</url-pattern>
+        <url-pattern>/rentedhistory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
