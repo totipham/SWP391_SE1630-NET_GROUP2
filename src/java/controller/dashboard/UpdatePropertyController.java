@@ -167,10 +167,12 @@ public class UpdatePropertyController extends HttpServlet {
                     property.setArea(propertyArea);
                     property.setTotal(propertyTotal);
                     property.setCreatedDate(createdDate);
+                    propertyDAO.updateProperty(property);
+                    
                     //update utility fee
                     for (int i = 0; i < uName.length; i++) {
                         PropertyUtility pUtility = new PropertyUtility(id, uName[i], Double.parseDouble(uPrice[i]), uPeriod[i].toLowerCase());
-                        propertyUtilityDAO.insertPropertyUtility(pUtility); //insert utility to DB
+                        propertyUtilityDAO.updatePropertyUtility(pUtility); 
                     }
                     //update image
                     List<String> listFile = fileUtils.uploadFiles("/assets/images", request); //upload list of file to storage

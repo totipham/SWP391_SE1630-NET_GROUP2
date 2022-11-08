@@ -113,4 +113,9 @@ public interface IPropertyDAO {
      * @throws Exception
      */
     public Map<Property, Integer> getTrendingRentProperty(int hostId) throws Exception;
+    
+    
+    public void updateProperty(Property property) throws Exception;
+
+  
 }

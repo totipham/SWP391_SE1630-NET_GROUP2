@@ -82,5 +82,25 @@ public class PropertyUtilityDAOImpl extends DBContext implements IPropertyUtilit
             close(connection, statement, null);
         }
     }
+    public void updatePropertyUtility(PropertyUtility propertyUtility) throws SQLException {
+        String sql = "UPDATE Utility SET  name=?, price=?, period=? "
+                + "WHERE property_id =?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);            
+            statement.setString(1, propertyUtility.getName());
+            statement.setDouble(2, propertyUtility.getPrice());            
+            statement.setString(3, propertyUtility.getPeriod());
+            statement.setInt(4, propertyUtility.getPid());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, null);
+        }
+    }
 
 }

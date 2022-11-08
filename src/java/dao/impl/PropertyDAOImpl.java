@@ -404,6 +404,7 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
 
         return list;
     }
+    
 
     /**
      *
@@ -462,6 +463,38 @@ public class PropertyDAOImpl extends DBContext implements IPropertyDAO {
         } finally {
             close(connection, statement, result);
         }
+    }
+
+    @Override
+    public void updateProperty(Property newProperty) throws Exception{
+       String sql = "UPDATE Property name=?, address=?, description=?, "
+                + "price=?, area=?, created_date=?, total=?, pstatus_id=?, type_id=?"
+                + "WHERE property_id=?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql, statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, newProperty.getName());            
+            statement.setString(2, newProperty.getAddress());
+            statement.setString(3, newProperty.getDescription());
+            statement.setDouble(4, newProperty.getPrice());
+            statement.setDouble(5, newProperty.getArea());
+            statement.setDate(6, newProperty.getCreatedDate());
+            statement.setInt(7, newProperty.getTotal());
+            statement.setInt(8, 1);
+            statement.setInt(9, newProperty.getType().getId());
+
+            statement.executeUpdate();           
+
+            
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            close(connection, statement, null);
+        }       
     }
 
 }

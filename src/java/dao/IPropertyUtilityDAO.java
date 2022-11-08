@@ -39,4 +39,12 @@ public interface IPropertyUtilityDAO {
      * @throws SQLException
      */
     public void insertPropertyUtility(PropertyUtility propertyUtility) throws SQLException;
+    
+    /**
+     *
+     * @param property_id
+     * @param propertyUtility
+     * @throws SQLException
+     */
+    public void updatePropertyUtility(PropertyUtility propertyUtility) throws SQLException;
 }
