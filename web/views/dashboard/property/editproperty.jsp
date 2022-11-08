@@ -490,8 +490,8 @@
 
             actualBtn.addEventListener('change', function () {
                 var files = $(this)[0].files;
-                fileChosen.textContent = "You have selected " + files.length + " images for this property"
-            })
+                fileChosen.textContent = "You have selected " + files.length + " images for this property";
+            });
 
 
             // Define form element
@@ -502,48 +502,114 @@
                     form,
                     {
                         fields: {
-//                            'name': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Name input is required'
-//                                    }
-//                                }
-//                            },
-//                            'address': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Address input is required'
-//                                    }
-//                                }
-//                            },
-//                            'type': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'description': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'total': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
-//                            'price': {
-//                                validators: {
-//                                    notEmpty: {
-//                                        message: 'Text input is required'
-//                                    }
-//                                }
-//                            },
+                            'name': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Name of property is required'
+                                    },
+                                    stringLength: {
+                                        min: 5,
+                                        max: 30,
+                                        message: 'Property name has to be between 5 and 30',
+                                    },
+                                }
+                            },
+                            'address': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Address of property is required'
+                                    },
+                                    stringLength: {
+                                        min: 5,
+                                        max: 50,
+                                        message: 'Property address has to be between 5 and 50',
+                                    }
+                                }
+                            },
+                            'description': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Description of property is required'
+                                    },
+                                    stringLength: {
+                                        min: 10,
+                                        max: 255,
+                                        message: 'Property description has to be between 10 and 255',
+                                    }
+                                }
+                            },
+                            'total': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Total of property is required'
+                                    },
+                                    between: {
+                                        min: 1,
+                                        max: 100,
+                                        message: 'Number of property must between 1 and 100',
+                                    }
+                                }
+                            },
+                            'price': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Price of property is required'
+                                    }
+                                },
+                                between: {
+                                    min: 100000,
+                                    max: 10000000,
+                                    message: 'Price of property must between 100000 VND and 10000000 VND',
+                                }
+                            },
+                            'uname': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Utility name is required'
+                                    },
+                                    stringLength: {
+                                        min: 5,
+                                        max: 30,
+                                        message: 'Utility name has to be between 5 and 30',
+                                    }
+                                }
+                            },
+                            'ufee': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Utility price is required'
+                                    },
+                                    between: {
+                                        min: 1000,
+                                        max: 500000,
+                                        message: 'Utility price has to be between 1000 VND and 500000 VND',
+                                    }
+                                }
+                            },
+                            'uperiod': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Utility period is required'
+                                    },
+                                    stringLength: {
+                                        min: 5,
+                                        max: 20,
+                                        message: 'Utility period has to be between 5 and 20',
+                                    }
+                                }
+                            },
+                            'images': {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Utility period is required'
+                                    },
+                                    file: {
+                                        minFiles: 3,
+                                        maxFiles: 5,
+                                        message: 'Number of property images must between 1 and 5',
+                                    }
+                                }
+                            },
                         },
 
                         plugins: {
@@ -557,6 +623,13 @@
                     }
             );
 
+            //trim input when input or textarea focus out
+            $('input[type="text"], textarea').on('focusout', function (e) {
+                $(this).val($.trim($(this).val()));
+            });
+            
+
+
             // Submit button handler
             const submitButton = document.getElementById('submit-btn');
             submitButton.addEventListener('click', function (e) {
@@ -565,7 +638,6 @@
                 // Validate form before submit
                 if (validator) {
                     validator.validate().then(function (status) {
-                        console.log('validated!');
 
                         if (status == 'Valid') {
                             e.currentTarget.submit(); // Submit form
@@ -586,7 +658,7 @@
                         } else {
                             // Prevent default button action
                             e.preventDefault();
-                            submitButton.style.background = "#ae2012";
+                            alert("You must input validate data to create new property!");
 
                         }
                     });

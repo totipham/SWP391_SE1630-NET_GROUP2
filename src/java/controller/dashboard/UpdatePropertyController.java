@@ -18,6 +18,7 @@ import dao.impl.PropertyTypeDAOImpl;
 import dao.impl.PropertyUtilityDAOImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,10 +26,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Property;
@@ -49,6 +47,7 @@ import utils.ValidateUtility;
  *
  * @author ThuongTTHE163555
  */
+@MultipartConfig
 public class UpdatePropertyController extends HttpServlet {
 
     /**
@@ -122,14 +121,17 @@ public class UpdatePropertyController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user"); //get user from session
+        
+        
+        
         // Update         
         try {
             //get id from front end
             ValidateUtility validate = new ValidateUtility();
-            String pid = validate.getField(request, "propertyid", true, 5, 30);
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa" + pid);
             //check if user role is admin or hostpid
             if (user.getRole() == 2 || user.getRole() == 1) {
+                String pid = request.getParameter("propertyid");
+                System.out.println("Hahahahaha " + pid);
                 int id = Integer.parseInt(pid);
                 IPropertyDAO propertyDAO = new PropertyDAOImpl();
 
@@ -191,7 +193,7 @@ public class UpdatePropertyController extends HttpServlet {
             }
         } catch (Exception e) {
             Logger.getLogger(UpdatePropertyController.class.getName()).log(Level.SEVERE, null, e);
-            request.setAttribute("message", e);
+            request.setAttribute("message", e.getMessage());
             request.getRequestDispatcher("../views/error.jsp").forward(request, response);
         }
     }
