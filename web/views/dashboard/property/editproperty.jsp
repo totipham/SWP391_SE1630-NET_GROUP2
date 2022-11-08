@@ -173,12 +173,12 @@
                                 <!--end::Nav-->
                                 <c:set var="property" scope="request" value="${property}" />
                                 <!--begin::Form-->
-                                <form class="form w-lg-500px mx-auto" id="add-property-stepper" action="addproperty" enctype="multipart/form-data" method="post">
+                                <form class="form w-lg-500px mx-auto" id="add-property-stepper" action="editproperty" enctype="multipart/form-data" method="post">
                                     <!--begin::Group-->
                                     <div class="mb-5">
                                         <!--begin::Step 1-->
                                         <div class="flex-column current" data-kt-stepper-element="content">
-                                            <input name="id" value="${property.id}" hidden />
+                                            
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-10">
                                                 <!--begin::Label-->
@@ -192,6 +192,7 @@
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid bg-white border" name="name"
                                                        placeholder="" value="${property.name}"/>
+                                                <input type="hidden" name="propertyid" value="${property.id}"  />
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
@@ -251,7 +252,7 @@
 
                                                 <!--begin::Input-->
                                                 <textarea class="form-control form-control-solid bg-white border" rows="3"
-                                                          name="description" placeholder=""></textarea>
+                                                          name="description" placeholder="">${property.description}</textarea>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
